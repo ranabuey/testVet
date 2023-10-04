@@ -60,6 +60,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 184, Short.MAX_VALUE)
         );
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar-el-archivo(1).png"))); // NOI18N
         jButton4.setText("jButton4");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -87,7 +88,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(52, 52, 52)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
