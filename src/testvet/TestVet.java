@@ -21,5 +21,5 @@ public class TestVet {
         con = Conexion.getConexion();
     }
     
-    prueba
+    
 }
