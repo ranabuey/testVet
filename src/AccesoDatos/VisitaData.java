@@ -9,6 +9,7 @@ import Entidades.Visita;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -42,10 +43,21 @@ public void guardarVisita (Visita vis){
         ps.setBoolean(6, vis.isActivo());
         ps.setBoolean(4, vis.isActivo());
         ps.setDate(8, Date.valueOf(vis.getFechaAlta()));
-    }catch (SQLException ex){
+        
+        ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+               vis.setIdVisita(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Visita añadida con exito");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error al acceder a la tabla Visita " + ex.getMessage());
+        }
+    
     
     }
-}
+
 public void modificarVisita (Visita vis){
 
     String sql = "UPDATE VISITA SET fechaVisita=?, detalle=?, pesoActual=?, activo=?, internado=?, fechaAlta=?  WHERE idVisita=? ";
