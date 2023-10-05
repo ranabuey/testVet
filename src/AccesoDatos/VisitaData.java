@@ -41,20 +41,21 @@ public void guardarVisita (Visita vis){
             ps.setDouble(4, vis.getPesoActual());
             ps.setInt(5, vis.getTratamiento().getIdTratamiento());
             ps.setBoolean(6, vis.isActivo());
-            ps.setBoolean(4, vis.isActivo());
+            ps.setBoolean(7, vis.isActivo());
             ps.setDate(8, Date.valueOf(vis.getFechaAlta()));
             ps.setString(9, vis.getUsuarioLog());
-
+            
+            ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 vis.setIdVisita(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Visita añadida con exito");
             }
-            ps.close();
+            //ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error al acceder a la tabla Visita " + ex.getMessage());
-        }catch(NullPointerException np){
+       } catch (NullPointerException np) {
         }
 
     }

@@ -33,7 +33,7 @@ public class Visita {
         this.usuarioLog=usuarioLog;
     }
 
-    public Visita(LocalDate fechaVisita, String detalle, double pesoActual, boolean activo, boolean internado, LocalDate fechaAlta, Mascota mascota, Tratamiento tratamiento,String usuarioLog) {
+    public Visita(Mascota mascota, LocalDate fechaVisita, String detalle, double pesoActual,Tratamiento tratamiento, boolean activo, boolean internado, LocalDate fechaAlta,String usuarioLog) {
         this.fechaVisita = fechaVisita;
         this.detalle = detalle;
         this.pesoActual = pesoActual;
