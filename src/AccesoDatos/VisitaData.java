@@ -7,10 +7,10 @@ import Entidades.Tratamiento;
 import Entidades.Loggin;
 import Entidades.Visita;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 
 public class VisitaData {
     
@@ -33,7 +33,14 @@ public void guardarVisita (Visita vis){
     try{
         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
-        //ps.setInt(1, vis.;
+        ps.setInt(1, vis.getMascota().getIdMascota());
+        ps.setDate(2, Date.valueOf(vis.getFechaVisita()));
+        ps.setString(3, vis.getDetalle());
+        ps.setDouble(4, vis.getPesoActual());
+        ps.setInt(5, vis.getTratamiento().getIdTratamiento());
+        ps.setBoolean(6, vis.isActivo());
+        ps.setBoolean(4, vis.isActivo());
+        ps.setDate(8, Date.valueOf(vis.getFechaAlta()));
     }catch (SQLException ex){
     
     }
