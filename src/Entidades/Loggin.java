@@ -12,18 +12,23 @@ package Entidades;
 public class Loggin {
     
     private int idLoggin;
-    private String usuraio;
-    private String pw;
+    private String usuraio, pw;
+    private String avatar;
 
-    public Loggin(int idLoggin, String usuraio, String pw) {
+    public Loggin(int idLoggin, String usuraio, String pw, String avatar) {
         this.idLoggin = idLoggin;
         this.usuraio = usuraio;
         this.pw = pw;
+        this.avatar= avatar;
     }
 
-    public Loggin(String usuraio, String pw) {
+    public Loggin(String usuraio, String pw, String avatar) {
         this.usuraio = usuraio;
         this.pw = pw;
+        this.avatar= avatar;
+    }
+
+    public Loggin() {
     }
 
     public int getIdLoggin() {
@@ -36,6 +41,14 @@ public class Loggin {
 
     public String getPw() {
         return pw;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @Override

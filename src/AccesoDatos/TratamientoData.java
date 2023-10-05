@@ -85,23 +85,23 @@ public class TratamientoData {
         }
 
     }
-    public List<Tratamiento> listarTratamiento() {
-        List<Tratamiento> tratamiento = new ArrayList<>();
-        try{
-            String sql = "SELECT * FROM tratamiento WHERE activo =1"; 
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                Tratamiento tr = new Tratamiento();
-                tr.setIdTratamiento(rs.getInt("idTratamiento"));
-                tr.setDescripcion(rs.getString("Descripcion"));
-                tr.setMedicamento(rs.getString("medicamento"));
-                tr.setImporte(rs.getDouble("importe"));
-                tr.set
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(TratamientoData.class.getName()).log(Level.SEVERE, null, ex);
-        }
-      
-    }
+//    public List<Tratamiento> listarTratamiento() {
+//        List<Tratamiento> tratamiento = new ArrayList<>();
+//        try{
+//            String sql = "SELECT * FROM tratamiento WHERE activo =1"; 
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ResultSet rs = ps.executeQuery();
+//            while(rs.next()){
+//                Tratamiento tr = new Tratamiento();
+//                tr.setIdTratamiento(rs.getInt("idTratamiento"));
+//                tr.setDescripcion(rs.getString("Descripcion"));
+//                tr.setMedicamento(rs.getString("medicamento"));
+//                tr.setImporte(rs.getDouble("importe"));
+//                tr.set
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(TratamientoData.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//      
+//    }
 }
