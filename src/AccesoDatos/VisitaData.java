@@ -18,7 +18,7 @@ public class VisitaData {
     
     private Connection con = null;
     private MascotaData md;
-    private ClienteData cd;
+    
     private TratamientoData td;
    
 
@@ -31,31 +31,32 @@ public class VisitaData {
 public void guardarVisita (Visita vis){
 
 
-    String sql="INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo, internado, fechaAlta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    try{
-        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        
-        ps.setInt(1, vis.getMascota().getIdMascota());
-        ps.setDate(2, Date.valueOf(vis.getFechaVisita()));
-        ps.setString(3, vis.getDetalle());
-        ps.setDouble(4, vis.getPesoActual());
-        ps.setInt(5, vis.getTratamiento().getIdTratamiento());
-        ps.setBoolean(6, vis.isActivo());
-        ps.setBoolean(4, vis.isActivo());
-        ps.setDate(8, Date.valueOf(vis.getFechaAlta()));
-        
-        ResultSet rs = ps.getGeneratedKeys();
+        String sql = "INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo, internado, fechaAlta, usuarioLog) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1, vis.getMascota().getIdMascota());
+            ps.setDate(2, Date.valueOf(vis.getFechaVisita()));
+            ps.setString(3, vis.getDetalle());
+            ps.setDouble(4, vis.getPesoActual());
+            ps.setInt(5, vis.getTratamiento().getIdTratamiento());
+            ps.setBoolean(6, vis.isActivo());
+            ps.setBoolean(4, vis.isActivo());
+            ps.setDate(8, Date.valueOf(vis.getFechaAlta()));
+            ps.setString(9, vis.getUsuarioLog());
+
+            ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-               vis.setIdVisita(rs.getInt(1));
+                vis.setIdVisita(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Visita añadida con exito");
             }
             ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error al acceder a la tabla Visita " + ex.getMessage());
+        }catch(NullPointerException np){
         }
-    
-    
+
     }
 
 public void modificarVisita (Visita vis){
