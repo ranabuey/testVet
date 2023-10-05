@@ -17,7 +17,7 @@ public class VisitaData {
     
     private Connection con = null;
     private MascotaData md;
-    private ClienteData cd;
+    
     private TratamientoData td;
    
 
@@ -30,7 +30,7 @@ public class VisitaData {
 public void guardarVisita (Visita vis){
 
 
-    String sql="INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo, internado, fechaAlta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    String sql="INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo, internado, fechaAlta, usuarioLog) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
     try{
         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
@@ -42,8 +42,11 @@ public void guardarVisita (Visita vis){
         ps.setBoolean(6, vis.isActivo());
         ps.setBoolean(4, vis.isActivo());
         ps.setDate(8, Date.valueOf(vis.getFechaAlta()));
+        ps.setString(9, vis.getUsuarioLog());
     }catch (SQLException ex){
-    
+        
+    }catch (NullPointerException ne){
+            
     }
 }
 public void modificarVisita (Visita vis){

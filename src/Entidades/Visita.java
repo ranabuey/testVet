@@ -14,12 +14,13 @@ public class Visita {
     private LocalDate fechaAlta;
     private Mascota mascota;
     private Tratamiento tratamiento;
+    private String usuarioLog;
    
 
     public Visita() {
     }
 
-    public Visita(int idVisita, LocalDate fechaVisita, String detalle, double pesoActual, boolean activo, boolean internado, LocalDate fechaAlta, Cliente cliente, Mascota mascota, Tratamiento tratamiento) {
+    public Visita(int idVisita, LocalDate fechaVisita, String detalle, double pesoActual, boolean activo, boolean internado, LocalDate fechaAlta, Mascota mascota, Tratamiento tratamiento,String usuarioLog) {
         this.idVisita = idVisita;
         this.fechaVisita = fechaVisita;
         this.detalle = detalle;
@@ -29,9 +30,10 @@ public class Visita {
         this.fechaAlta = fechaAlta;
         this.mascota = mascota;
         this.tratamiento = tratamiento;
+        this.usuarioLog=usuarioLog;
     }
 
-    public Visita(LocalDate fechaVisita, String detalle, double pesoActual, boolean activo, boolean internado, LocalDate fechaAlta, Cliente cliente, Mascota mascota, Tratamiento tratamiento) {
+    public Visita(LocalDate fechaVisita, String detalle, double pesoActual, boolean activo, boolean internado, LocalDate fechaAlta, Mascota mascota, Tratamiento tratamiento,String usuarioLog) {
         this.fechaVisita = fechaVisita;
         this.detalle = detalle;
         this.pesoActual = pesoActual;
@@ -40,10 +42,11 @@ public class Visita {
         this.fechaAlta = fechaAlta;
         this.mascota = mascota;
         this.tratamiento = tratamiento;
+        this.usuarioLog=usuarioLog;
     }
 
    
-     public Visita(Cliente cliente, Mascota mascota, Tratamiento tratamiento) {
+     public Visita(Mascota mascota, Tratamiento tratamiento) {
         this.mascota = mascota;
         this.tratamiento = tratamiento;
 
@@ -52,6 +55,14 @@ public class Visita {
     @Override
     public String toString() {
         return "Visita{" + "idVisita=" + idVisita + ", fechaVisita=" + fechaVisita + ", detalle=" + detalle + ", pesoActual=" + pesoActual + ", activo=" + activo + ", internado=" + internado + ", fechaAlta=" + fechaAlta + '}';
+    }
+
+    public String getUsuarioLog() {
+        return usuarioLog;
+    }
+
+    public void setUsuarioLog(String usuarioLog) {
+        this.usuarioLog = usuarioLog;
     }
 
     public int getIdVisita() {

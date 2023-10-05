@@ -12,6 +12,8 @@ import AccesoDatos.TratamientoData;
 import AccesoDatos.VisitaData;
 import Entidades.Cliente;
 import Entidades.Mascota;
+import Entidades.Tratamiento;
+import Entidades.Visita;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -33,9 +35,13 @@ public class TestVet {
 
         Cliente c1 = new Cliente(20123456, "JAcinto", "Smith", "piporete 32", "titi", 111111111, 22222222, "titus", true);
         Mascota m1 = new Mascota("coco", "m", "canino", "golden", "rubio", LocalDate.of(2010, Month.MARCH, 23), 3, 3.5, true, LocalDate.of(2023, Month.OCTOBER, 1), c1, "esteban");
+        Tratamiento t1=new Tratamiento("normal", "vacuna", "forte500mg", 3000, true);
+        Visita v1 = new Visita(LocalDate.of(2023, 10, 05), "vacunado", 10, true, false, null, m1, t1,"titus");
 
         cd.guardarCliente(c1);
         md.guardarMascota(m1);
+        td.guardarTratmiento(t1);
+        vd.guardarVisita(v1);
 
     }
 
