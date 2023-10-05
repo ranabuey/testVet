@@ -7,10 +7,11 @@ import Entidades.Tratamiento;
 import Entidades.Loggin;
 import Entidades.Visita;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 public class VisitaData {
     
@@ -33,29 +34,62 @@ public void guardarVisita (Visita vis){
     try{
         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         
-        //ps.setInt(1, vis.;
+        ps.setInt(1, vis.getMascota().getIdMascota());
+        ps.setDate(2, Date.valueOf(vis.getFechaVisita()));
+        ps.setString(3, vis.getDetalle());
+        ps.setDouble(4, vis.getPesoActual());
+        ps.setInt(5, vis.getTratamiento().getIdTratamiento());
+        ps.setBoolean(6, vis.isActivo());
+        ps.setBoolean(4, vis.isActivo());
+        ps.setDate(8, Date.valueOf(vis.getFechaAlta()));
     }catch (SQLException ex){
     
     }
 }
 public void modificarVisita (Visita vis){
 
-//    String sql=
-//    try {
-//        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//    } catch (SQLException ex) {
-//
-//}
-//
+    String sql = "UPDATE VISITA SET fechaVisita=?, detalle=?, pesoActual=?, activo=?, internado=?, fechaAlta=?  WHERE idVisita=? ";
+    PreparedStatement ps = null;
+
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setDate(1, Date.valueOf(vis.getFechaVisita()));
+        ps.setString(2, vis.getDetalle());
+        ps.setDouble(3, vis.getPesoActual());
+        ps.setBoolean(4, vis.isActivo());
+        ps.setBoolean(5, vis.isActivo());
+        ps.setDate(6, Date.valueOf(vis.getFechaAlta()));
+        int exito = ps.executeUpdate();
+
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "Modificado exitosamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "La visita no existe");
+        }
+        ps.close();                                                               //no se encuentra en la teoria. va?
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno" + ex.getMessage());
+
+    }
+
 } 
 
-public void eliminarVisita (Visita vis){
-//   String sql=
-//    try {
-//        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//    } catch (SQLException ex) {
-//}
-//    
-//}
+public void eliminarVisita (int id){
+   
+    try{
+            String sql = "UPDATE visita SET activo=0 WHERE idVisita=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, id);
+            int fila = ps.executeUpdate();
+
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, "Se elimino la visita");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita");
+        }
+    }
 }
-}
+

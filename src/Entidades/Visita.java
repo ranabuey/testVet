@@ -12,7 +12,6 @@ public class Visita {
     private boolean activo;
     private boolean internado;
     private LocalDate fechaAlta;
-    private Cliente cliente;
     private Mascota mascota;
     private Tratamiento tratamiento;
    
@@ -28,7 +27,6 @@ public class Visita {
         this.activo = activo;
         this.internado = internado;
         this.fechaAlta = fechaAlta;
-        this.cliente = cliente;
         this.mascota = mascota;
         this.tratamiento = tratamiento;
     }
@@ -40,14 +38,12 @@ public class Visita {
         this.activo = activo;
         this.internado = internado;
         this.fechaAlta = fechaAlta;
-        this.cliente = cliente;
         this.mascota = mascota;
         this.tratamiento = tratamiento;
     }
 
    
      public Visita(Cliente cliente, Mascota mascota, Tratamiento tratamiento) {
-        this.cliente = cliente;
         this.mascota = mascota;
         this.tratamiento = tratamiento;
 
@@ -112,6 +108,22 @@ public class Visita {
 
     public void setFechaAlta(LocalDate fechaAlta) {
         this.fechaAlta = fechaAlta;
+    }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
+    }
+
+    public Tratamiento getTratamiento() {
+        return tratamiento;
+    }
+
+    public void setTratamiento(Tratamiento tratamiento) {
+        this.tratamiento = tratamiento;
     }
     
     
