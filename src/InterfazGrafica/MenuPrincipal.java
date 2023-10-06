@@ -63,9 +63,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jlPanelMasco = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -241,15 +241,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel6.setText("CLIENTE");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addComponent(jLabel6)
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -266,8 +274,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jlPanelMasco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/memo250.png"))); // NOI18N
         jlPanelMasco.setText(" ");
 
-        jLabel6.setText("jLabel6");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -282,9 +288,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jlPanelMasco, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
-                                .addGap(110, 110, 110)
+                                .addGap(157, 157, 157)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(16, 16, 16)
@@ -312,10 +316,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jlPanelMasco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jLabel6)))
+                            .addComponent(jlPanelMasco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18))
         );
 
@@ -323,10 +324,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBusqClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqClientesActionPerformed
-//        Imagen Imagen = new Imagen();
-//        jPanel2.add(Imagen);
-//
-//        jPanel2.repaint();        // TODO add your handling code here:
+        Imagen Imagen = new Imagen();
+        jPanel2.add(Imagen);
+
+        jPanel2.repaint();        // TODO add your handling code here:
     }//GEN-LAST:event_jbBusqClientesActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -360,8 +361,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jbBusqMascotasActionPerformed
 
     private void jbBusqVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqVisitasActionPerformed
-        Imagen im = new Imagen(jPanel5);
-        jPanel5.add(im).repaint();
+//        Imagen im = new Imagen(jPanel5);
+//        jPanel5.add(im).repaint();
     }//GEN-LAST:event_jbBusqVisitasActionPerformed
 
     /**
@@ -427,45 +428,45 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jlPanelMasco;
     // End of variables declaration//GEN-END:variables
 
-    // boton 1
-//    public class Imagen extends javax.swing.JPanel {
-//
-//        public Imagen() {
-//            this.setSize(250, 250); //se selecciona el tamaño del panel
-//        }
-//
-//      
-//
-////Se crea un método cuyo parámetro debe ser un objeto Graphics
-//        public void paint(Graphics grafico) {
-//            Dimension height = getSize();
-//
-////Se selecciona la imagen que tenemos en el paquete de la //ruta del programa
-//            ImageIcon Img = new ImageIcon(getClass().getResource("/Imagenes/memo250.png"));
-//
-////se dibuja la imagen que tenemos en el paquete Images //dentro de un panel
-//            grafico.drawImage(Img.getImage(), 0, 0, height.width, height.height, null);
-//
-//            setOpaque(false);
-//            super.paintComponent(grafico);
-//        }
-//    }
+//     boton 1
+    public class Imagen extends javax.swing.JPanel {
+
+        public Imagen() {
+            this.setSize(250, 250); //se selecciona el tamaño del panel
+        }
+
+      
+
+//Se crea un método cuyo parámetro debe ser un objeto Graphics
+        public void paint(Graphics grafico) {
+            Dimension height = getSize();
+
+//Se selecciona la imagen que tenemos en el paquete de la //ruta del programa
+            ImageIcon Img = new ImageIcon(getClass().getResource("/Imagenes/memo250.png"));
+
+//se dibuja la imagen que tenemos en el paquete Images //dentro de un panel
+            grafico.drawImage(Img.getImage(), 0, 0, height.width, height.height, null);
+
+            setOpaque(false);
+            super.paintComponent(grafico);
+        }
+    }
 // otro
     
-    public class Imagen extends javax.swing.JPanel {
-    int x, y;
-
-    public Imagen(JPanel jPanel1) {
-        this.x = jPanel1.getWidth();
-        this.y = jPanel1.getHeight();
-        this.setSize(x, y);
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        ImageIcon Img = new ImageIcon(getClass().getResource("/Imagenes/memo250.png"));
-        g.drawImage(Img.getImage(), 0, 0, x, y, null);
-    }    
-
-}
+//    public class Imagen extends javax.swing.JPanel {
+//    int x, y;
+//
+//    public Imagen(JPanel jPanel1) {
+//        this.x = jPanel1.getWidth();
+//        this.y = jPanel1.getHeight();
+//        this.setSize(x, y);
+//    }
+//
+//    @Override
+//    public void paint(Graphics g) {
+//        ImageIcon Img = new ImageIcon(getClass().getResource("/Imagenes/memo250.png"));
+//        g.drawImage(Img.getImage(), 0, 0, x, y, null);
+//    }    
+//
+//}
 }
