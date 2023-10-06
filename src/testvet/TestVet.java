@@ -42,7 +42,7 @@ public class TestVet {
         md.guardarMascota(m1);
         td.guardarTratmiento(t1);
         vd.guardarVisita(v1);
-
+//imagen
     }
 
 }
