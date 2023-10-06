@@ -180,7 +180,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 478, Short.MAX_VALUE)
         );
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Botones/cerrar-sesion.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/analitica-de-datos(1).png"))); // NOI18N
         jButton5.setText("Loggout");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
