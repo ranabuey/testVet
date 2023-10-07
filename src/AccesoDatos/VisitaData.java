@@ -153,5 +153,23 @@ public void eliminarVisita (int id){
         }
         return visListMascota;
     }
+  public List<Visita> obtenerVisitasXCliente(int id) {
+        VisitaData visdata = new VisitaData();
+        List<Visita> visList = new ArrayList<>();
+        visList.addAll(visdata.obtenerVisita());
+
+        List<Visita> visListMascota = new ArrayList<>();
+        visListMascota.clear();
+
+        for (Visita visita : visList) {
+            if (visita.getMascota().getCliente().getIdCliente()== id) {
+                visListMascota.add(visita);
+            }
+        }
+        if (visList.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encuentra Mascota con ese ID");
+        }
+        return visListMascota;
+    }
 }
 
