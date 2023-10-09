@@ -19,7 +19,7 @@ public class ClienteData {
 
         con = Conexion.getConexion();
     }
-
+//me gustaria declarar mi amor pero solo puedo declarar variables
     public void guardarCliente(Cliente cliente) {
         String sql = "INSERT INTO cliente (nombre, apellido, dni, telefono, direccion, telefonoAlternativo, nombreAlternativo, usuarioLog, activo) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
