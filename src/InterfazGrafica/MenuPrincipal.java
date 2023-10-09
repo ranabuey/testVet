@@ -390,6 +390,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBusqClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqClientesActionPerformed
