@@ -104,4 +104,30 @@ public class TratamientoData {
         }
       return tratamiento;
     }
+//    public List<Tratamiento> listarTrat() {
+//        List<Tratamiento> tratamiento = new ArrayList<>();
+//
+//        String sql = "SELECT a.idAlumno, dni, nombre, apellido, fechaNacimiento, activo FROM inscripcion i, alumno a WHERE i.idAlumno=a.idAlumno AND idMateria=? AND a.activo=1";
+//        try {
+//            PreparedStatement ps;
+//            ps = con.prepareStatement(sql);
+//            ps.setInt(1, idTratatamiento);
+//            ResultSet rs = ps.executeQuery();
+////        if (!rs.next()){
+////            JOptionPane.showMessageDialog(null, "La Materia no existe");
+////        }
+//            while (rs.next()) {
+//                   Tratamiento tra = new Tratamiento();
+//                tra.setIdTratamiento(rs.getInt("idTratamiento"));
+//                tra.setDescripcion(rs.getString("Descripcion"));
+//                tra.setMedicamento(rs.getString("medicamento"));
+//                tra.setImporte(rs.getDouble("importe"));
+//                tra.setActivo(rs.getBoolean("activo"));
+//            }
+//            ps.close();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "No se obtuvo la tabla alumno" + ex.getMessage());
+//        }
+//        return materiasCursadas;
+//    }
 }

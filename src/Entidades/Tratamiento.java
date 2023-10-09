@@ -7,8 +7,25 @@ public class Tratamiento {
     private String descripcion, tipoTratamiento, medicamento;
     private double importe;
     private boolean activo;
-
+      private Mascota mascota;
+    private Visita visita;
     public Tratamiento() {
+    }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
+    }
+
+    public Visita getVisita() {
+        return visita;
+    }
+
+    public void setVisita(Visita visita) {
+        this.visita = visita;
     }
 
     public Tratamiento(String descripcion, String tipoTratamiento, String medicamento, double importe, boolean activo) {
