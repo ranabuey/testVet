@@ -12,20 +12,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class VisitaData {
     
     private Connection con = null;
-    private MascotaData md;
-    
-    private TratamientoData td;
+    private MascotaData masData;
+    private TratamientoData trataData;
    
 
     public VisitaData() {
         
         con = Conexion.getConexion();
-        
+        masData=new MascotaData();
+        trataData=new TratamientoData();
     }
     
 public void guardarVisita (Visita vis){
@@ -104,6 +106,70 @@ public void eliminarVisita (int id){
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita");
         }
+    }
+
+ public List<Visita> obtenerVisita() {
+        List<Visita> visList = new ArrayList<>();
+        visList.clear();
+        try {
+            String sql = "SELECT * FROM visita";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Visita visita = new Visita();
+                visita.setIdVisita(rs.getInt("idVisita"));
+                visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
+                visita.setDetalle(rs.getString("detalle"));
+                visita.setPesoActual(rs.getDouble("pesoActual"));
+                //visita.setTratamiento(trataData.);
+                visita.setActivo(rs.getBoolean("activo"));
+                visita.setInternado(rs.getBoolean("internado"));
+                visita.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
+                visita.setUsuarioLog(rs.getString("usuarioLog"));
+                visList.add(visita);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno " + ex.getMessage());
+        }
+        return visList;
+}
+  public List<Visita> obtenerVisitasXMascota(int id) {
+        VisitaData visdata = new VisitaData();
+        List<Visita> visList = new ArrayList<>();
+        visList.addAll(visdata.obtenerVisita());
+
+        List<Visita> visListMascota = new ArrayList<>();
+        visListMascota.clear();
+
+        for (Visita visita : visList) {
+            if (visita.getMascota().getIdMascota()== id) {
+                visListMascota.add(visita);
+            }
+        }
+        if (visList.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encuentra Mascota con ese ID");
+        }
+        return visListMascota;
+    }
+  public List<Visita> obtenerVisitasXCliente(int id) {
+        VisitaData visdata = new VisitaData();
+        List<Visita> visList = new ArrayList<>();
+        visList.addAll(visdata.obtenerVisita());
+
+        List<Visita> visListMascota = new ArrayList<>();
+        visListMascota.clear();
+
+        for (Visita visita : visList) {
+            if (visita.getMascota().getCliente().getIdCliente()== id) {
+                visListMascota.add(visita);
+            }
+        }
+        if (visList.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encuentra Mascota con ese ID");
+        }
+        return visListMascota;
     }
 }
 
