@@ -1,6 +1,8 @@
 package AccesoDatos;
 
 import Entidades.Mascota;
+import Entidades.Visita;
+import AccesoDatos.VisitaData;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -178,37 +180,19 @@ public class MascotaData {
         }
     }
 
-////    public List<Visita> listarVisitasPorMascota(int idMascota) {
-////        List<Visita> visitasMascota = new ArrayList<>();
-////
-////        String sql = "SELECT a.idAlumno, dni, nombre, apellido, fechaNacimiento, activo FROM inscripcion i, alumno a WHERE i.idAlumno=a.idAlumno AND idMateria=? AND a.activo=1";
-////        try {
-////            PreparedStatement ps;
-////            ps = con.prepareStatement(sql);
-////            ps.setInt(1, idMascota);
-////            ResultSet rs = ps.executeQuery();
-//////        if (!rs.next()){
-//////            JOptionPane.showMessageDialog(null, "La Materia no existe");
-//////        }
-////            while (rs.next()) {
-////                Visita vis = new Visita();
-////                vis.setIdVisita(rs.getInt("idVisita"));
-////                vis.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
-////                vis.setDetalle(rs.getString("detalle"));
-////                vis.setPesoActual(rs.getDouble("pesoActual"));
-////                vis.setActivo(rs.getBoolean("activo"));
-////                vis.setInternado(rs.getBoolean("internado"));
-////                vis.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
-////                vis.setUsuarioLog(rs.getString("usuarioLog"));
-////                
-////                visitasMascota.add(vis);
-////            }
-////            ps.close();
-////        } catch (SQLException ex) {
-////            JOptionPane.showMessageDialog(null, "No se obtuvo la tabla visita" + ex.getMessage());
-////        }
-////        return visitasMascota;
-////    }
-//// 
-//}
+    public List<Visita> obtenerPesoPromedio(double pesoActual){
+        VisitaData visData = new VisitaData();
+        List<Visita> visList = new ArrayList<>();
+        visList.addAll(visData.obtenerVisitasXMascota(0));
+        if(visList <=10 ){
+            
+        } else {
+        }
+
+        
+        return null;
+        
+    }
+ 
 }
+
