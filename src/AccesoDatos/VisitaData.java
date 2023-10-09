@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -170,6 +171,24 @@ public void eliminarVisita (int id){
             JOptionPane.showMessageDialog(null, "No se encuentra Mascota con ese ID");
         }
         return visListMascota;
+    }
+   public List<Tratamiento> obtenerTratamientoNoAlta(LocalDate fechaAlta) {
+        TratamientoData traData = new TratamientoData();
+        List<Tratamiento> traList = new ArrayList<>();
+        traList.addAll(trataData.listarTratamiento());
+
+        List<Tratamiento> trataList = new ArrayList<>();
+        trataList.clear();
+
+        for (Tratamiento tratamiento : traList) {
+            if (tratamiento.getVisita().getFechaAlta()==null) {
+                trataList.add(tratamiento);
+            }
+        }
+        if (traList.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encuentra Tratamiento");
+        }
+        return traList;
     }
 }
 

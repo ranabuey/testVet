@@ -130,15 +130,17 @@ public class TratamientoData {
                 tr.setMedicamento(rs.getString("medicamento"));
                 tr.setImporte(rs.getDouble("importe"));
                 tr.setActivo(rs.getBoolean("activo"));
-            
 
-}
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(TratamientoData.class
-.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TratamientoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tratamiento;
+      return tratamiento;
     }
+
+
+
+ 
 
     public List<Mascota> obtenerMascotasMismoTratamiento(String tratamiento) {                              // chekear metodo
         List<Mascota> mascotasList = new ArrayList<>();
@@ -166,6 +168,7 @@ public class TratamientoData {
         }
         return mascotasList;
 
-    }
-
 }
+}
+
+
