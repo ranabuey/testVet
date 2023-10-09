@@ -7,24 +7,27 @@ package InterfazGrafica;
 
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author titun
  */
-public class Imagen extends javax.swing.JPanel {
+public class JpanelImage extends JLabel {
     int x, y;
+    String ruta;
 
-    public Imagen(JPanel jPanel5) {
-        this.x = jPanel5.getWidth();
-        this.y = jPanel5.getHeight();
+    public JpanelImage(JPanel jPanel, String ruta) {
+        this.ruta=ruta;
+        this.x = jPanel.getWidth();
+        this.y = jPanel.getHeight();
         this.setSize(x, y);
     }
 
     @Override
     public void paint(Graphics g) {
-        ImageIcon Img = new ImageIcon(getClass().getResource("/Imagenes/memo250.png"));
+        ImageIcon Img = new ImageIcon(getClass().getResource(ruta));
         g.drawImage(Img.getImage(), 0, 0, x, y, null);
     }    
 

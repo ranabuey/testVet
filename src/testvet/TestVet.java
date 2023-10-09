@@ -44,7 +44,8 @@ public class TestVet {
 //        md.guardarMascota(m1);
 //        td.guardarTratmiento(t1);
 //        vd.guardarVisita(v1);
-        List<Mascota> masList = td.obtenerMascotasMismoTratamiento("pulgas");
+//        List<Mascota> masList = td.obtenerMascotasMismoTratamiento("pulgas");
+        ArrayList<Mascota> masList = cd.listarMascotasXcliente(4);
         for (Mascota mascota : masList) {
             System.out.println("alias: " + mascota.getAlias());
             System.out.println(".................");

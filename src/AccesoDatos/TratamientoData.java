@@ -25,15 +25,44 @@ public class TratamientoData {
 
     }
 
-    public void guardarTratmiento(Tratamiento trat) {
+    public boolean chkDuplicadoTratamiento(Tratamiento tratamiento, int idVisita) {
+        //ArrayList<Tratamiento> tratalist = null;
+        String sql = "SELECT t.descripcion, v.fechaVisita FROM tratamiento t, visita v WHERE v.idVisita=? AND t.activo=1";            //ver el  en sql
 
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idVisita);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Tratamiento trataChk = new Tratamiento();
+
+                trataChk.setDescripcion(rs.getString("descripcion"));
+                if (trataChk.getDescripcion().equalsIgnoreCase(tratamiento.getDescripcion())) {
+                    return true;
+                }
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla Cliente " + ex.getMessage());
+        }
+
+        return false;
+
+    }
+
+    
+    public void guardarTratmiento(Tratamiento trat) {
+        
         String sql = "INSERT INTO tratamiento ( descripcion, medicamento, importe, tipoTratamiento, activo) VALUES (?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, trat.getDescripcion());
             ps.setString(2, trat.getMedicamento());
-            ps.setString(3, trat.getTipoTratamiento());
-            ps.setDouble(4, trat.getImporte());
+            ps.setDouble(3, trat.getImporte());
+            ps.setString(4, trat.getTipoTratamiento());
             ps.setBoolean(5, trat.isActivo());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -101,9 +130,12 @@ public class TratamientoData {
                 tr.setMedicamento(rs.getString("medicamento"));
                 tr.setImporte(rs.getDouble("importe"));
                 tr.setActivo(rs.getBoolean("activo"));
-            }
+            
+
+}
         } catch (SQLException ex) {
-            Logger.getLogger(TratamientoData.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TratamientoData.class
+.getName()).log(Level.SEVERE, null, ex);
         }
         return tratamiento;
     }
@@ -111,29 +143,29 @@ public class TratamientoData {
     public List<Mascota> obtenerMascotasMismoTratamiento(String tratamiento) {                              // chekear metodo
         List<Mascota> mascotasList = new ArrayList<>();
         String sql = "SELECT m.idMascota, alias, especie, raza FROM visita v, mascota m, tratamiento t WHERE v.idMascota=m.idMascota AND v.idTratamiento=t.idTratamiento AND t.tipoTratamiento=? AND m.activo=1";
-        
+
         try {
             PreparedStatement ps;
             ps = con.prepareStatement(sql);
             ps.setString(1, tratamiento);
             ResultSet rs = ps.executeQuery();
-           
+
             while (rs.next()) {
                 Mascota masc = new Mascota();
                 masc.setIdMascota(rs.getInt("idMascota"));
                 masc.setAlias(rs.getString("alias"));
                 masc.setEspecie(rs.getString("especie"));
                 masc.setRaza(rs.getString("raza"));
-                
+
                 mascotasList.add(masc);
             }
             ps.close();
-        
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se obtuvo la tabla MASCOTA : " + ex.getMessage());
         }
         return mascotasList;
 
-        }
-
     }
+
+}

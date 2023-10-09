@@ -1,6 +1,7 @@
 package AccesoDatos;
 
 import Entidades.Cliente;
+import Entidades.Mascota;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -124,7 +125,7 @@ public class ClienteData {
             String sql = "SELECT * FROM cliente WHERE activo=1";                                   //chk sentencia
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
                 Cliente cliente = new Cliente();
                 cliente.setIdCliente(rs.getInt("idcliente"));
@@ -178,9 +179,9 @@ public class ClienteData {
         }
 
     }
-    
-    public void eliminarCliente (int id){
-          try {
+
+    public void eliminarCliente(int id) {
+        try {
             String sql = "UPDATE cliente SET activo=0 WHERE idCliente=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -224,7 +225,7 @@ public class ClienteData {
 
         return clientesList;
     }
-    
+
     public Cliente buscsrClienteDniEliminado(int dni) {
         Cliente cliente = null;
         String sql = "SELECT * FROM cliente WHERE dni=? AND activo=0";            //ver el * en sql
@@ -261,8 +262,36 @@ public class ClienteData {
 
     }
 
+    public ArrayList<Mascota> listarMascotasXcliente(int id) {                             //no funca bien, carga una sola 
+        ArrayList<Mascota> mascoList = new ArrayList<>();                                 //este por ahi va en MascotaData
+
+        Cliente cliente = null;
+        String sql = "SELECT m.idMascota, alias, especie, raza, sexo, fechaNAc FROM mascota m WHERE m.idCliente=? AND m.activo=1";            //ver el * en sql
+
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                                            //ver el orden de las columnas?
+                Mascota mascAux = new Mascota();
+                mascAux.setIdMascota(rs.getInt("idMascota"));
+                mascAux.setAlias(rs.getString("alias"));
+                mascAux.setEspecie(rs.getString("especie"));
+                mascAux.setRaza(rs.getString("raza"));
+                mascAux.setSexo(rs.getString("sexo"));
+                mascAux.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                System.out.println("" + mascAux.getAlias());
+                mascoList.add(mascAux);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla Cliente " + ex.getMessage());
+        }
+
+        return mascoList;
     }
-            
 
-
-
+}
