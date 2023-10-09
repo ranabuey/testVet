@@ -181,26 +181,26 @@ public class MascotaData {
         }
     }
 
-    public List<Visita> obtenerPesoPromedio(){
-        VisitaData visData = new VisitaData();
-        List<Visita> visList = new ArrayList<>();
-        visList.addAll(visData.obtenerVisitasXMascota(0));
-        Collections.reverse(visList);
-        
-        double sumaPeso=0.0;
-        double contador=0.0;
-      
-        
-        for (Visita visita :visList)
-          if (contador>=10){
-              sumaPeso+=visita.getPesoActual();
-              contador+=contador;
-              double prome=sumaPeso/contador;
-              
-          }
-        return visList;
-    
- 
-}
+//    public List<Visita> obtenerPesoPromedio(){
+//        VisitaData visData = new VisitaData();
+//        List<Visita> visList = new ArrayList<>();
+//        visList.addAll(visData.obtenerVisitasXMascota(0));
+//        Collections.reverse(visList);
+//        
+//        double sumaPeso=0.0;
+//        double contador=0.0;
+//      
+//        
+//        for (Visita visita :visList)
+//          if (contador<=10){
+//              sumaPeso+=visita.getPesoActual();
+//              contador+=contador;
+//              double prome=sumaPeso/contador;
+//              
+//          }
+//        return prome;
+//    
+// 
+//}
 }
 
