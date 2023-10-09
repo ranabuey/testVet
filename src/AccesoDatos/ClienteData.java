@@ -164,7 +164,6 @@ public class ClienteData {
             ps.setString(7, cliente.getNombreAlternativo());
             ps.setString(8, cliente.getUsuarioLog());
             ps.setBoolean(9, cliente.isActivo());
-            ps.setInt(10, cliente.getIdCliente());
             int exito = ps.executeUpdate();
 
             if (exito == 1) {
@@ -263,11 +262,11 @@ public class ClienteData {
 
     }
 
-    public ArrayList<Mascota> listarMascotasXcliente(int id) {                            
+    public ArrayList<Mascota> listarMascotasXcliente(int id) {                             //no funca bien, carga una sola 
         ArrayList<Mascota> mascoList = new ArrayList<>();                                 //este por ahi va en MascotaData
 
         Cliente cliente = null;
-        String sql = "SELECT m.idMascota, alias, especie, raza, sexo, fechaNAc FROM mascota m WHERE m.idCliente=? AND m.activo=1";            
+        String sql = "SELECT m.idMascota, alias, especie, raza, sexo, fechaNAc FROM mascota m WHERE m.idCliente=? AND m.activo=1";            //ver el * en sql
 
         PreparedStatement ps = null;
         try {
@@ -275,7 +274,7 @@ public class ClienteData {
             ps.setInt(1, id);
 
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                                            
+            while (rs.next()) {                                            //ver el orden de las columnas?
                 Mascota mascAux = new Mascota();
                 mascAux.setIdMascota(rs.getInt("idMascota"));
                 mascAux.setAlias(rs.getString("alias"));

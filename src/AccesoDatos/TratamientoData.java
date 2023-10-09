@@ -53,9 +53,10 @@ public class TratamientoData {
 
     }
 
+    
     public void guardarTratmiento(Tratamiento trat) {
-
-        String sql = "INSERT INTO tratamiento ( descripcion, medicamento, importe, tipoTratamiento, activo, usuarioLog) VALUES (?,?,?,?,?,?)";
+        
+        String sql = "INSERT INTO tratamiento ( descripcion, medicamento, importe, tipoTratamiento, activo) VALUES (?,?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, trat.getDescripcion());
@@ -63,21 +64,19 @@ public class TratamientoData {
             ps.setDouble(3, trat.getImporte());
             ps.setString(4, trat.getTipoTratamiento());
             ps.setBoolean(5, trat.isActivo());
-            ps.setString(6, trat.getUsuarioLog());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 trat.setIdTratamiento(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Tratamiento añadida con exito");
             }
-            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error al acceder a la tabla Materia " + ex.getMessage());
         }
     }
 
     public void modificarTratamiento(Tratamiento trat) {
-        String sql = "UPDATE tratamiento SET descripcion=?,medicamento=?, TipoTratamiento=?, importe=?, activo=?, usuarioLog=? ";
+        String sql = "UPDATE tratamiento SET descripcion=?,medicamento=?, TipoTratamiento=?, importe=?, activo=? ";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -86,7 +85,6 @@ public class TratamientoData {
             ps.setString(3, trat.getTipoTratamiento());
             ps.setDouble(4, trat.getImporte());
             ps.setBoolean(5, trat.isActivo());
-            ps.setString(6, trat.getUsuarioLog());
             int exito = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (exito == 1) {
@@ -121,7 +119,6 @@ public class TratamientoData {
 
     public List<Tratamiento> listarTratamiento() {
         List<Tratamiento> tratamiento = new ArrayList<>();
-        tratamiento.clear();
         try {
             String sql = "SELECT * FROM tratamiento WHERE activo =1";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -132,14 +129,13 @@ public class TratamientoData {
                 tr.setDescripcion(rs.getString("Descripcion"));
                 tr.setMedicamento(rs.getString("medicamento"));
                 tr.setImporte(rs.getDouble("importe"));
-                tr.setUsuarioLog(rs.getString("usuarioLog"));
                 tr.setActivo(rs.getBoolean("activo"));
-                tratamiento.add(tr);                                    // faltaba el add
+            
 
-            }
-            ps.close();
+}
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla tratamiento" + ex.getMessage());
+            Logger.getLogger(TratamientoData.class
+.getName()).log(Level.SEVERE, null, ex);
         }
         return tratamiento;
     }
@@ -172,34 +168,4 @@ public class TratamientoData {
 
     }
 
-    public Tratamiento buscarTratamientoXId(int id) {
-        Tratamiento tr = null;
-        String sql = "SELECT * FROM tratamiento WHERE idtratamiento=? AND activo=1";            //ver el * en sql
-        PreparedStatement ps = null;
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-//
-            ResultSet rs = ps.executeQuery();
-//
-            if (rs.next()) {
-
-                tr.setIdTratamiento(id);
-                tr.setDescripcion(rs.getString("Descripcion"));
-                tr.setMedicamento(rs.getString("medicamento"));
-                tr.setImporte(rs.getDouble("importe"));
-                tr.setUsuarioLog(rs.getString("usuarioLog"));
-                tr.setActivo(rs.getBoolean("activo"));
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe el TRATAMIENTO");
-
-            }
-            ps.close();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla TRATAMIENTO / " + ex.getMessage());
-        }
-
-        return tr;
-    }
 }

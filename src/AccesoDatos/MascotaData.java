@@ -90,8 +90,6 @@ public class MascotaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla mascota" + ex.getMessage());
 
-        } catch (NullPointerException e){
-            
         }
         return mascota;
     }
