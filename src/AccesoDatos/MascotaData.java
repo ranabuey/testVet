@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -181,26 +182,29 @@ public class MascotaData {
         }
     }
 
-//    public List<Visita> obtenerPesoPromedio(){
-//        VisitaData visData = new VisitaData();
-//        List<Visita> visList = new ArrayList<>();
-//        visList.addAll(visData.obtenerVisitasXMascota(0));
-//        Collections.reverse(visList);
-//        
-//        double sumaPeso=0.0;
-//        double contador=0.0;
-//      
-//        
-//        for (Visita visita :visList)
-//          if (contador<=10){
-//              sumaPeso+=visita.getPesoActual();
-//              contador+=contador;
-//              double prome=sumaPeso/contador;
-//              
-//          }
-//        return prome;
-//    
-// 
-//}
+    public double obtenerPesoPromedio(){
+        VisitaData visData = new VisitaData();
+        List<Visita> visList = new ArrayList<>();
+        visList.addAll(visData.obtenerVisitasXMascota(0));
+        Collections.reverse(visList);
+        
+        double sumaPeso=0.0;
+        double contador=0.0;
+      
+        
+        for (Visita visita :visList){
+          if (contador>=10){
+              break;
+          }
+              sumaPeso+=visita.getPesoActual();
+              contador++;
+              }
+        double promedio=sumaPeso/contador;
+        return promedio;
+    
+ 
 }
+    }
+
+
 
