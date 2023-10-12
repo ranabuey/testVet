@@ -190,5 +190,76 @@ public void eliminarVisita (int id){
         }
         return traList;
     }
+   
+    public boolean chkVisitaMismoDia(Visita visita) {                   //hay q testear // faltaban los metodos de buscar tratamiento x id (q devuelva un tratamiento) y buscar visita por id
+
+        List<Visita> visChkList = new ArrayList<>();
+        visChkList.clear();
+        try {
+            String sql = "SELECT * FROM visita WHERE idMascota=? AND fechaVisita=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, visita.getMascota().getIdMascota());
+            ps.setDate(2, Date.valueOf(visita.getFechaVisita()));
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla VISITA / " + ex.getMessage());
+        }
+        return false;
+    }
+
+    public Visita buscarVisitaXid(int id) {                             //hay q testear // faltaban los metodos de buscar tratamiento x id (q devuelva un tratamiento) y buscar visita por id
+        Visita visita = new Visita();
+        visita = null;
+        PreparedStatement ps = null;
+        
+        Mascota mascota = null;
+        
+        Tratamiento tratamiento = null;
+        
+        String sql = "SELECT * FROM visita WHERE idVisita=? AND activo=1";            //ver el * en sql
+        
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {                                            //ver el orden de las columnas?
+                System.out.println(""+rs.getInt("idMascota"));
+                mascota = masData.buscarMascotaId(rs.getInt("idMascota"));
+                System.out.println(""+rs.getInt("idTratamiento"));
+                tratamiento=trataData.buscarTratamientoXId(rs.getInt("idTratamiento"));     // es el metodo armado en TData para hacer busquedaxid
+                visita.setIdVisita(rs.getInt("idVisita"));
+                visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
+                visita.setDetalle(rs.getString("detalle"));
+                visita.setPesoActual(rs.getDouble("pesoActual"));
+                visita.setMascota(mascota);
+                visita.setTratamiento(tratamiento);
+                visita.setActivo(rs.getBoolean("activo"));
+                visita.setInternado(rs.getBoolean("internado"));
+                visita.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
+                visita.setUsuarioLog(rs.getString("usuarioLog"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe la Visita");
+
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla VISITA / " + ex.getMessage());
+        }
+
+        return visita;
+    }
+
 }
+
+
 
