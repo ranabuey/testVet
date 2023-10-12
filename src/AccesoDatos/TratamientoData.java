@@ -169,6 +169,37 @@ public class TratamientoData {
         return mascotasList;
 
 }
+    
+    public Tratamiento buscarTratamientoXId(int id) {
+        Tratamiento tr = null;
+        String sql = "SELECT * FROM tratamiento WHERE idtratamiento=? AND activo=1";            //ver el * en sql
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+//
+            ResultSet rs = ps.executeQuery();
+//
+            if (rs.next()) {
+
+                tr.setIdTratamiento(id);
+                tr.setDescripcion(rs.getString("Descripcion"));
+                tr.setMedicamento(rs.getString("medicamento"));
+                tr.setImporte(rs.getDouble("importe"));
+      //          tr.setUsuarioLog(rs.getString("usuarioLog"));                             //falta poner en entidades
+                tr.setActivo(rs.getBoolean("activo"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el TRATAMIENTO");
+
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla TRATAMIENTO / " + ex.getMessage());
+        }
+
+        return tr;
+    }
 }
 
 

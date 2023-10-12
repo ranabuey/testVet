@@ -411,6 +411,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         GuardarNuevos nc = new GuardarNuevos();
         nc.setVisible(true);
         jDesktopPane1.add(nc);
+        
+        
 //        jDesktopPane1.moveToFront(nc);
 
     }//GEN-LAST:event_jbNuevoClienteActionPerformed

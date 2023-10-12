@@ -12,6 +12,16 @@ public class Cliente {
     public Cliente() {
     }
 
+    public Cliente(int dni, String nombre, String apellido, String direccion, String usuarioLog, int telefono, boolean activo) {
+        this.dni = dni;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.usuarioLog = usuarioLog;
+        this.telefono = telefono;
+        this.activo = activo;
+    }
+
     public Cliente(int dni, String nombre, String apellido, String direccion, String nombreAlternativo, int telefono, int telefonoAlternativo, String usuarioLog, boolean activo) {
         this.dni = dni;
         this.nombre = nombre;

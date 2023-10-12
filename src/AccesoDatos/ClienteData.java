@@ -84,7 +84,8 @@ public class ClienteData {
 
     public Cliente buscsrClienteDni(int dni) {
         Cliente cliente = null;
-        String sql = "SELECT * FROM cliente WHERE dni=? AND activo=1";            //ver el * en sql
+        //String sql = "SELECT * FROM cliente WHERE dni=? AND activo=1";            //ver el * en sql
+        String sql = "SELECT * FROM cliente WHERE dni=? ";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
@@ -103,7 +104,18 @@ public class ClienteData {
                 cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
                 cliente.setUsuarioLog(rs.getString("usuarioLOg"));
                 cliente.setActivo(rs.getBoolean("activo"));
+                if (!cliente.isActivo()) {
+                    int input = JOptionPane.showConfirmDialog(null, "El Cliente con el DNI ingresado: " + dni + "Se encuentra borrado. Desea Cargarlo al Sistema Nuevamente? ", "Seleccione una opcion...",
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (input == 0) {
+                        cliente.setActivo(true);
+                        modificarCliente(cliente);
 
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "No podra cargar el mismo DNI al Sistema. Realice otra busqueda de Cliente... ");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el Cliente");
 
@@ -154,6 +166,9 @@ public class ClienteData {
         PreparedStatement ps = null;
 
         try {
+            Cliente c = new Cliente();
+            c = buscsrClienteDni(cliente.getDni());
+
             ps = con.prepareStatement(sql);
             ps.setString(1, cliente.getNombre());
             ps.setString(2, cliente.getApellido());
@@ -164,6 +179,7 @@ public class ClienteData {
             ps.setString(7, cliente.getNombreAlternativo());
             ps.setString(8, cliente.getUsuarioLog());
             ps.setBoolean(9, cliente.isActivo());
+            ps.setInt(10, c.getIdCliente());
             int exito = ps.executeUpdate();
 
             if (exito == 1) {
