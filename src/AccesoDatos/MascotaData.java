@@ -82,7 +82,7 @@ public class MascotaData {
                 mascota.setActivo(rs.getBoolean("activo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
-                mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
+                //mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
                 mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
                 mascota.setUsuarioLog(rs.getString("usuarioLOg"));
 
@@ -182,28 +182,50 @@ public class MascotaData {
         }
     }
 
-    public double obtenerPesoPromedio(){
+//    public double obtenerPesoPromedio(){
+//        VisitaData visData = new VisitaData();
+//        List<Visita> visList = new ArrayList<>();
+//        visList.addAll(visData.obtenerVisitasXMascota(4));
+//        Collections.reverse(visList);
+//        
+//        double sumaPeso=0.0;
+//        double contador=0.0;
+//      
+//        
+//        for (Visita visita :visList){
+//          if (contador>=10){
+//              break;
+//          }
+//              sumaPeso+=visita.getPesoActual();
+//              contador++;
+//              }
+//        double promedio=sumaPeso/contador;
+//        return promedio;
+//    
+// 
+//}
+    public double obtenerPesoPromedio(int id) {
         VisitaData visData = new VisitaData();
         List<Visita> visList = new ArrayList<>();
-        visList.addAll(visData.obtenerVisitasXMascota(0));
+        visList = visData.obtenerVisitasXMascota(id);
         Collections.reverse(visList);
-        
-        double sumaPeso=0.0;
-        double contador=0.0;
-      
-        
-        for (Visita visita :visList){
-          if (contador>=10){
-              break;
-          }
-              sumaPeso+=visita.getPesoActual();
-              contador++;
-              }
-        double promedio=sumaPeso/contador;
-        return promedio;
-    
- 
-}
+
+        if (visList.isEmpty()) {
+            return 0;
+        }
+        double promedio = 0;
+        int i = 0;
+        while (i < visList.size() && i < 10) {
+            System.out.println(i + " promedio" + promedio);
+            promedio += visList.get(i).getPesoActual();
+            i++;
+        }
+        if (visList.size() == 10) {
+            return promedio / 10;
+        }
+
+        return promedio / visList.size();
+    }
     
     }
 

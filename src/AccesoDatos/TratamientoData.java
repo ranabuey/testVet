@@ -171,7 +171,7 @@ public class TratamientoData {
 }
     
     public Tratamiento buscarTratamientoXId(int id) {
-        Tratamiento tr = null;
+        Tratamiento tr = new Tratamiento();
         String sql = "SELECT * FROM tratamiento WHERE idtratamiento=? AND activo=1";            //ver el * en sql
         PreparedStatement ps = null;
         try {
@@ -186,6 +186,7 @@ public class TratamientoData {
                 tr.setDescripcion(rs.getString("Descripcion"));
                 tr.setMedicamento(rs.getString("medicamento"));
                 tr.setImporte(rs.getDouble("importe"));
+                tr.setTipoTratamiento(rs.getString("tipoTratamiento"));
       //          tr.setUsuarioLog(rs.getString("usuarioLog"));                             //falta poner en entidades
                 tr.setActivo(rs.getBoolean("activo"));
             } else {
