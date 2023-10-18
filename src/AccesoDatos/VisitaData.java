@@ -34,7 +34,7 @@ public class VisitaData {
 public void guardarVisita (Visita vis){
 
 
-        String sql = "INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo, internado, fechaAlta, usuarioLog) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
+        String sql = "INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo, internado, usuarioLog) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -45,8 +45,8 @@ public void guardarVisita (Visita vis){
             ps.setInt(5, vis.getTratamiento().getIdTratamiento());
             ps.setBoolean(6, vis.isActivo());
             ps.setBoolean(7, vis.isActivo());
-            ps.setDate(8, Date.valueOf(vis.getFechaAlta()));
-            ps.setString(9, vis.getUsuarioLog());
+            //ps.setDate(8, Date.valueOf(vis.getFechaAlta()));
+            ps.setString(8, vis.getUsuarioLog());
             
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
