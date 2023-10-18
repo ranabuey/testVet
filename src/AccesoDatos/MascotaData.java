@@ -216,9 +216,9 @@ public class MascotaData {
         double promedio = 0;
         int i = 0;
         while (i < visList.size() && i < 10) {
-            System.out.println(i + " promedio" + promedio);
             promedio += visList.get(i).getPesoActual();
             i++;
+            System.out.println(i + " promedio" + promedio);
         }
         if (visList.size() == 10) {
             return promedio / 10;
