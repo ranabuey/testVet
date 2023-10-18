@@ -52,6 +52,19 @@ public class Visita {
 
     }
 
+    public Visita(LocalDate fechaVisita, String detalle, double pesoActual, boolean activo, Mascota mascota, Tratamiento tratamiento, String usuarioLog) {
+        this.fechaVisita = fechaVisita;
+        this.detalle = detalle;
+        this.pesoActual = pesoActual;
+        this.activo = activo;
+        this.mascota = mascota;
+        this.tratamiento = tratamiento;
+        this.usuarioLog = usuarioLog;
+    }
+
+   
+     
+
     @Override
     public String toString() {
         return "Visita{" + "idVisita=" + idVisita + ", fechaVisita=" + fechaVisita + ", detalle=" + detalle + ", pesoActual=" + pesoActual + ", activo=" + activo + ", internado=" + internado + ", fechaAlta=" + fechaAlta + '}';
