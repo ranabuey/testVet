@@ -720,7 +720,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         try {
             ClienteData cd = new ClienteData();
             int dni = Integer.parseInt(jtfBusquarXdni.getText());
-            cliente = cd.buscsrClienteDni(dni);
+            cliente = cd.buscarClienteDni(dni);
             
             if (cliente == null) {
                 int input = JOptionPane.showConfirmDialog(null, "No se encuentra un cliente cargado con el DNI ingresado: " + dni + "Desea Cargarlo al Sistema? ", "Seleccione una opcion...",
@@ -789,7 +789,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
         if (input == 0) {
             Cliente c = new Cliente();
-            c = cd.buscsrClienteDni(Integer.parseInt(jtfDni.getText()));
+            c = cd.buscarClienteDni(Integer.parseInt(jtfDni.getText()));
             cd.eliminarCliente(c.getIdCliente());
             borrarCamposCliente();
             desHabilitarBotonesCliente();

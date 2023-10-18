@@ -36,10 +36,10 @@ public class TestVet {
         TratamientoData td = new TratamientoData();
 //
 ////        Cliente c1 = new Cliente(12,"Ernesto", "Smith", "piporete 34", "titi", 585622, 22222222, "titus", true);
-       Cliente c1 = new Cliente(4,20123456, "Telmo", "Romeo", "piporete 34", "titi", 585622, 22222222, "titus", true);
-       Mascota m1 = new Mascota(4,"coco", "m", "canino", "golden", "rubio", LocalDate.of(2010, Month.MARCH, 23), 3, 3.5, true, LocalDate.of(2023, Month.OCTOBER, 1), c1, "esteban");
-       Tratamiento t1 = new Tratamiento(1,"normal", "vacuna", "forte500mg", 3000, true);
-        Visita v2 = new Visita(m1, LocalDate.of(2023, Month.APRIL, 05), "vacunado", 10, t1, true, false, LocalDate.of(2021, Month.MARCH, 3), "titus");
+       //Cliente c1 = new Cliente(4,20123456, "Telmo", "Romeo", "piporete 34", "titi", 585622, 22222222, "titus", true);
+//       Mascota m1 = new Mascota(4,"coco", "m", "canino", "golden", "rubio", LocalDate.of(2010, Month.MARCH, 23), 3, 3.5, true, LocalDate.of(2023, Month.OCTOBER, 1), c1, "esteban");
+//       Tratamiento t1 = new Tratamiento(1,"normal", "vacuna", "forte500mg", 3000, true);
+//        Visita v2 = new Visita(m1, LocalDate.of(2023, Month.APRIL, 05), "vacunado", 10, t1, true, false, LocalDate.of(2021, Month.MARCH, 3), "titus");
 ////
      //cd.guardarCliente(c1);
    // md.guardarMascota(m1);
@@ -50,11 +50,18 @@ public class TestVet {
 //        for (Mascota mascota : masList) {
 //            System.out.println("alias: " + mascota.getAlias());
 //            System.out.println(".................");
-double pesoPromedio = md.obtenerPesoPromedio(4);
-        System.out.println("el peso promedio es " + pesoPromedio);
-      
+//double pesoPromedio = md.obtenerPesoPromedio(4);
+//        System.out.println("el peso promedio es " + pesoPromedio);
+   List<Cliente> clientList=cd.listarClientesEliminados();
+     for (Cliente cliente : clientList){
+       System.out.println("apellido: "+cliente.getApellido());
+   }
+       
+   }
+   
+        
         }
     
-    }
+    
 
 

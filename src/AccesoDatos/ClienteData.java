@@ -65,8 +65,8 @@ public class ClienteData {
                 cliente.setDni(rs.getInt("dni"));
                 cliente.setTelefono(rs.getInt("telefono"));
                 cliente.setDireccion(rs.getString("direccion"));
-                cliente.setTelefonoAlternativo(rs.getInt("telefonoAlternativo"));
-                cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
+//                cliente.setTelefonoAlternativo(rs.getInt("telefonoAlternativo"));
+//                cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
                 cliente.setUsuarioLog(rs.getString("usuarioLOg"));
                 cliente.setActivo(rs.getBoolean("activo"));
 
@@ -83,7 +83,7 @@ public class ClienteData {
         return cliente;
     }
 
-    public Cliente buscsrClienteDni(int dni) {
+    public Cliente buscarClienteDni(int dni) {
         Cliente cliente = null;
         //String sql = "SELECT * FROM cliente WHERE dni=? AND activo=1";            //ver el * en sql
         String sql = "SELECT * FROM cliente WHERE dni=? ";
@@ -167,7 +167,7 @@ public class ClienteData {
 
         try {
             Cliente c = new Cliente();
-            c = buscsrClienteDni(cliente.getDni());
+            c = buscarClienteDni(cliente.getDni());
 
             ps = con.prepareStatement(sql);
             ps.setString(1, cliente.getNombre());
@@ -242,7 +242,7 @@ public class ClienteData {
         return clientesList;
     }
 
-    public Cliente buscsrClienteDniEliminado(int dni) {
+    public Cliente buscarClienteDniEliminado(int dni) {
         Cliente cliente = null;
         String sql = "SELECT * FROM cliente WHERE dni=? AND activo=0";            //ver el * en sql
         PreparedStatement ps = null;
