@@ -8,6 +8,7 @@ package InterfazGrafica;
 import AccesoDatos.ClienteData;
 import Entidades.Cliente;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -123,6 +124,11 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jtfNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfNombreActionPerformed(evt);
+            }
+        });
+        jtfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNombreKeyTyped(evt);
             }
         });
 
@@ -633,17 +639,26 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos marcados con * para cargar un nuevo cliente en el Sistema");
         } else {
             try {
-                int dni = Integer.parseInt(jtfDni.getText());
-                String apellido = jtfApellido.getText();
                 String nombre = jtfNombre.getText();
+                String apellido = jtfApellido.getText();
+                int dni = Integer.parseInt(jtfDni.getText());
                 String direccion = jtfDireccion.getText();
                 int tel = Integer.parseInt(jtfTelefono.getText());
                 String nombreAl = jtfNombreAlternativo.getText();
-                int telAl = 1;
-                telAl = Integer.parseInt(jtfTelefonoAlternativo.getText());
+                //int telAl = 1;
+                int telAl = Integer.parseInt(jtfTelefonoAlternativo.getText());
                 ClienteData cd = new ClienteData();
-                
-                Cliente c = new Cliente(dni, nombre, apellido, direccion, nombreAl, tel, telAl, "titus", true);                                //////FALTA GETEAR EL USER LOG
+                Cliente c = new Cliente();
+//               Cliente c = new Cliente(dni, nombre, apellido, direccion, nombreAl, tel, telAl, "titus", true);                                //////FALTA GETEAR EL USER LOG
+                c.setDni(dni);
+                c.setNombre(nombre);
+                c.setApellido(apellido);
+                c.setDireccion(direccion);
+                c.setNombreAlternativo(nombreAl);
+                c.setTelefono(telAl);
+                c.setTelefonoAlternativo(telAl);
+                c.setActivo(true);
+                c.setUsuarioLog("titus");
                 int input = JOptionPane.showConfirmDialog(null, "Esta seguro de cargar el Nuevo CLIENTE  en el Sistema?", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
@@ -829,6 +844,12 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_jbOKClienteActionPerformed
+
+    private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
+        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar()== KeyEvent.VK_SPACE)){
+          evt.consume();
+      }
+    }//GEN-LAST:event_jtfNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

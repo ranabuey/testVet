@@ -7,7 +7,7 @@ public class Tratamiento {
     private String descripcion, tipoTratamiento, medicamento;
     private double importe;
     private boolean activo;
-      private Mascota mascota;
+    private Mascota mascota;
     private Visita visita;
     public Tratamiento() {
     }

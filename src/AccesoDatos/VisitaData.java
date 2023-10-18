@@ -117,29 +117,32 @@ public void eliminarVisita (int id){
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Visita visita = new Visita();
+               Visita visita = new Visita();
                 visita.setIdVisita(rs.getInt("idVisita"));
+                visita.setMascota(masData.buscarMascotaId(rs.getInt("idMascota")));
                 visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
                 visita.setDetalle(rs.getString("detalle"));
                 visita.setPesoActual(rs.getDouble("pesoActual"));
-                //visita.setTratamiento(trataData.);
+                visita.setTratamiento(trataData.buscarTratamientoXId(rs.getInt("idTratamiento")));
                 visita.setActivo(rs.getBoolean("activo"));
                 visita.setInternado(rs.getBoolean("internado"));
-                visita.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
+//              visita.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
                 visita.setUsuarioLog(rs.getString("usuarioLog"));
                 visList.add(visita);
             }
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
         }
         return visList;
+       
 }
+ 
   public List<Visita> obtenerVisitasXMascota(int id) {
         VisitaData visdata = new VisitaData();
-        List<Visita> visList = new ArrayList<>();
-        visList.addAll(visdata.obtenerVisita());
+        List<Visita> visList = visdata.obtenerVisita();
+       // visList.addAll(visdata.obtenerVisita());
 
         List<Visita> visListMascota = new ArrayList<>();
         visListMascota.clear();
@@ -147,6 +150,7 @@ public void eliminarVisita (int id){
         for (Visita visita : visList) {
             if (visita.getMascota().getIdMascota()== id) {
                 visListMascota.add(visita);
+                System.out.println(visita.toString());
             }
         }
         if (visList.isEmpty()) {

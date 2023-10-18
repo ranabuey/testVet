@@ -19,7 +19,7 @@ public class ClienteData {
 
         con = Conexion.getConexion();
     }
-// me gustaria declarar mi amor pero solo puedo declarar variables
+
     public void guardarCliente(Cliente cliente) {
         String sql = "INSERT INTO cliente (nombre, apellido, dni, telefono, direccion, telefonoAlternativo, nombreAlternativo, usuarioLog, activo) VALUES (?,?,?,?,?,?,?,?,?)";
         try {
@@ -111,10 +111,9 @@ public class ClienteData {
                         cliente.setActivo(true);
                         modificarCliente(cliente);
 
+//                    }else {
+//                    JOptionPane.showMessageDialog(null, "No podra cargar el mismo DNI al Sistema. Realice otra busqueda de Cliente... ");
                     }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "No podra cargar el mismo DNI al Sistema. Realice otra busqueda de Cliente... ");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el Cliente");
