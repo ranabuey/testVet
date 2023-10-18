@@ -30,9 +30,9 @@ public class TestVet {
      */
     public static void main(String[] args) {
 
-//        ClienteData cd = new ClienteData();
-     MascotaData md = new MascotaData();
-          VisitaData vd = new VisitaData();
+        ClienteData cd = new ClienteData();
+        MascotaData md = new MascotaData();
+        VisitaData vd = new VisitaData();
         TratamientoData td = new TratamientoData();
 //
 ////        Cliente c1 = new Cliente(12,"Ernesto", "Smith", "piporete 34", "titi", 585622, 22222222, "titus", true);
@@ -51,10 +51,12 @@ public class TestVet {
 //            System.out.println("alias: " + mascota.getAlias());
 //            System.out.println(".................");
 
-      md.obtenerPesoPromedio();
-      
-        }
-    
+        //     md.obtenerPesoPromedio();
+//        List<Cliente> clientList = cd.listarClientes();
+//        for (Cliente cliente : clientList) {
+//            System.out.println("apellido: " + cliente.getApellido());
+//        }
+
     }
 
-
+}

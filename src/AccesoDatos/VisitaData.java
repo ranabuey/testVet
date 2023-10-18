@@ -234,7 +234,7 @@ public void eliminarVisita (int id){
                 System.out.println(""+rs.getInt("idMascota"));
                 mascota = masData.buscarMascotaId(rs.getInt("idMascota"));
                 System.out.println(""+rs.getInt("idTratamiento"));
-                tratamiento=trataData.buscarTratamientoXId(rs.getInt("idTratamiento"));     // es el metodo armado en TData para hacer busquedaxid
+                tratamiento=trataData.buscarTratamientoXId(rs.getInt("idTratamiento"));   
                 visita.setIdVisita(rs.getInt("idVisita"));
                 visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
                 visita.setDetalle(rs.getString("detalle"));

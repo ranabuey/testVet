@@ -5,6 +5,8 @@
  */
 package InterfazGrafica;
 
+import Entidades.Tratamiento;
+
 /**
  *
  * @author usuario
