@@ -20,13 +20,13 @@ public class Tratamiento {
 //        this.mascota = mascota;
 //    }
 
-    public Visita getVisita() {
-        return visita;
-    }
-
-    public void setVisita(Visita visita) {
-        this.visita = visita;
-    }
+//    public Visita getVisita() {
+//        return visita;
+//    }
+//
+//    public void setVisita(Visita visita) {
+//        this.visita = visita;
+//    }
 
     public Tratamiento(String descripcion, String tipoTratamiento, String medicamento, double importe,String usuarioLog, boolean activo) {
         this.descripcion = descripcion;

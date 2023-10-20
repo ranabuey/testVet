@@ -23,10 +23,10 @@ public class MascotaData {
     public MascotaData() {
 
         con = Conexion.getConexion();
-        clientData= new ClienteData();
+        clientData = new ClienteData();
     }
 
-    public void guardarMascota(Mascota mascota) {
+    public Mascota guardarMascota(Mascota mascota) {
 
         String sql = "INSERT INTO mascota(alias, sexo, especie, raza, colorPelo, fechaNac, activo, idCliente, UsuarioLog) VALUES (?,?,?,?,?,?,?,?,?)";
 
@@ -39,8 +39,8 @@ public class MascotaData {
             ps.setString(5, mascota.getColorPelo());
             ps.setDate(6, Date.valueOf(mascota.getFechaNac()));
             ps.setBoolean(7, mascota.isActivo());
-       //     ps.setDouble(8, mascota.getPesoUltimo());
-         //   ps.setDouble(9, mascota.getPesoPromedio());
+            //     ps.setDouble(8, mascota.getPesoUltimo());
+            //   ps.setDouble(9, mascota.getPesoPromedio());
             //ps.setDate(10, Date.valueOf(mascota.getFechaDefuncion()));
             ps.setInt(8, mascota.getCliente().getIdCliente());
             ps.setString(9, mascota.getUsuarioLog());
@@ -51,7 +51,8 @@ public class MascotaData {
             if (rs.next()) {
                 mascota.setIdMascota(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Mascota añadida con exito. ");
-            }else{
+                return mascota;
+            } else {
                 JOptionPane.showMessageDialog(null, "ERROR: No se agrego la Mascota... ");
             }
             ps.close();
@@ -59,9 +60,45 @@ public class MascotaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla mascota" + ex.getMessage());
         }
-
+        mascota = null;
+        return mascota;
     }
 
+//     public void guardarMascota(Mascota mascota) {
+//
+//        String sql = "INSERT INTO mascota(alias, sexo, especie, raza, colorPelo, fechaNac, activo, idCliente, UsuarioLog) VALUES (?,?,?,?,?,?,?,?,?)";
+//
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//            ps.setString(1, mascota.getAlias());
+//            ps.setString(2, mascota.getSexo());
+//            ps.setString(3, mascota.getEspecie());
+//            ps.setString(4, mascota.getRaza());
+//            ps.setString(5, mascota.getColorPelo());
+//            ps.setDate(6, Date.valueOf(mascota.getFechaNac()));
+//            ps.setBoolean(7, mascota.isActivo());
+//       //     ps.setDouble(8, mascota.getPesoUltimo());
+//         //   ps.setDouble(9, mascota.getPesoPromedio());
+//            //ps.setDate(10, Date.valueOf(mascota.getFechaDefuncion()));
+//            ps.setInt(8, mascota.getCliente().getIdCliente());
+//            ps.setString(9, mascota.getUsuarioLog());
+//
+//            ps.executeUpdate();
+//            ResultSet rs = ps.getGeneratedKeys();
+//
+//            if (rs.next()) {
+//                mascota.setIdMascota(rs.getInt(1));
+//                JOptionPane.showMessageDialog(null, "Mascota añadida con exito. ");
+//            }else{
+//                JOptionPane.showMessageDialog(null, "ERROR: No se agrego la Mascota... ");
+//            }
+//            ps.close();
+//
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla mascota" + ex.getMessage());
+//        }
+//
+//    }
     public Mascota buscarMascotaId(int id) {
         Mascota mascota = null;
         String sql = "SELECT alias, sexo, especie, raza, colorPelo, fechaNac, activo, pesoUltimo, pesoPromedio, fechaDefuncion, idCliente, UsuarioLog FROM mascota WHERE idMascota = ?";
@@ -228,8 +265,10 @@ public class MascotaData {
 
         return promedio / visList.size();
     }
-    
+
+    public int calcularEdad(LocalDate fnac) {
+        LocalDate fechaHoy = LocalDate.now();
+        int edad = fechaHoy.getYear() - fnac.getYear();
+    return edad;
     }
-
-
-
+}

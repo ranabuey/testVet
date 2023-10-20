@@ -5,13 +5,16 @@
  */
 package InterfazGrafica;
 
+import AccesoDatos.MascotaData;
 import AccesoDatos.TratamientoData;
 import AccesoDatos.VisitaData;
 import Entidades.EnumTipoTratamiento;
+import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,7 +32,11 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jlInternado.setVisible(false);
         jbBorrarVisita.setVisible(false);
         jbEditar.setVisible(false);
+        jtfAlias.setText(MenuPrincipal.jtfMemoAlias.getText());
 
+        LocalDate fechaHoy = LocalDate.now();
+        Date visita = Date.from(fechaHoy.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        jdcFechaVisita.setDate(visita);
     }
 
     /**
@@ -49,13 +56,15 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jtfAlias = new javax.swing.JTextField();
         jtfPesoActual = new javax.swing.JTextField();
-        jbSiguiente = new javax.swing.JButton();
+        jbInternar = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         jdcFechaVisita = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtaDetalle = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jdcFechaAlta = new com.toedter.calendar.JDateChooser();
+        jbAmbulatorio = new javax.swing.JButton();
+        jlInternado = new javax.swing.JLabel();
         jpMAscotaNew = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -71,7 +80,8 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jbBorrarVisita = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jtfImporte = new javax.swing.JTextField();
-        jlInternado = new javax.swing.JLabel();
+
+        setClosable(true);
 
         jLabel6.setText("Peso Actual:");
 
@@ -81,11 +91,13 @@ public class CargarVisita extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Mascota \"Alias\"");
 
-        jbSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/internado.png"))); // NOI18N
-        jbSiguiente.setText("Internar");
-        jbSiguiente.addActionListener(new java.awt.event.ActionListener() {
+        jtfAlias.setEditable(false);
+
+        jbInternar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/internado.png"))); // NOI18N
+        jbInternar.setText("Internar");
+        jbInternar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSiguienteActionPerformed(evt);
+                jbInternarActionPerformed(evt);
             }
         });
 
@@ -98,33 +110,58 @@ public class CargarVisita extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Fecha Alta:");
 
+        jbAmbulatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/internado.png"))); // NOI18N
+        jbAmbulatorio.setText("Ambulatorio");
+        jbAmbulatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAmbulatorioActionPerformed(evt);
+            }
+        });
+
+        jlInternado.setFont(new java.awt.Font("Dialog", 3, 36)); // NOI18N
+        jlInternado.setForeground(new java.awt.Color(255, 0, 0));
+        jlInternado.setText("Internado");
+
         javax.swing.GroupLayout jpClienteNewLayout = new javax.swing.GroupLayout(jpClienteNew);
         jpClienteNew.setLayout(jpClienteNewLayout);
         jpClienteNewLayout.setHorizontalGroup(
             jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClienteNewLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(jpClienteNewLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel7)
-                    .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel6)))
-                .addGap(18, 18, 18)
-                .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbSiguiente)
-                    .addComponent(jdcFechaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfPesoActual, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jdcFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 14, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClienteNewLayout.createSequentialGroup()
+                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jpClienteNewLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpClienteNewLayout.createSequentialGroup()
+                                .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7)
+                                    .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel6)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jdcFechaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfPesoActual, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jdcFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 14, Short.MAX_VALUE))
+                            .addGroup(jpClienteNewLayout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jbInternar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbAmbulatorio)
+                                .addGap(22, 22, 22))))))
+            .addGroup(jpClienteNewLayout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addComponent(jlInternado)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jpClienteNewLayout.setVerticalGroup(
             jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,8 +191,12 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                     .addComponent(jdcFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addComponent(jbSiguiente)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbInternar)
+                    .addComponent(jbAmbulatorio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(jlInternado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         jLabel15.setText("Medicamento:");
@@ -275,10 +316,6 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18))
         );
 
-        jlInternado.setFont(new java.awt.Font("Dialog", 3, 36)); // NOI18N
-        jlInternado.setForeground(new java.awt.Color(255, 0, 0));
-        jlInternado.setText("Internado");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,9 +323,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpClienteNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jlInternado)
-                .addGap(18, 18, 18)
+                .addGap(199, 199, 199)
                 .addComponent(jpMAscotaNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
@@ -298,9 +333,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jpMAscotaNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlInternado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jpMAscotaNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jpClienteNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 22, Short.MAX_VALUE))
         );
@@ -350,8 +383,6 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 t.setTipoTratamiento(tipoTrata);
                 t.setUsuarioLog("fifi");
 
-                
-
                 VisitaData vd = new VisitaData();
                 Visita v = new Visita();
                 v.setActivo(true);
@@ -359,21 +390,28 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 v.setFechaAlta(fechaAlta);
                 v.setFechaVisita(fechaVisita);
                 v.setPesoActual(pesoActual);
-                v.setTratamiento(t);
+                //v.setTratamiento(t);
                 v.setUsuarioLog("fifi");
-//                v.setMascota(mascota);                                        ////hace falta getear mascota objeto de algun lado.
+
+                MascotaData md = new MascotaData();
+                Mascota mascota = md.buscarMascotaId(Integer.parseInt(MenuPrincipal.jtfMemoMascotaId.getText()));
+                v.setMascota(mascota);
+
                 int input = JOptionPane.showConfirmDialog(null, "Esta seguro de cargar la Nueva Visita/Tratamiento en el Sistema?", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
-                td.guardarTratmiento(t);
-                vd.guardarVisita(v);
-                    jbBorrarVisita.setEnabled(true);
-                    jbEditar.setEnabled(true);
-                    jbGuardarVisita.setEnabled(false);
-                    
-                }
 
-                
+                    Tratamiento trata = td.guardarTratmiento(t);
+                    if (trata == null) {
+                        JOptionPane.showMessageDialog(this, "ERROR en la generacion del Tratamiento...");
+                    } else {
+                        v.setTratamiento(trata);
+                        vd.guardarVisita(v);
+                        jbBorrarVisita.setEnabled(true);
+                        jbEditar.setEnabled(true);
+                        jbGuardarVisita.setEnabled(false);
+                    }
+                }
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Debe poner un numero en peso y/o importe");
@@ -419,11 +457,19 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbGuardarVisitaActionPerformed
 
-    private void jbSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSiguienteActionPerformed
+    private void jbInternarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInternarActionPerformed
         jdcFechaAlta.setDate(null);
         jlInternado.setVisible(true);
+        jdcFechaAlta.setEnabled(false);
 
-    }//GEN-LAST:event_jbSiguienteActionPerformed
+    }//GEN-LAST:event_jbInternarActionPerformed
+
+    private void jbAmbulatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAmbulatorioActionPerformed
+        jdcFechaAlta.setDate(jdcFechaVisita.getDate());
+        jlInternado.setVisible(false);
+        jdcFechaAlta.setEnabled(true);
+
+    }//GEN-LAST:event_jbAmbulatorioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -440,11 +486,12 @@ public class CargarVisita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton jbAmbulatorio;
     private javax.swing.JButton jbBorrarVisita;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbGuardarVisita;
-    private javax.swing.JButton jbSiguiente;
+    private javax.swing.JButton jbInternar;
     private javax.swing.JComboBox<String> jcbTipo;
     private com.toedter.calendar.JDateChooser jdcFechaAlta;
     private com.toedter.calendar.JDateChooser jdcFechaVisita;
@@ -463,7 +510,7 @@ public void cargarComboBox() {
 
         for (EnumTipoTratamiento enumTipo : EnumTipoTratamiento.values()) {
             jcbTipo.addItem(enumTipo.toString());
-        };
+        }
     }
 
 }

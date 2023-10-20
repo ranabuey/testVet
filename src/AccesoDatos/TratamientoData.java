@@ -54,7 +54,7 @@ public class TratamientoData {
     }
 
     
-    public void guardarTratmiento(Tratamiento trat) {
+    public Tratamiento guardarTratmiento(Tratamiento trat) {
         
         String sql = "INSERT INTO tratamiento ( descripcion, medicamento, importe, tipoTratamiento, activo) VALUES (?,?,?,?,?)";
         try {
@@ -69,12 +69,34 @@ public class TratamientoData {
             if (rs.next()) {
                 trat.setIdTratamiento(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Tratamiento añadida con exito");
+                return trat;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error al acceder a la tabla Materia " + ex.getMessage());
         }
+        trat=null;
+        return trat;
     }
-
+//public void guardarTratmiento(Tratamiento trat) {
+//        
+//        String sql = "INSERT INTO tratamiento ( descripcion, medicamento, importe, tipoTratamiento, activo) VALUES (?,?,?,?,?)";
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//            ps.setString(1, trat.getDescripcion());
+//            ps.setString(2, trat.getMedicamento());
+//            ps.setDouble(3, trat.getImporte());
+//            ps.setString(4, trat.getTipoTratamiento());
+//            ps.setBoolean(5, trat.isActivo());
+//            ps.executeUpdate();
+//            ResultSet rs = ps.getGeneratedKeys();
+//            if (rs.next()) {
+//                trat.setIdTratamiento(rs.getInt(1));
+//                JOptionPane.showMessageDialog(null, "Tratamiento añadida con exito");
+//            }
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "error al acceder a la tabla Materia " + ex.getMessage());
+//        }
+//    }
     public void modificarTratamiento(Tratamiento trat) {
         String sql = "UPDATE tratamiento SET descripcion=?,medicamento=?, TipoTratamiento=?, importe=?, activo=? ";
         PreparedStatement ps = null;

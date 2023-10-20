@@ -816,7 +816,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 m.setAlias(alias);
                 m.setEspecie(especie);
                 m.setRaza(raza);
-                m.setSexo(sexo);
+                m.setSexo(sexo);                                    ////PONER SELECCION DE F O M SOLAMENTE
                 m.setColorPelo(colorPelo);
                 m.setFechaNac(fechaNac);
                 m.setActivo(true);
@@ -825,17 +825,20 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 int input = JOptionPane.showConfirmDialog(null, "Esta seguro de cargar la Nueva Mascota  en el Sistema?", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
-                    md.guardarMascota(m);
+                    Mascota mascota=md.guardarMascota(m);
                     jbGenerarVisita.setEnabled(true);
                     jbGuardarMasc.setEnabled(false);
 
-                    MenuPrincipal.jtfMemoId.setText("ID");     ////FALTA GETEAR EL ID DE ALGUN LADO
-                    MenuPrincipal.jtfMemoAlias.setText(alias);
-                    MenuPrincipal.jtfMemoRaza.setText(raza);
-                    MenuPrincipal.jtfMemoEspecie.setText(especie);
+                    MenuPrincipal.jtfMemoMascotaId.setText(""+mascota.getIdMascota());
+                    MenuPrincipal.jtfMemoAlias.setText(mascota.getAlias());
+                    MenuPrincipal.jtfMemoRaza.setText(mascota.getRaza());
+                    MenuPrincipal.jtfMemoEspecie.setText(mascota.getEspecie());
+//                    LocalDate fechaHoy = LocalDate.now();
+//                    int edad = fechaHoy.getYear() - fechaNac.getYear();
                     //int edad= fechaNac beetwen actual date      ////      FALTA SACAR EL BETWEEN
-                    MenuPrincipal.jtfMemoEdad.setText("añoa");    ////falta ver de como sacar el peso promedio
-                    double pesoProm = m.getPesoPromedio();
+                    int edad=md.calcularEdad(fechaNac);
+                    MenuPrincipal.jtfMemoEdad.setText(""+edad);   
+                    double pesoProm = md.obtenerPesoPromedio(mascota.getIdMascota()) ;
                     MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
                 }
             } catch (NumberFormatException e) {

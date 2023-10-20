@@ -81,7 +81,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jpMemoMascota = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jtfMemoId = new javax.swing.JTextField();
+        jtfMemoMascotaId = new javax.swing.JTextField();
         jtfMemoPesoProm = new javax.swing.JTextField();
         jtfMemoAlias = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -317,11 +317,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jpMemoMascota.setPreferredSize(new java.awt.Dimension(253, 206));
+
         jLabel7.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
         jLabel7.setText("MASCOTA");
 
-        jtfMemoId.setEditable(false);
-        jtfMemoId.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jtfMemoMascotaId.setEditable(false);
+        jtfMemoMascotaId.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
 
         jtfMemoPesoProm.setEditable(false);
         jtfMemoPesoProm.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
@@ -354,56 +356,52 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jpMemoMascotaLayout.setHorizontalGroup(
             jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMemoMascotaLayout.createSequentialGroup()
-                .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpMemoMascotaLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jtfMemoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11)
-                        .addGap(27, 27, 27)
-                        .addComponent(jtfMemoPesoProm))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpMemoMascotaLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel10)))
-                .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpMemoMascotaLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jtfMemoId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpMemoMascotaLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel12)))
-                .addGap(21, 21, 21))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(34, 34, 34)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(jtfMemoMascotaId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
             .addGroup(jpMemoMascotaLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfMemoRaza, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfMemoEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfMemoAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMemoMascotaLayout.createSequentialGroup()
+                        .addComponent(jtfMemoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtfMemoPesoProm, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel12)
+                        .addGap(21, 21, 21))
+                    .addGroup(jpMemoMascotaLayout.createSequentialGroup()
+                        .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jtfMemoEspecie, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                            .addComponent(jtfMemoAlias, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfMemoRaza))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jpMemoMascotaLayout.setVerticalGroup(
             jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpMemoMascotaLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jtfMemoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfMemoMascotaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtfMemoAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtfMemoEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jtfMemoRaza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfMemoPesoProm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(jtfMemoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addGap(15, 15, 15))
+                    .addComponent(jLabel12)))
         );
 
         jLabel13.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
@@ -489,7 +487,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfMemoClienteDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addGap(18, 18, 18))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -515,7 +513,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jpVisitaMemo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jpMemoMascota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpMemoMascota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                     .addComponent(jpMemoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
@@ -712,7 +710,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public static javax.swing.JTextField jtfMemoClienteNombre;
     public static javax.swing.JTextField jtfMemoEdad;
     public static javax.swing.JTextField jtfMemoEspecie;
-    public static javax.swing.JTextField jtfMemoId;
+    public static javax.swing.JTextField jtfMemoMascotaId;
     public static javax.swing.JTextField jtfMemoPesoProm;
     public static javax.swing.JTextField jtfMemoRaza;
     public static javax.swing.JTextField jtfMemoTelefono;
