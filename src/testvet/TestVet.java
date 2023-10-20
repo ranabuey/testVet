@@ -62,6 +62,7 @@ public class TestVet {
 //        for (Cliente cliente : clientList) {
 //            System.out.println("apellido: " + cliente.getApellido());
 //        }
+
 //
 //
 //double pesoPromedio = md.obtenerPesoPromedio(4);

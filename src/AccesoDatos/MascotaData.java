@@ -28,7 +28,7 @@ public class MascotaData {
 
     public void guardarMascota(Mascota mascota) {
 
-        String sql = "INSERT INTO mascota(alias, sexo, especie, raza, colorPelo, fechaNac, activo, pesoUltimo, pesoPromedio, fechaDefuncion, idCliente, UsuarioLog) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO mascota(alias, sexo, especie, raza, colorPelo, fechaNac, activo, idCliente, UsuarioLog) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -39,11 +39,11 @@ public class MascotaData {
             ps.setString(5, mascota.getColorPelo());
             ps.setDate(6, Date.valueOf(mascota.getFechaNac()));
             ps.setBoolean(7, mascota.isActivo());
-            ps.setDouble(8, mascota.getPesoUltimo());
-            ps.setDouble(9, mascota.getPesoPromedio());
-            ps.setDate(10, Date.valueOf(mascota.getFechaDefuncion()));
-            ps.setInt(11, mascota.getCliente().getIdCliente());
-            ps.setString(12, mascota.getUsuarioLog());
+       //     ps.setDouble(8, mascota.getPesoUltimo());
+         //   ps.setDouble(9, mascota.getPesoPromedio());
+            //ps.setDate(10, Date.valueOf(mascota.getFechaDefuncion()));
+            ps.setInt(8, mascota.getCliente().getIdCliente());
+            ps.setString(9, mascota.getUsuarioLog());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -51,6 +51,8 @@ public class MascotaData {
             if (rs.next()) {
                 mascota.setIdMascota(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Mascota añadida con exito. ");
+            }else{
+                JOptionPane.showMessageDialog(null, "ERROR: No se agrego la Mascota... ");
             }
             ps.close();
 

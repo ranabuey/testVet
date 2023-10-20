@@ -5,6 +5,15 @@
  */
 package InterfazGrafica;
 
+import AccesoDatos.TratamientoData;
+import AccesoDatos.VisitaData;
+import Entidades.EnumTipoTratamiento;
+import Entidades.Tratamiento;
+import Entidades.Visita;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author usuario
@@ -16,6 +25,11 @@ public class CargarVisita extends javax.swing.JInternalFrame {
      */
     public CargarVisita() {
         initComponents();
+        cargarComboBox();
+        jlInternado.setVisible(false);
+        jbBorrarVisita.setVisible(false);
+        jbEditar.setVisible(false);
+
     }
 
     /**
@@ -39,27 +53,25 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jLabel18 = new javax.swing.JLabel();
         jdcFechaVisita = new com.toedter.calendar.JDateChooser();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jtaDetalle = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jdcFechaAlta = new com.toedter.calendar.JDateChooser();
         jpMAscotaNew = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jlTipoTratamiento = new javax.swing.JLabel();
         jtfMedicamento = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jbCancelarMasc = new javax.swing.JButton();
-        jbGuardarMasc = new javax.swing.JButton();
-        jrbActivo = new javax.swing.JRadioButton();
+        jbCancelar = new javax.swing.JButton();
+        jbGuardarVisita = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtaDescripcion = new javax.swing.JTextArea();
         jcbTipo = new javax.swing.JComboBox<>();
         jbEditar = new javax.swing.JButton();
-        jbBorrarCliente = new javax.swing.JButton();
+        jbBorrarVisita = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jtfImporte = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        jlInternado = new javax.swing.JLabel();
 
         jLabel6.setText("Peso Actual:");
 
@@ -69,15 +81,20 @@ public class CargarVisita extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Mascota \"Alias\"");
 
-        jbSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/usar.png"))); // NOI18N
-        jbSiguiente.setText("Siguiente");
+        jbSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/internado.png"))); // NOI18N
+        jbSiguiente.setText("Internar");
+        jbSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSiguienteActionPerformed(evt);
+            }
+        });
 
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("VISITA");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        jtaDetalle.setColumns(20);
+        jtaDetalle.setRows(5);
+        jScrollPane2.setViewportView(jtaDetalle);
 
         jLabel5.setText("Fecha Alta:");
 
@@ -90,28 +107,24 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jpClienteNewLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpClienteNewLayout.createSequentialGroup()
-                        .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jdcFechaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfPesoActual, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpClienteNewLayout.createSequentialGroup()
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel7)
+                    .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel5)
-                        .addGap(61, 61, 61)
-                        .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbSiguiente)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 67, Short.MAX_VALUE))
+                        .addComponent(jLabel6)))
+                .addGap(18, 18, 18)
+                .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbSiguiente)
+                    .addComponent(jdcFechaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfPesoActual, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jdcFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
         jpClienteNewLayout.setVerticalGroup(
             jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,19 +149,14 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jtfPesoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClienteNewLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(82, 82, 82))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpClienteNewLayout.createSequentialGroup()
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jbSiguiente)
-                        .addContainerGap())))
+                    .addComponent(jdcFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addComponent(jbSiguiente)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
-
-        jLabel13.setText("Activo:");
 
         jLabel15.setText("Medicamento:");
 
@@ -159,15 +167,19 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("TRATAMIENTO");
 
-        jbCancelarMasc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
-        jbCancelarMasc.setText("Cancelar");
-
-        jbGuardarMasc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ok.png"))); // NOI18N
-        jbGuardarMasc.setText("Guardar");
-
-        jrbActivo.addActionListener(new java.awt.event.ActionListener() {
+        jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
+        jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jrbActivoActionPerformed(evt);
+                jbCancelarActionPerformed(evt);
+            }
+        });
+
+        jbGuardarVisita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ok.png"))); // NOI18N
+        jbGuardarVisita.setText("Guardar");
+        jbGuardarVisita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarVisitaActionPerformed(evt);
             }
         });
 
@@ -175,13 +187,11 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jtaDescripcion.setRows(5);
         jScrollPane1.setViewportView(jtaDescripcion);
 
-        jcbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CASTRACION", "PELUQUERIA", "DESPARASITACION", "CONTROL", "CONSULTA", "INTERNACION" }));
-
         jbEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar.png"))); // NOI18N
         jbEditar.setText("Editar");
 
-        jbBorrarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/borrarCarpeta.png"))); // NOI18N
-        jbBorrarCliente.setText("Borrar");
+        jbBorrarVisita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/borrarCarpeta.png"))); // NOI18N
+        jbBorrarVisita.setText("Borrar");
 
         jLabel4.setText("Importe:");
 
@@ -192,22 +202,9 @@ public class CargarVisita extends javax.swing.JInternalFrame {
             .addGroup(jpMAscotaNewLayout.createSequentialGroup()
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                                .addComponent(jlTipoTratamiento)
-                                .addGap(26, 26, 26)
-                                .addComponent(jcbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(jbBorrarCliente)
-                                .addGap(51, 51, 51)
-                                .addComponent(jbCancelarMasc))))
-                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
                         .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                                .addContainerGap(25, Short.MAX_VALUE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel16)
                                 .addGap(21, 21, 21))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMAscotaNewLayout.createSequentialGroup()
@@ -217,22 +214,32 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                         .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jtfImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                                        .addComponent(jlTipoTratamiento)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(jcbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(26, 26, 26))
+                            .addComponent(jLabel15)
+                            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                                        .addComponent(jbBorrarVisita)
+                                        .addGap(115, 115, 115)
+                                        .addComponent(jbCancelar))
+                                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                                        .addComponent(jbGuardarVisita)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jbEditar)))))))
                 .addGap(42, 42, 42))
-            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jrbActivo))
-                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jbGuardarMasc)
-                        .addGap(31, 31, 31)
-                        .addComponent(jbEditar))
-                    .addComponent(jLabel15))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpMAscotaNewLayout.setVerticalGroup(
             jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,26 +264,20 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
+                .addGap(60, 60, 60)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel13)
-                        .addGap(17, 17, 17))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMAscotaNewLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jrbActivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbGuardarMasc)
+                    .addComponent(jbGuardarVisita)
                     .addComponent(jbEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbBorrarCliente)
-                    .addComponent(jbCancelarMasc))
+                    .addComponent(jbBorrarVisita)
+                    .addComponent(jbCancelar))
                 .addGap(18, 18, 18))
         );
 
-        jLabel8.setText("Internado");
+        jlInternado.setFont(new java.awt.Font("Dialog", 3, 36)); // NOI18N
+        jlInternado.setForeground(new java.awt.Color(255, 0, 0));
+        jlInternado.setText("Internado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -285,36 +286,148 @@ public class CargarVisita extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpClienteNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jLabel8)
-                .addGap(107, 107, 107)
+                .addGap(18, 18, 18)
+                .addComponent(jlInternado)
+                .addGap(18, 18, 18)
                 .addComponent(jpMAscotaNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(186, 186, 186))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jpClienteNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jpMAscotaNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jpMAscotaNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlInternado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jpClienteNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jrbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbActivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jrbActivoActionPerformed
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        jtfAlias.setText("");
+        jdcFechaAlta.setDate(null);
+        jdcFechaVisita.setDate(null);
+        jtaDetalle.setText("");
+        jtfPesoActual.setText("");
+        jtaDescripcion.setText("");
+        jtfMedicamento.setText("");
+        jtfImporte.setText("");
+        jbBorrarVisita.setEnabled(false);
+        jbEditar.setEnabled(false);
+
+
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jbGuardarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarVisitaActionPerformed
+        if (jtfAlias.getText().isEmpty() || jdcFechaVisita.getDate() == null || jtaDescripcion.getText().isEmpty() || jtaDetalle.getText().isEmpty() || jtfPesoActual.getText().isEmpty() || jtfMedicamento.getText().isEmpty() || jtfImporte.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe completar todos los campos de Visita/Tratatamiento para cargar una nueva Visita en el Sistema");
+        } else {
+            try {
+                String alias = jtfAlias.getText();
+                LocalDate fechaVisita = jdcFechaVisita.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate fechaAlta = jdcFechaAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();  ///a revisar
+                if (!jlInternado.isEnabled()) {
+                    fechaAlta = fechaVisita;
+                }
+                String descrip = jtaDescripcion.getText();
+                String detalle = jtaDetalle.getText();
+                String medicam = jtfMedicamento.getText();
+                double pesoActual = Double.parseDouble(jtfPesoActual.getText());
+                double importe = Double.parseDouble(jtfImporte.getText());
+                String tipoTrata = jcbTipo.getSelectedItem().toString();
+
+                TratamientoData td = new TratamientoData();
+                Tratamiento t = new Tratamiento();
+                t.setActivo(true);
+                t.setDescripcion(descrip);
+                t.setImporte(importe);
+                t.setMedicamento(medicam);
+                t.setTipoTratamiento(tipoTrata);
+                t.setUsuarioLog("fifi");
+
+                
+
+                VisitaData vd = new VisitaData();
+                Visita v = new Visita();
+                v.setActivo(true);
+                v.setDetalle(detalle);
+                v.setFechaAlta(fechaAlta);
+                v.setFechaVisita(fechaVisita);
+                v.setPesoActual(pesoActual);
+                v.setTratamiento(t);
+                v.setUsuarioLog("fifi");
+//                v.setMascota(mascota);                                        ////hace falta getear mascota objeto de algun lado.
+                int input = JOptionPane.showConfirmDialog(null, "Esta seguro de cargar la Nueva Visita/Tratamiento en el Sistema?", "Seleccione una opcion...",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (input == 0) {
+                td.guardarTratmiento(t);
+                vd.guardarVisita(v);
+                    jbBorrarVisita.setEnabled(true);
+                    jbEditar.setEnabled(true);
+                    jbGuardarVisita.setEnabled(false);
+                    
+                }
+
+                
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Debe poner un numero en peso y/o importe");
+            }
+// if (jtfAlias.getText().isEmpty() || jtfEspecie.getText().isEmpty() || jtfRaza.getText().isEmpty() || jtfSexo.getText().isEmpty() || jtfColorPelo.getText().isEmpty() || jdcFechaNac.getDate() == null) {
+//            JOptionPane.showMessageDialog(this, "Debe completar todos los campos de MAscota para cargar una nueva Mascota en el Sistema");
+//        } else {
+//            try {
+//                String alias = jtfAlias.getText();
+//                String especie = jtfEspecie.getText();
+//                String raza = jtfRaza.getText();
+//                //char sexo =  jtfSexo.getText().charAt(0);
+//                String sexo = jtfSexo.getText().toUpperCase().substring(0, 0);
+//                String colorPelo = jtfColorPelo.getText();
+//                LocalDate fechaNac = jdcFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//
+//                int dni = Integer.parseInt(jtfDni.getText());
+//                ClienteData cd = new ClienteData();
+//                Cliente cliente = cd.buscarClienteDni(dni);
+//
+//                MascotaData md = new MascotaData();
+//                Mascota m = new Mascota();
+//                m.setAlias(alias);
+//                m.setEspecie(especie);
+//                m.setRaza(raza);
+//                m.setSexo(sexo);
+//                m.setColorPelo(colorPelo);
+//                m.setFechaNac(fechaNac);
+//                m.setActivo(true);
+//                m.setUsuarioLog("pipin");
+//                m.setCliente(cliente);
+//                int input = JOptionPane.showConfirmDialog(null, "Esta seguro de cargar la Nueva Mascota  en el Sistema?", "Seleccione una opcion...",
+//                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+//                if (input == 0) {
+//                    md.guardarMascota(m);
+//                    jbGenerarVisita.setEnabled(true);
+//                    jbGuardarMasc.setEnabled(false);
+//                }
+//            } catch (NumberFormatException e) {
+//                JOptionPane.showMessageDialog(this, "Debe poner un numero en DNI y/o telefonos");
+//            }
+//
+        }
+    }//GEN-LAST:event_jbGuardarVisitaActionPerformed
+
+    private void jbSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSiguienteActionPerformed
+        jdcFechaAlta.setDate(null);
+        jlInternado.setVisible(true);
+
+    }//GEN-LAST:event_jbSiguienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
@@ -325,25 +438,32 @@ public class CargarVisita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JButton jbBorrarCliente;
-    private javax.swing.JButton jbCancelarMasc;
+    private javax.swing.JButton jbBorrarVisita;
+    private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbEditar;
-    private javax.swing.JButton jbGuardarMasc;
+    private javax.swing.JButton jbGuardarVisita;
     private javax.swing.JButton jbSiguiente;
     private javax.swing.JComboBox<String> jcbTipo;
+    private com.toedter.calendar.JDateChooser jdcFechaAlta;
     private com.toedter.calendar.JDateChooser jdcFechaVisita;
+    private javax.swing.JLabel jlInternado;
     private javax.swing.JLabel jlTipoTratamiento;
     private javax.swing.JPanel jpClienteNew;
     private javax.swing.JPanel jpMAscotaNew;
-    private javax.swing.JRadioButton jrbActivo;
     private javax.swing.JTextArea jtaDescripcion;
+    private javax.swing.JTextArea jtaDetalle;
     private javax.swing.JTextField jtfAlias;
     private javax.swing.JTextField jtfImporte;
     private javax.swing.JTextField jtfMedicamento;
     private javax.swing.JTextField jtfPesoActual;
     // End of variables declaration//GEN-END:variables
+public void cargarComboBox() {
+
+        for (EnumTipoTratamiento enumTipo : EnumTipoTratamiento.values()) {
+            jcbTipo.addItem(enumTipo.toString());
+        };
+    }
+
 }

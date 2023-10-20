@@ -6,9 +6,20 @@
 package InterfazGrafica;
 
 import AccesoDatos.ClienteData;
+import AccesoDatos.MascotaData;
 import Entidades.Cliente;
+import Entidades.Mascota;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import javax.imageio.ImageIO;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,15 +32,14 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
      * Creates new form NuevoCliente
      */
     public GuardarNuevos() {
-        
+
         initComponents();
         cargarFondo();
         jpMAscotaNew.setVisible(false);
         desHabilitarBotonesCliente();
         jbCancelar.setEnabled(true);
         jbGuardar.setEnabled(true);
-
-//        int input = JOptionPane.showConfirmDialog(null, "Quiere Buscar por DNI si el cliente esta en sistema?: ", "Seleccione una opcion...",
+        //        int input = JOptionPane.showConfirmDialog(null, "Quiere Buscar por DNI si el cliente esta en sistema?: ", "Seleccione una opcion...",
 //                JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
 //        if (input == 1) {
 //
@@ -394,6 +404,11 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
 
         jbCancelarMasc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
         jbCancelarMasc.setText("Cancelar");
+        jbCancelarMasc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarMascActionPerformed(evt);
+            }
+        });
 
         jbGuardarMasc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ok.png"))); // NOI18N
         jbGuardarMasc.setText("Guardar");
@@ -418,40 +433,39 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
             .addGroup(jpMAscotaNewLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMAscotaNewLayout.createSequentialGroup()
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
                         .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(18, 18, 18)
-                                .addComponent(jdcFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                                .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel15))
-                                .addGap(91, 91, 91)
-                                .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfRaza, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                                    .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel13)
-                                        .addComponent(jLabel12))
-                                    .addGap(75, 75, 75)
-                                    .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jtfColorPelo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jtfSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                                    .addComponent(jbGuardarMasc)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbCancelarMasc))))
-                        .addGap(25, 25, 25))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMAscotaNewLayout.createSequentialGroup()
-                        .addComponent(jbGenerarVisita)
-                        .addGap(107, 107, 107))))
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel15))
+                        .addGap(91, 91, 91)
+                        .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfRaza, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                            .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel13)
+                                .addComponent(jLabel12))
+                            .addGap(75, 75, 75)
+                            .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jtfColorPelo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtfSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpMAscotaNewLayout.createSequentialGroup()
+                            .addComponent(jbGuardarMasc)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jbCancelarMasc)))
+                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(18, 18, 18)
+                        .addComponent(jdcFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25))
+            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jbGenerarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpMAscotaNewLayout.setVerticalGroup(
             jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,13 +495,13 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfColorPelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbGenerarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbCancelarMasc)
-                    .addComponent(jbGuardarMasc))
-                .addGap(18, 18, 18)
-                .addComponent(jbGenerarVisita)
-                .addContainerGap(60, Short.MAX_VALUE))
+                    .addComponent(jbGuardarMasc)
+                    .addComponent(jbCancelarMasc))
+                .addGap(20, 20, 20))
         );
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -586,9 +600,10 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                     .addGroup(jpFondoLayout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jlFlecha))
-                    .addComponent(jpMAscotaNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jlFlecha)
+                        .addGap(0, 231, Short.MAX_VALUE))
+                    .addComponent(jpMAscotaNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -634,7 +649,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfTelefonoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        
+
         if (jtfDni.getText().isEmpty() || jtfApellido.getText().isEmpty() || jtfNombre.getText().isEmpty() || jtfDireccion.getText().isEmpty() || jtfTelefono.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos marcados con * para cargar un nuevo cliente en el Sistema");
         } else {
@@ -669,14 +684,14 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                     jbEditar.setEnabled(true);
                     jbUsar.setEnabled(true);
                     jbCancelar.setEnabled(true);
-                    
+
                     jpMAscotaNew.setVisible(true);
                 }
-                
+
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Debe poner un numero en DNI y/o telefonos");
             }
-            
+
         }
 
     }//GEN-LAST:event_jbGuardarActionPerformed
@@ -686,6 +701,19 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jbCancelar.setEnabled(false);
         jbUsar.setEnabled(false);
         jbGuardar.setEnabled(false);
+        jbGenerarVisita.setEnabled(false);
+
+        ClienteData cd = new ClienteData();
+        Cliente c = cd.buscarClienteDni(Integer.parseInt(jtfDni.getText()));
+
+        MenuPrincipal.jtfMemoClienteID.setText("" + c.getIdCliente());     ////FALTA GETEAR EL ID DE ALGUN LADO
+        MenuPrincipal.jtfMemoClienteApellido.setText(c.getApellido());
+        MenuPrincipal.jtfMemoClienteNombre.setText(c.getNombre());
+        MenuPrincipal.jtfMemoClienteDNI.setText("" + c.getDni());
+        MenuPrincipal.jtfMemoTelefono.setText("" + c.getTelefono());
+        
+
+
     }//GEN-LAST:event_jbUsarActionPerformed
 
     private void jtfAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfAliasActionPerformed
@@ -716,22 +744,22 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         Cliente cliente = null;
         desHabilitarCamposClienteTxt();
         borrarCamposCliente();
-        
+
         try {
             ClienteData cd = new ClienteData();
             int dni = Integer.parseInt(jtfBusquarXdni.getText());
             cliente = cd.buscarClienteDni(dni);
-            
+
             if (cliente == null) {
                 int input = JOptionPane.showConfirmDialog(null, "No se encuentra un cliente cargado con el DNI ingresado: " + dni + "Desea Cargarlo al Sistema? ", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
-                    
+
                     habilitarCamposClienteTxt();
                     jtfDni.setText(jtfBusquarXdni.getText());
                     jbCancelar.setEnabled(true);
                     jbGuardar.setEnabled(true);
-                    
+
                 } else {
                     ///// poner los valores como figuraban antes??
                     //                }
@@ -741,7 +769,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
             } else {
                 //JOptionPane.showMessageDialog(this, "CLi ");
                 desHabilitarCamposClienteTxt();
-                
+
                 jtfApellido.setText(cliente.getApellido());
                 jtfNombre.setText(cliente.getNombre());
                 jtfDni.setText("" + dni);
@@ -749,25 +777,74 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 jtfTelefono.setText("" + cliente.getTelefono());
                 jtfNombreAlternativo.setText(cliente.getNombreAlternativo());
                 jtfTelefonoAlternativo.setText("" + cliente.getTelefonoAlternativo());
-                
+
                 jbEditar.setEnabled(true);
                 jbBorrarCliente.setEnabled(true);
                 jbUsar.setEnabled(true);
                 jbGuardar.setEnabled(false);
             }
-            
+
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Debe completar el campo DNI con un valor numerico");
         } catch (NullPointerException ex) {
             //  JOptionPane.showMessageDialog(this, "Debe completar el campo con un DNI valido");
 
         }
-        
+
 
     }//GEN-LAST:event_jbBuscarDniActionPerformed
 
     private void jbGuardarMascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarMascActionPerformed
-        // TODO add your handling code here:
+        if (jtfAlias.getText().isEmpty() || jtfEspecie.getText().isEmpty() || jtfRaza.getText().isEmpty() || jtfSexo.getText().isEmpty() || jtfColorPelo.getText().isEmpty() || jdcFechaNac.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Debe completar todos los campos de MAscota para cargar una nueva Mascota en el Sistema");
+        } else {
+            try {
+                String alias = jtfAlias.getText();
+                String especie = jtfEspecie.getText();
+                String raza = jtfRaza.getText();
+                //char sexo =  jtfSexo.getText().charAt(0);
+                String sexo = jtfSexo.getText().toUpperCase().substring(0, 0);
+                String colorPelo = jtfColorPelo.getText();
+                LocalDate fechaNac = jdcFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                int dni = Integer.parseInt(jtfDni.getText());
+                ClienteData cd = new ClienteData();
+                Cliente cliente = cd.buscarClienteDni(dni);
+
+                MascotaData md = new MascotaData();
+                Mascota m = new Mascota();
+                m.setAlias(alias);
+                m.setEspecie(especie);
+                m.setRaza(raza);
+                m.setSexo(sexo);
+                m.setColorPelo(colorPelo);
+                m.setFechaNac(fechaNac);
+                m.setActivo(true);
+                m.setUsuarioLog("pipin");
+                m.setCliente(cliente);
+                int input = JOptionPane.showConfirmDialog(null, "Esta seguro de cargar la Nueva Mascota  en el Sistema?", "Seleccione una opcion...",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                if (input == 0) {
+                    md.guardarMascota(m);
+                    jbGenerarVisita.setEnabled(true);
+                    jbGuardarMasc.setEnabled(false);
+
+                    MenuPrincipal.jtfMemoId.setText("ID");     ////FALTA GETEAR EL ID DE ALGUN LADO
+                    MenuPrincipal.jtfMemoAlias.setText(alias);
+                    MenuPrincipal.jtfMemoRaza.setText(raza);
+                    MenuPrincipal.jtfMemoEspecie.setText(especie);
+                    //int edad= fechaNac beetwen actual date      ////      FALTA SACAR EL BETWEEN
+                    MenuPrincipal.jtfMemoEdad.setText("añoa");    ////falta ver de como sacar el peso promedio
+                    double pesoProm = m.getPesoPromedio();
+                    MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Debe poner un numero en DNI y/o telefonos");
+            }
+
+        }
+
+
     }//GEN-LAST:event_jbGuardarMascActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
@@ -775,12 +852,27 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         habilitarCamposClienteTxt();
         jbOKCliente.setEnabled(true);
         jbCancelar.setEnabled(true);
-        
+
 
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbGenerarVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGenerarVisitaActionPerformed
-        // TODO add your handling code here:
+        CargarVisita cv = new CargarVisita();
+        MenuPrincipal.jDesktopPane1.add(cv);
+        cv.toFront();
+        cv.setVisible(true);
+
+////        MenuPrincipal mp=new  MenuPrincipal();
+////        mp.removeAll();
+////        mp.repaint();
+////        CargarVisita cv = new CargarVisita();
+////        cv.setVisible(true);
+////        mp.add(mp);
+//        jDesktopPane1.removeAll();
+//        jDesktopPane1.repaint();
+//        
+//        nc.setVisible(true);
+//        jDesktopPane1.add(nc);
     }//GEN-LAST:event_jbGenerarVisitaActionPerformed
 
     private void jbBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarClienteActionPerformed
@@ -822,34 +914,38 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 int telAl = 0;
                 telAl = Integer.parseInt(jtfTelefonoAlternativo.getText());
                 ClienteData cd = new ClienteData();
-                
+
                 Cliente c = new Cliente(dni, nombre, apellido, direccion, nombreAl, tel, telAl, "titus", true);                                //////FALTA GETEAR EL USER LOG
                 int input = JOptionPane.showConfirmDialog(null, "Esta seguro q desea actualizar al CLIENTE en el Sistema?", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
                     cd.modificarCliente(c);
-                    
+
                     desHabilitarBotonesCliente();
                     desHabilitarCamposClienteTxt();
                     jbBorrarCliente.setEnabled(true);
                     jbEditar.setEnabled(true);
                     jbUsar.setEnabled(true);
                     jbCancelar.setEnabled(true);
-                    
+
                 }
-                
+
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Debe poner un numero en DNI y/o telefonos");
             }
         }
-        
+
     }//GEN-LAST:event_jbOKClienteActionPerformed
 
     private void jtfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyTyped
-        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar()== KeyEvent.VK_SPACE)){
-          evt.consume();
-      }
+        if (!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jtfNombreKeyTyped
+
+    private void jbCancelarMascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarMascActionPerformed
+        borrarCamposMascota();
+    }//GEN-LAST:event_jbCancelarMascActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -891,7 +987,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser jdcFechaNac;
     private javax.swing.JLabel jlFlecha;
     private javax.swing.JPanel jpClienteNew;
-    private javax.swing.JPanel jpFondo;
+    public javax.swing.JPanel jpFondo;
     private javax.swing.JPanel jpMAscotaNew;
     private javax.swing.JTextField jtfAlias;
     private javax.swing.JTextField jtfApellido;
@@ -909,20 +1005,45 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void cargarFondo() {
+//    JInternalFrame internalFrame = new JInternalFrame("Título del marco", true, true, true, true) {
+//    private Image imagenFondo = null;
+//
+//    // Sobrescribir el método paintComponent
+//    @Override
+//    public void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//
+//        // Cargar la imagen
+//        if (imagenFondo == null) {
+//            try {
+//                imagenFondo = ImageIO.read(new File("/Fondo/FondoNuevoCliente.jpg"));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        // Dibujar la imagen en el panel
+//        if (imagenFondo != null) {
+//            g.drawImage(imagenFondo, 0, 0, this.getWidth(), this.getHeight(), this);
+//        }
+//    }
+//};
+
         JpanelImage fnc = new JpanelImage(jpFondo, "/Fondo/FondoNuevoCliente.jpg");
         jpFondo.add(fnc).repaint();
         jpFondo.setOpaque(false);
         jpFondo.setBorder(null);
         jpFondo.setBackground(new Color(0, 0, 0, 0));
-        
+
     }
-    
+
     public void cargarPanelMascota() {
         if (jlFlecha.isEnabled()) {
             jpMAscotaNew.setEnabled(true);
+            jbGenerarVisita.setEnabled(false);
         }
     }
-    
+
     public void habilitarCamposClienteTxt() {
         jtfApellido.setEditable(true);
         jtfNombre.setEditable(true);
@@ -968,9 +1089,9 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jbBorrarCliente.setEnabled(false);
         jbUsar.setEnabled(false);
         jbOKCliente.setEnabled(false);
-        
+
     }
-    
+
     public void borrarCamposCliente() {
         jtfApellido.setText("");
         jtfNombre.setText("");
@@ -980,4 +1101,15 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jtfNombreAlternativo.setText("");
         jtfTelefonoAlternativo.setText("");
     }
+
+    public void borrarCamposMascota() {
+        jtfAlias.setText("");
+        jtfEspecie.setText("");
+        jtfRaza.setText("");
+        jtfSexo.setText("");
+        jtfColorPelo.setText("");
+        jdcFechaNac.setDate(null);
+        jbGenerarVisita.setEnabled(false);
+    }
+
 }

@@ -4,21 +4,21 @@ package Entidades;
 public class Tratamiento {
     
     private int idTratamiento;
-    private String descripcion, tipoTratamiento, medicamento;
+    private String descripcion, tipoTratamiento, medicamento,usuarioLog;
     private double importe;
     private boolean activo;
-    private Mascota mascota;
-    private Visita visita;
+ //   private Mascota mascota;
+ //   private Visita visita;
     public Tratamiento() {
     }
 
-    public Mascota getMascota() {
-        return mascota;
-    }
-
-    public void setMascota(Mascota mascota) {
-        this.mascota = mascota;
-    }
+//    public Mascota getMascota() {
+//        return mascota;
+//    }
+//
+//    public void setMascota(Mascota mascota) {
+//        this.mascota = mascota;
+//    }
 
     public Visita getVisita() {
         return visita;
@@ -28,21 +28,23 @@ public class Tratamiento {
         this.visita = visita;
     }
 
-    public Tratamiento(String descripcion, String tipoTratamiento, String medicamento, double importe, boolean activo) {
+    public Tratamiento(String descripcion, String tipoTratamiento, String medicamento, double importe,String usuarioLog, boolean activo) {
         this.descripcion = descripcion;
         this.tipoTratamiento = tipoTratamiento;
         this.medicamento = medicamento;
         this.importe = importe;
         this.activo = activo;
+        this.usuarioLog=usuarioLog;
     }
 
-    public Tratamiento(int idTratamiento, String descripcion, String tipoTratamiento, String medicamento, double importe, boolean activo) {
+    public Tratamiento(int idTratamiento, String descripcion, String tipoTratamiento, String medicamento, double importe,String usuarioLog, boolean activo) {
         this.idTratamiento = idTratamiento;
         this.descripcion = descripcion;
         this.tipoTratamiento = tipoTratamiento;
         this.medicamento = medicamento;
         this.importe = importe;
         this.activo = activo;
+        this.usuarioLog=usuarioLog;
     }
 
 
@@ -54,6 +56,14 @@ public class Tratamiento {
 
     public int getIdTratamiento() {
         return idTratamiento;
+    }
+
+    public String getUsuarioLog() {
+        return usuarioLog;
+    }
+
+    public void setUsuarioLog(String usuarioLog) {
+        this.usuarioLog = usuarioLog;
     }
 
     public void setIdTratamiento(int idTratamiento) {

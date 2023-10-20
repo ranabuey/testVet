@@ -18,6 +18,19 @@ public class Mascota {
     public Mascota() {
     }
 
+    public Mascota(String alias, String sexo, String especie, String raza, String colorPelo, LocalDate fechaNac, boolean activo, Cliente cliente, String usuarioLog) {
+        this.alias = alias;
+        this.sexo = sexo;
+        this.especie = especie;
+        this.raza = raza;
+        this.colorPelo = colorPelo;
+        this.fechaNac = fechaNac;
+        this.activo = activo;
+        this.cliente = cliente;
+        this.usuarioLog = usuarioLog;
+    }
+    
+
     public Mascota(int idMascota, String alias, String sexo, String especie, String raza, String colorPelo, LocalDate fechaNac, double pesoUltimo, double pesoPromedio, boolean activo, LocalDate fechaDefuncion, Cliente cliente, String usuarioLog) {
         this.idMascota = idMascota;
         this.alias = alias;
