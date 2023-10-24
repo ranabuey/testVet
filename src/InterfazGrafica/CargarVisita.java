@@ -502,7 +502,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea jtaDescripcion;
     private javax.swing.JTextArea jtaDetalle;
     private javax.swing.JTextField jtfAlias;
-    private javax.swing.JTextField jtfImporte;
+    public static javax.swing.JTextField jtfImporte;
     private javax.swing.JTextField jtfMedicamento;
     private javax.swing.JTextField jtfPesoActual;
     // End of variables declaration//GEN-END:variables

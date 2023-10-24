@@ -21,15 +21,17 @@ import sun.security.x509.AlgorithmId;
  * @author usuario
  */
 public class BusquedaCliente extends javax.swing.JInternalFrame {
-
+    
     private DefaultTableModel modelo = new DefaultTableModel();
     private DefaultTableModel modelo2 = new DefaultTableModel();
     ClienteData cd = new ClienteData();
-
+    
     public BusquedaCliente() {
         initComponents();
         armarCabecera();
         armarCabeceraMAscota();
+        jbReActivar.setVisible(false);
+        jbBorrar.setVisible(false);
     }
 
     /**
@@ -44,12 +46,14 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jcbBusquedas = new javax.swing.JComboBox<>();
         jtfBusquedas = new javax.swing.JTextField();
-        jbBuscarDni = new javax.swing.JButton();
+        jbBuscador = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtClientes = new javax.swing.JTable();
-        jbEditarCliente = new javax.swing.JButton();
+        jbReActivar = new javax.swing.JButton();
         jbSelCliente = new javax.swing.JButton();
+        jbEditarCliente1 = new javax.swing.JButton();
+        jbBorrar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -59,10 +63,15 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
-        jcbBusquedas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "APELLIDO", "TELEFONO" }));
+        jcbBusquedas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "APELLIDO", "TELEFONO", "ELIMINADOS" }));
         jcbBusquedas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbBusquedasActionPerformed(evt);
+            }
+        });
+        jcbBusquedas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jcbBusquedasKeyPressed(evt);
             }
         });
 
@@ -72,10 +81,10 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jbBuscarDni.setText("Buscar");
-        jbBuscarDni.addActionListener(new java.awt.event.ActionListener() {
+        jbBuscador.setText("Buscar");
+        jbBuscador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscarDniActionPerformed(evt);
+                jbBuscadorActionPerformed(evt);
             }
         });
 
@@ -95,11 +104,11 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtClientes);
 
-        jbEditarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar.png"))); // NOI18N
-        jbEditarCliente.setText("Editar");
-        jbEditarCliente.addActionListener(new java.awt.event.ActionListener() {
+        jbReActivar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/nuevo cliente.png"))); // NOI18N
+        jbReActivar.setText("ReActivar");
+        jbReActivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEditarClienteActionPerformed(evt);
+                jbReActivarActionPerformed(evt);
             }
         });
 
@@ -108,6 +117,22 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         jbSelCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSelClienteActionPerformed(evt);
+            }
+        });
+
+        jbEditarCliente1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar.png"))); // NOI18N
+        jbEditarCliente1.setText("Editar");
+        jbEditarCliente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarCliente1ActionPerformed(evt);
+            }
+        });
+
+        jbBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/borrarCarpeta.png"))); // NOI18N
+        jbBorrar.setText("Borrar");
+        jbBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBorrarActionPerformed(evt);
             }
         });
 
@@ -123,20 +148,26 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jcbBusquedas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jtfBusquedas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(jbBuscarDni))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbBuscador))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbEditarCliente)
+                                .addComponent(jbReActivar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbSelCliente)
-                                .addGap(8, 8, 8)))))
+                                .addComponent(jbBorrar))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jbEditarCliente1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbSelCliente)))
+                        .addGap(8, 8, 8)))
                 .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
@@ -148,14 +179,18 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbBusquedas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfBusquedas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscarDni))
-                .addGap(28, 28, 28)
+                    .addComponent(jbBuscador))
+                .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbEditarCliente)
-                    .addComponent(jbSelCliente))
-                .addContainerGap())
+                    .addComponent(jbReActivar)
+                    .addComponent(jbBorrar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbSelCliente)
+                    .addComponent(jbEditarCliente1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel1.setText("SUS MASCOTAS");
@@ -195,20 +230,18 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addGap(96, 96, 96)
-                            .addComponent(jLabel1)
-                            .addGap(85, 85, 85))
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(jbEditarMascota)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbHacerVisita)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 136, Short.MAX_VALUE)
+                .addComponent(jbEditarMascota)
+                .addGap(75, 75, 75)
+                .addComponent(jbHacerVisita)
+                .addGap(28, 28, 28))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,11 +250,11 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbEditarMascota)
                     .addComponent(jbHacerVisita))
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -229,11 +262,11 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +275,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -251,41 +284,96 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     private void jbHacerVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHacerVisitaActionPerformed
         MascotaData md = new MascotaData();
         int filaSel = jtMascotas.getSelectedRow();
-
+        
         MenuPrincipal.jtfMemoMascotaId.setText("" + modelo2.getValueAt(filaSel, 0));
         MenuPrincipal.jtfMemoAlias.setText("" + modelo2.getValueAt(filaSel, 1));
         MenuPrincipal.jtfMemoEspecie.setText("" + modelo2.getValueAt(filaSel, 2));
         MenuPrincipal.jtfMemoRaza.setText("" + modelo2.getValueAt(filaSel, 3));
         
-       // LocalDate fechaNac=modelo2.getValueAt(filaSel, 5);                                FALTA VER COMO AGREGAR OBJETO A LOCAL DATE
-//        int edad = md.calcularEdad(fechaNac);
-//        MenuPrincipal.jtfMemoEdad.setText("" + edad);
-//        double pesoProm = md.obtenerPesoPromedio(mascota.getIdMascota());
-//        MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
-
+        LocalDate fechaNac = (LocalDate) modelo2.getValueAt(filaSel, 5);                           //     FALTA VER COMO AGREGAR OBJETO A LOCAL DATE
+        int edad = md.calcularEdad(fechaNac);
+        MenuPrincipal.jtfMemoEdad.setText("" + edad);
+        double pesoProm = md.obtenerPesoPromedio((Integer) modelo2.getValueAt(filaSel, 0));
+        MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
+        
         CargarVisita cv = new CargarVisita();
         MenuPrincipal.jDesktopPane1.add(cv);
+        
         cv.toFront();
         cv.setVisible(true);
-
-       
+        
 
     }//GEN-LAST:event_jbHacerVisitaActionPerformed
 
-    private void jbBuscarDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarDniActionPerformed
-        if (jcbBusquedas.getSelectedIndex() == 0) {
-            Cliente cliente = cd.buscarClienteDni(Integer.parseInt(jtfBusquedas.getText()));
-
-            modelo.addRow(new Object[]{
-                cliente.getIdCliente(),
-                cliente.getApellido(),
-                cliente.getNombre(),
-                cliente.getTelefono(),
-                cliente.getDni(),});
-
+    private void jbBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscadorActionPerformed
+        limpiarTablaClientes();
+        limpiarTablaMacotas();
+        try {
+            
+            if (jcbBusquedas.getSelectedIndex() == 0) {
+                jbReActivar.setVisible(false);
+                jbBorrar.setVisible(true);
+                Cliente cliente = cd.buscarClienteDni(Integer.parseInt(jtfBusquedas.getText()));
+                
+                modelo.addRow(new Object[]{
+                    cliente.getIdCliente(),
+                    cliente.getApellido(),
+                    cliente.getNombre(),
+                    cliente.getTelefono(),
+                    cliente.getDni(),});
+                
+            } else {
+                if (jcbBusquedas.getSelectedIndex() == 2) {
+                    jbReActivar.setVisible(false);
+                    jbBorrar.setVisible(true);
+                    Cliente cliente = cd.buscarClienteTel(Integer.parseInt(jtfBusquedas.getText()));
+                    
+                    modelo.addRow(new Object[]{
+                        cliente.getIdCliente(),
+                        cliente.getApellido(),
+                        cliente.getNombre(),
+                        cliente.getTelefono(),
+                        cliente.getDni(),});
+                    
+                } else if (jcbBusquedas.getSelectedIndex() == 1) {
+                    jbReActivar.setVisible(false);
+                    jbBorrar.setVisible(true);
+                    String busq = jtfBusquedas.getText();
+                    List<Cliente> listaCli = cd.listarClientes();
+                    for (Cliente cliente : listaCli) {
+                        if (cliente.getApellido().startsWith(busq)) {
+                            modelo.addRow(new Object[]{
+                                cliente.getIdCliente(),
+                                cliente.getApellido(),
+                                cliente.getNombre(),
+                                cliente.getTelefono(),
+                                cliente.getDni(),});
+                        }
+                    }
+                    if (jtClientes.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(this, "No se encontro clientes con ese criterio.");
+                    }
+                } else if (jcbBusquedas.getSelectedIndex() == 3) {
+                    jbBorrar.setVisible(false);
+                    List<Cliente> listaCli = cd.listarClientesNoActivos();
+                    for (Cliente cliente : listaCli) {
+                        
+                        modelo.addRow(new Object[]{
+                            cliente.getIdCliente(),
+                            cliente.getApellido(),
+                            cliente.getNombre(),
+                            cliente.getTelefono(),
+                            cliente.getDni(),});
+                    }
+                    jbReActivar.setVisible(true);
+                }
+                
+            }
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "debe poner un numero");
         }
-
-    }//GEN-LAST:event_jbBuscarDniActionPerformed
+    }//GEN-LAST:event_jbBuscadorActionPerformed
 
     private void jtfBusquedasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfBusquedasActionPerformed
         // TODO add your handling code here:
@@ -295,20 +383,39 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbBusquedasActionPerformed
 
-    private void jbEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbEditarClienteActionPerformed
+    private void jbReActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReActivarActionPerformed
+        try {
+            
+            ClienteData cd = new ClienteData();
+            int filaSel = jtClientes.getSelectedRow();
+            int input = JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE QUERER Re-Activar AL SISTEMA AL CLIENTE " + modelo.getValueAt(filaSel, 1) + ", DNI: " + modelo.getValueAt(filaSel, 4), "Seleccione una opcion...",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (input == 0) {
+                Cliente c = new Cliente();
+                c = cd.buscarClienteDni((Integer) (modelo.getValueAt(filaSel, 4)));
+                cd.reActivarCliente(c.getIdCliente());
+                limpiarTablaClientes();
+                jbReActivar.setVisible(false);
+            } else {
+                
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+        }
+        
+    }//GEN-LAST:event_jbReActivarActionPerformed
 
     private void jbSelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSelClienteActionPerformed
-        int filaSel = jtClientes.getSelectedRow();
-        int dni = (Integer) modelo.getValueAt(filaSel, 4);
-        MascotaData md = new MascotaData();
-        MenuPrincipal.jtfMemoClienteID.setText("" + modelo.getValueAt(filaSel, 0));
-        MenuPrincipal.jtfMemoClienteApellido.setText("" + modelo.getValueAt(filaSel, 1));
-        MenuPrincipal.jtfMemoClienteNombre.setText("" + modelo.getValueAt(filaSel, 2));
-        MenuPrincipal.jtfMemoTelefono.setText("" + modelo.getValueAt(filaSel, 3));
-        MenuPrincipal.jtfMemoClienteDNI.setText("" + modelo.getValueAt(filaSel, 4));
         try {
+            int filaSel = jtClientes.getSelectedRow();
+            int dni = (Integer) modelo.getValueAt(filaSel, 4);
+            MascotaData md = new MascotaData();
+            MenuPrincipal.jtfMemoClienteID.setText("" + modelo.getValueAt(filaSel, 0));
+            MenuPrincipal.jtfMemoClienteApellido.setText("" + modelo.getValueAt(filaSel, 1));
+            MenuPrincipal.jtfMemoClienteNombre.setText("" + modelo.getValueAt(filaSel, 2));
+            MenuPrincipal.jtfMemoTelefono.setText("" + modelo.getValueAt(filaSel, 3));
+            MenuPrincipal.jtfMemoClienteDNI.setText("" + modelo.getValueAt(filaSel, 4));
+            
             List<Mascota> mascList = md.listarMascotasXIDCliente((Integer) jtClientes.getValueAt(filaSel, 0));
             for (Mascota mascota : mascList) {
                 modelo2.addRow(new Object[]{
@@ -319,44 +426,46 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                     mascota.getSexo(),
                     mascota.getFechaNac()});
             }
-
+            
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
         }
-//                try {
-        //
-        //            Alumno alumnoSel = (Alumno) jcbAlumnos.getSelectedItem();
-        //            int columnaSel = jtNotas.getSelectedRow();
-        //            int idMat = (Integer) modelo.getValueAt(columnaSel, 0);
-        //            String materia = modelo.getValueAt(columnaSel, 1).toString();
-        ////            String nota= modelo.getValueAt(columnaSel, 2).toString();
-        //            //jtNota.setText(nota1);
-        //            double nota = Double.parseDouble(jtNota.getText());
-        //            if (nota >= 1 && nota <= 10) {
-        //                InscripcionData id = new InscripcionData();
-        //
-        //                // pregunta de confirmacion                
-        //                int input = JOptionPane.showConfirmDialog(null, "Esta seguro cargar la nota del alumno: " + alumnoSel.getApellido() + " > En la Materia: " + materia + ". Con la nota de: " + nota, "Seleccione una opcion...",
-        //                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-        //                if (input == 0) {
-        //
-        //                    id.actualizarNota(alumnoSel.getIdAlumno(), idMat, nota);
-        //                    jcbAlumnosActionPerformed(evt);
-        //                }
-        //            } else {
-        //                JOptionPane.showMessageDialog(this, "Debe ingresar una nota valida entre 1 y 10");
-        //            }
-        //            jtNota.setText("");
-        //        } catch (NumberFormatException e) {
-        //            JOptionPane.showMessageDialog(this, "Debe ingresar una nota valida ");
-        //        } catch (ArrayIndexOutOfBoundsException ex) {
-        //            JOptionPane.showMessageDialog(this, "Debe selecionar una materia del Alumno ");
-        //        }
+
     }//GEN-LAST:event_jbSelClienteActionPerformed
 
     private void jbEditarMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarMascotaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbEditarMascotaActionPerformed
+
+    private void jbEditarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarCliente1ActionPerformed
+        
+
+    }//GEN-LAST:event_jbEditarCliente1ActionPerformed
+
+    private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
+        try {
+            
+            ClienteData cd = new ClienteData();
+            int filaSel = jtClientes.getSelectedRow();
+            int input = JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE QUERER ELIMINAR DEL SISTEMA AL CLIENTE " + modelo.getValueAt(filaSel, 1) + ", DNI: " + modelo.getValueAt(filaSel, 4), "Seleccione una opcion...",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (input == 0) {
+                Cliente c = new Cliente();
+                c = cd.buscarClienteDni((Integer) (modelo.getValueAt(filaSel, 4)));
+                cd.eliminarCliente(c.getIdCliente());
+                limpiarTablaClientes();
+                jbBorrar.setVisible(false);
+            } else {
+                
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+        }
+    }//GEN-LAST:event_jbBorrarActionPerformed
+
+    private void jcbBusquedasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbBusquedasKeyPressed
+
+    }//GEN-LAST:event_jcbBusquedasKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -366,10 +475,12 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton jbBuscarDni;
-    private javax.swing.JButton jbEditarCliente;
+    private javax.swing.JButton jbBorrar;
+    private javax.swing.JButton jbBuscador;
+    private javax.swing.JButton jbEditarCliente1;
     private javax.swing.JButton jbEditarMascota;
     private javax.swing.JButton jbHacerVisita;
+    private javax.swing.JButton jbReActivar;
     private javax.swing.JButton jbSelCliente;
     private javax.swing.JComboBox<String> jcbBusquedas;
     private javax.swing.JTable jtClientes;
@@ -384,7 +495,7 @@ private void armarCabecera() {
         modelo.addColumn("DNI");
         jtClientes.setModel(modelo);
     }
-
+    
     private void armarCabeceraMAscota() {
         modelo2.addColumn("ID");
         modelo2.addColumn("Alias");
@@ -393,5 +504,19 @@ private void armarCabecera() {
         modelo2.addColumn("Sexo");
         modelo2.addColumn("Fecha Nac.");
         jtMascotas.setModel(modelo2);
+    }
+    
+    private void limpiarTablaClientes() {
+        int f = modelo.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
+    }
+    
+    private void limpiarTablaMacotas() {
+        int f = modelo2.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo2.removeRow(f);
+        }
     }
 }

@@ -140,6 +140,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jbBusqTratamientosç.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/buscarTratamiento.png"))); // NOI18N
         jbBusqTratamientosç.setText("Tratamientos");
+        jbBusqTratamientosç.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBusqTratamientosçActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("CREAR:");
 
@@ -577,42 +582,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jbNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoClienteActionPerformed
         jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
-        GuardarNuevos nc = new GuardarNuevos() {
-//    private Image imagenFondo = null;
-//
-//    // Sobrescribir el método paintComponent
-//    @Override
-//    public void paintComponent(Graphics g) {
-//        super.paintComponent(g);
-//
-//        // Cargar la imagen
-//        if (imagenFondo == null) {
-//            try {
-//                imagenFondo = ImageIO.read(new File("/Fondo/FondoNuevoCliente.jpg"));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        // Dibujar la imagen en el panel
-//        if (imagenFondo != null) {
-//            g.drawImage(imagenFondo, 0, 0, this.getWidth(), this.getHeight(), this);
-//        }
-//    }
-        };
-
+        GuardarNuevos nc = new GuardarNuevos();
         nc.setVisible(true);
         jDesktopPane1.add(nc);
-
-//        jDesktopPane1.moveToFront(nc);
 
     }//GEN-LAST:event_jbNuevoClienteActionPerformed
 
     private void jbNuevoMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoMascotaActionPerformed
-        // TODO add your handling code here:
+    jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        GuardarNuevos nc = new GuardarNuevos();
+        nc.setVisible(true);
+        jDesktopPane1.add(nc);
+
     }//GEN-LAST:event_jbNuevoMascotaActionPerformed
 
     private void jbBusqMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqMascotasActionPerformed
+    jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        BusquedaMascota bm = new BusquedaMascota();
+        bm.setVisible(true);
+        jDesktopPane1.add(bm);
 
     }//GEN-LAST:event_jbBusqMascotasActionPerformed
 
@@ -636,6 +626,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jtfMemoClienteApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfMemoClienteApellidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfMemoClienteApellidoActionPerformed
+
+    private void jbBusqTratamientosçActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqTratamientosçActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbBusqTratamientosçActionPerformed
 
     /**
      * @param args the command line arguments

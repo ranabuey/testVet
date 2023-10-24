@@ -109,7 +109,7 @@ public class ClienteData {
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                     if (input == 0) {
                         cliente.setActivo(true);
-                        modificarCliente(cliente);
+                        reActivarCliente(cliente.getIdCliente());
 
 //                    }else {
 //                    JOptionPane.showMessageDialog(null, "No podra cargar el mismo DNI al Sistema. Realice otra busqueda de Cliente... ");
@@ -309,4 +309,96 @@ public class ClienteData {
         return mascoList;
     }
 
+    public Cliente buscarClienteTel(int tel) {
+        Cliente cliente = null;
+
+        String sql = "SELECT * FROM cliente WHERE telefono=? AND activo=1";         //puse activos solos
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, tel);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {                                            //ver el orden de las columnas?
+                cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idcliente"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setApellido(rs.getString("apellido"));
+                cliente.setDni(rs.getInt("dni"));
+                cliente.setTelefono(rs.getInt("telefono"));
+                cliente.setDireccion(rs.getString("direccion"));
+                cliente.setTelefonoAlternativo(rs.getInt("telefonoAlternativo"));
+                cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
+                cliente.setUsuarioLog(rs.getString("usuarioLOg"));
+                cliente.setActivo(rs.getBoolean("activo"));
+                if (!cliente.isActivo()) {
+                    int input = JOptionPane.showConfirmDialog(null, "El Cliente con el DNI ingresado: " + tel + "Se encuentra borrado. Desea Cargarlo al Sistema Nuevamente? ", "Seleccione una opcion...",
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+                    if (input == 0) {
+                        cliente.setActivo(true);
+                        modificarCliente(cliente);
+
+//                    }else {
+//                    JOptionPane.showMessageDialog(null, "No podra cargar el mismo DNI al Sistema. Realice otra busqueda de Cliente... ");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe el Cliente");
+
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla Cliente " + ex.getMessage());
+        }
+
+        return cliente;
+
+    }
+
+    public List<Cliente> listarClientesNoActivos() {
+
+        List<Cliente> clientesList = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM cliente WHERE activo=0";                                   //chk sentencia
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setIdCliente(rs.getInt("idcliente"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setApellido(rs.getString("apellido"));
+                cliente.setDni(rs.getInt("dni"));
+                cliente.setTelefono(rs.getInt("telefono"));
+                cliente.setDireccion(rs.getString("direccion"));
+                cliente.setTelefonoAlternativo(rs.getInt("telefonoAlternativo"));
+                cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
+                cliente.setUsuarioLog(rs.getString("usuarioLOg"));
+                cliente.setActivo(rs.getBoolean("activo"));
+                clientesList.add(cliente);
+
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla Cliente " + ex.getMessage());
+        }
+
+        return clientesList;
+    }
+public void reActivarCliente(int id) {
+        try {
+            String sql = "UPDATE cliente SET activo=1 WHERE idCliente=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int fila = ps.executeUpdate();
+
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, "Se Re-Activo el Cliente");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla Cliente ");
+        }
+    }
 }
