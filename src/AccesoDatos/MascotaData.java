@@ -3,6 +3,8 @@ package AccesoDatos;
 import Entidades.Mascota;
 import Entidades.Visita;
 import AccesoDatos.VisitaData;
+import Entidades.Cliente;
+import com.sun.corba.se.impl.util.RepositoryId;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JOptionPane;
+import java.util.Optional;
 
 public class MascotaData {
 
@@ -205,6 +208,88 @@ public class MascotaData {
 
     }
 
+    public List<Mascota> listarMascotasXCliente(Cliente cliente) {
+        List<Mascota> mascotas = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM mascota WHERE idCliente=? AND activo=1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, cliente.getIdCliente());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Mascota mascota = new Mascota();
+                mascota.setIdMascota(rs.getInt("idMascota"));
+                mascota.setAlias(rs.getString("alias"));
+                mascota.setSexo(rs.getString("sexo"));
+                mascota.setEspecie(rs.getString("especie"));
+                mascota.setRaza(rs.getString("raza"));
+                mascota.setColorPelo(rs.getString("colorPelo"));
+                mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
+                mascota.setActivo(rs.getBoolean("activo"));
+                mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
+                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+
+                if ((rs.getDate("fechaDefuncion")) == null) {
+
+                } else {
+                    mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
+                }
+                mascota.setUsuarioLog(rs.getString("usuarioLOg"));
+                mascotas.add(mascota);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla mascota" + ex.getMessage());
+        } catch (NullPointerException n) {
+
+        }
+        return mascotas;
+
+    }
+
+    public List<Mascota> listarMascotasXIDCliente(int idCliente) {
+        List<Mascota> mascotas = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM mascota WHERE idCliente=? AND activo=1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idCliente);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Mascota mascota = new Mascota();
+                mascota.setIdMascota(rs.getInt("idMascota"));
+                mascota.setAlias(rs.getString("alias"));
+                mascota.setSexo(rs.getString("sexo"));
+                mascota.setEspecie(rs.getString("especie"));
+                mascota.setRaza(rs.getString("raza"));
+                mascota.setColorPelo(rs.getString("colorPelo"));
+                mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
+                mascota.setActivo(rs.getBoolean("activo"));
+                mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
+                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+
+                if ((rs.getDate("fechaDefuncion")) == null) {
+
+                } else {
+                    mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
+                }
+                mascota.setUsuarioLog(rs.getString("usuarioLOg"));
+                mascotas.add(mascota);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla mascota" + ex.getMessage());
+        } catch (NullPointerException n) {
+
+        }
+        return mascotas;
+
+    }
+
     public void eliminarMascota(int id) {
         try {
             String sql = "UPDATE mascota SET activo=0 WHERE idMascota=?";
@@ -269,6 +354,6 @@ public class MascotaData {
     public int calcularEdad(LocalDate fnac) {
         LocalDate fechaHoy = LocalDate.now();
         int edad = fechaHoy.getYear() - fnac.getYear();
-    return edad;
+        return edad;
     }
 }

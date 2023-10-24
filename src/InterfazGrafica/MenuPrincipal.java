@@ -556,6 +556,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBusqClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqClientesActionPerformed
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        BusquedaCliente bc = new BusquedaCliente();
+
+        bc.setVisible(true);
+        jDesktopPane1.add(bc);
 
     }//GEN-LAST:event_jbBusqClientesActionPerformed
 

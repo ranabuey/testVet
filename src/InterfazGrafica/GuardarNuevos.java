@@ -32,7 +32,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
      * Creates new form NuevoCliente
      */
     public GuardarNuevos() {
-
+        
         initComponents();
         cargarFondo();
         jpMAscotaNew.setVisible(false);
@@ -649,7 +649,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfTelefonoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-
+        
         if (jtfDni.getText().isEmpty() || jtfApellido.getText().isEmpty() || jtfNombre.getText().isEmpty() || jtfDireccion.getText().isEmpty() || jtfTelefono.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos marcados con * para cargar un nuevo cliente en el Sistema");
         } else {
@@ -684,14 +684,14 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                     jbEditar.setEnabled(true);
                     jbUsar.setEnabled(true);
                     jbCancelar.setEnabled(true);
-
+                    
                     jpMAscotaNew.setVisible(true);
                 }
-
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Debe poner un numero en DNI y/o telefonos");
             }
-
+            
         }
 
     }//GEN-LAST:event_jbGuardarActionPerformed
@@ -702,17 +702,16 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jbUsar.setEnabled(false);
         jbGuardar.setEnabled(false);
         jbGenerarVisita.setEnabled(false);
-
+        
         ClienteData cd = new ClienteData();
         Cliente c = cd.buscarClienteDni(Integer.parseInt(jtfDni.getText()));
-
+        
         MenuPrincipal.jtfMemoClienteID.setText("" + c.getIdCliente());     ////FALTA GETEAR EL ID DE ALGUN LADO
         MenuPrincipal.jtfMemoClienteApellido.setText(c.getApellido());
         MenuPrincipal.jtfMemoClienteNombre.setText(c.getNombre());
         MenuPrincipal.jtfMemoClienteDNI.setText("" + c.getDni());
         MenuPrincipal.jtfMemoTelefono.setText("" + c.getTelefono());
         
-
 
     }//GEN-LAST:event_jbUsarActionPerformed
 
@@ -744,22 +743,22 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         Cliente cliente = null;
         desHabilitarCamposClienteTxt();
         borrarCamposCliente();
-
+        
         try {
             ClienteData cd = new ClienteData();
             int dni = Integer.parseInt(jtfBusquarXdni.getText());
             cliente = cd.buscarClienteDni(dni);
-
+            
             if (cliente == null) {
                 int input = JOptionPane.showConfirmDialog(null, "No se encuentra un cliente cargado con el DNI ingresado: " + dni + "Desea Cargarlo al Sistema? ", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
-
+                    
                     habilitarCamposClienteTxt();
                     jtfDni.setText(jtfBusquarXdni.getText());
                     jbCancelar.setEnabled(true);
                     jbGuardar.setEnabled(true);
-
+                    
                 } else {
                     ///// poner los valores como figuraban antes??
                     //                }
@@ -769,7 +768,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
             } else {
                 //JOptionPane.showMessageDialog(this, "CLi ");
                 desHabilitarCamposClienteTxt();
-
+                
                 jtfApellido.setText(cliente.getApellido());
                 jtfNombre.setText(cliente.getNombre());
                 jtfDni.setText("" + dni);
@@ -777,20 +776,20 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 jtfTelefono.setText("" + cliente.getTelefono());
                 jtfNombreAlternativo.setText(cliente.getNombreAlternativo());
                 jtfTelefonoAlternativo.setText("" + cliente.getTelefonoAlternativo());
-
+                
                 jbEditar.setEnabled(true);
                 jbBorrarCliente.setEnabled(true);
                 jbUsar.setEnabled(true);
                 jbGuardar.setEnabled(false);
             }
-
+            
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Debe completar el campo DNI con un valor numerico");
         } catch (NullPointerException ex) {
             //  JOptionPane.showMessageDialog(this, "Debe completar el campo con un DNI valido");
 
         }
-
+        
 
     }//GEN-LAST:event_jbBuscarDniActionPerformed
 
@@ -806,11 +805,11 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 String sexo = jtfSexo.getText().toUpperCase().substring(0, 0);
                 String colorPelo = jtfColorPelo.getText();
                 LocalDate fechaNac = jdcFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
+                
                 int dni = Integer.parseInt(jtfDni.getText());
                 ClienteData cd = new ClienteData();
                 Cliente cliente = cd.buscarClienteDni(dni);
-
+                
                 MascotaData md = new MascotaData();
                 Mascota m = new Mascota();
                 m.setAlias(alias);
@@ -825,28 +824,28 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 int input = JOptionPane.showConfirmDialog(null, "Esta seguro de cargar la Nueva Mascota  en el Sistema?", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
-                    Mascota mascota=md.guardarMascota(m);
+                    Mascota mascota = md.guardarMascota(m);
                     jbGenerarVisita.setEnabled(true);
                     jbGuardarMasc.setEnabled(false);
-
-                    MenuPrincipal.jtfMemoMascotaId.setText(""+mascota.getIdMascota());
+                    
+                    MenuPrincipal.jtfMemoMascotaId.setText("" + mascota.getIdMascota());
                     MenuPrincipal.jtfMemoAlias.setText(mascota.getAlias());
                     MenuPrincipal.jtfMemoRaza.setText(mascota.getRaza());
                     MenuPrincipal.jtfMemoEspecie.setText(mascota.getEspecie());
 //                    LocalDate fechaHoy = LocalDate.now();
 //                    int edad = fechaHoy.getYear() - fechaNac.getYear();
                     //int edad= fechaNac beetwen actual date      ////      FALTA SACAR EL BETWEEN
-                    int edad=md.calcularEdad(fechaNac);
-                    MenuPrincipal.jtfMemoEdad.setText(""+edad);   
-                    double pesoProm = md.obtenerPesoPromedio(mascota.getIdMascota()) ;
+                    int edad = md.calcularEdad(fechaNac);
+                    MenuPrincipal.jtfMemoEdad.setText("" + edad);                    
+                    double pesoProm = md.obtenerPesoPromedio(mascota.getIdMascota());
                     MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Debe poner un numero en DNI y/o telefonos");
             }
-
+            
         }
-
+        
 
     }//GEN-LAST:event_jbGuardarMascActionPerformed
 
@@ -855,7 +854,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         habilitarCamposClienteTxt();
         jbOKCliente.setEnabled(true);
         jbCancelar.setEnabled(true);
-
+        
 
     }//GEN-LAST:event_jbEditarActionPerformed
 
@@ -917,22 +916,22 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 int telAl = 0;
                 telAl = Integer.parseInt(jtfTelefonoAlternativo.getText());
                 ClienteData cd = new ClienteData();
-
+                
                 Cliente c = new Cliente(dni, nombre, apellido, direccion, nombreAl, tel, telAl, "titus", true);                                //////FALTA GETEAR EL USER LOG
                 int input = JOptionPane.showConfirmDialog(null, "Esta seguro q desea actualizar al CLIENTE en el Sistema?", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
                     cd.modificarCliente(c);
-
+                    
                     desHabilitarBotonesCliente();
                     desHabilitarCamposClienteTxt();
                     jbBorrarCliente.setEnabled(true);
                     jbEditar.setEnabled(true);
                     jbUsar.setEnabled(true);
                     jbCancelar.setEnabled(true);
-
+                    
                 }
-
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Debe poner un numero en DNI y/o telefonos");
             }
@@ -1031,22 +1030,23 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
 //        }
 //    }
 //};
-
-        JpanelImage fnc = new JpanelImage(jpFondo, "/Fondo/FondoNuevoCliente.jpg");
+        jpFondo.setVisible(true);
+        JpanelImage fnc = new JpanelImage(jpFondo, "/InterfazGrafica/FondoNuevoCliente.jpg");
         jpFondo.add(fnc).repaint();
         jpFondo.setOpaque(false);
         jpFondo.setBorder(null);
         jpFondo.setBackground(new Color(0, 0, 0, 0));
 
-    }
 
+    }
+     
     public void cargarPanelMascota() {
         if (jlFlecha.isEnabled()) {
             jpMAscotaNew.setEnabled(true);
             jbGenerarVisita.setEnabled(false);
         }
     }
-
+    
     public void habilitarCamposClienteTxt() {
         jtfApellido.setEditable(true);
         jtfNombre.setEditable(true);
@@ -1092,9 +1092,9 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jbBorrarCliente.setEnabled(false);
         jbUsar.setEnabled(false);
         jbOKCliente.setEnabled(false);
-
+        
     }
-
+    
     public void borrarCamposCliente() {
         jtfApellido.setText("");
         jtfNombre.setText("");
@@ -1104,7 +1104,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jtfNombreAlternativo.setText("");
         jtfTelefonoAlternativo.setText("");
     }
-
+    
     public void borrarCamposMascota() {
         jtfAlias.setText("");
         jtfEspecie.setText("");
@@ -1114,5 +1114,5 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jdcFechaNac.setDate(null);
         jbGenerarVisita.setEnabled(false);
     }
-
+    
 }

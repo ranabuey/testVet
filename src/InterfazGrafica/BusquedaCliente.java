@@ -6,11 +6,15 @@
 package InterfazGrafica;
 
 import AccesoDatos.ClienteData;
+import AccesoDatos.MascotaData;
 import Entidades.Cliente;
+import Entidades.Mascota;
 import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sun.security.x509.AlgorithmId;
 
 /**
  *
@@ -19,11 +23,13 @@ import javax.swing.table.DefaultTableModel;
 public class BusquedaCliente extends javax.swing.JInternalFrame {
 
     private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo2 = new DefaultTableModel();
     ClienteData cd = new ClienteData();
 
     public BusquedaCliente() {
         initComponents();
         armarCabecera();
+        armarCabeceraMAscota();
     }
 
     /**
@@ -243,7 +249,27 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbHacerVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHacerVisitaActionPerformed
-        // TODO add your handling code here:
+        MascotaData md = new MascotaData();
+        int filaSel = jtMascotas.getSelectedRow();
+
+        MenuPrincipal.jtfMemoMascotaId.setText("" + modelo2.getValueAt(filaSel, 0));
+        MenuPrincipal.jtfMemoAlias.setText("" + modelo2.getValueAt(filaSel, 1));
+        MenuPrincipal.jtfMemoEspecie.setText("" + modelo2.getValueAt(filaSel, 2));
+        MenuPrincipal.jtfMemoRaza.setText("" + modelo2.getValueAt(filaSel, 3));
+        
+       // LocalDate fechaNac=modelo2.getValueAt(filaSel, 5);                                FALTA VER COMO AGREGAR OBJETO A LOCAL DATE
+//        int edad = md.calcularEdad(fechaNac);
+//        MenuPrincipal.jtfMemoEdad.setText("" + edad);
+//        double pesoProm = md.obtenerPesoPromedio(mascota.getIdMascota());
+//        MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
+
+        CargarVisita cv = new CargarVisita();
+        MenuPrincipal.jDesktopPane1.add(cv);
+        cv.toFront();
+        cv.setVisible(true);
+
+       
+
     }//GEN-LAST:event_jbHacerVisitaActionPerformed
 
     private void jbBuscarDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarDniActionPerformed
@@ -251,6 +277,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
             Cliente cliente = cd.buscarClienteDni(Integer.parseInt(jtfBusquedas.getText()));
 
             modelo.addRow(new Object[]{
+                cliente.getIdCliente(),
                 cliente.getApellido(),
                 cliente.getNombre(),
                 cliente.getTelefono(),
@@ -273,16 +300,29 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEditarClienteActionPerformed
 
     private void jbSelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSelClienteActionPerformed
-        int colSel = jtClientes.getSelectedRow();
-        int dni = (Integer) modelo.getValueAt(colSel, 3);
+        int filaSel = jtClientes.getSelectedRow();
+        int dni = (Integer) modelo.getValueAt(filaSel, 4);
+        MascotaData md = new MascotaData();
+        MenuPrincipal.jtfMemoClienteID.setText("" + modelo.getValueAt(filaSel, 0));
+        MenuPrincipal.jtfMemoClienteApellido.setText("" + modelo.getValueAt(filaSel, 1));
+        MenuPrincipal.jtfMemoClienteNombre.setText("" + modelo.getValueAt(filaSel, 2));
+        MenuPrincipal.jtfMemoTelefono.setText("" + modelo.getValueAt(filaSel, 3));
+        MenuPrincipal.jtfMemoClienteDNI.setText("" + modelo.getValueAt(filaSel, 4));
+        try {
+            List<Mascota> mascList = md.listarMascotasXIDCliente((Integer) jtClientes.getValueAt(filaSel, 0));
+            for (Mascota mascota : mascList) {
+                modelo2.addRow(new Object[]{
+                    mascota.getIdMascota(),
+                    mascota.getAlias(),
+                    mascota.getEspecie(),
+                    mascota.getRaza(),
+                    mascota.getSexo(),
+                    mascota.getFechaNac()});
+            }
 
-        MenuPrincipal.jtfMemoClienteID.setText("" + c.getIdCliente());     ////FALTA CAMBIAR LOS DATOS
-        
-        MenuPrincipal.jtfMemoClienteApellido.setText(c.getApellido());
-        MenuPrincipal.jtfMemoClienteNombre.setText(c.getNombre());
-        MenuPrincipal.jtfMemoClienteDNI.setText("" + c.getDni());
-        MenuPrincipal.jtfMemoTelefono.setText("" + c.getTelefono());
-
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+        }
 //                try {
         //
         //            Alumno alumnoSel = (Alumno) jcbAlumnos.getSelectedItem();
@@ -337,11 +377,21 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfBusquedas;
     // End of variables declaration//GEN-END:variables
 private void armarCabecera() {
-
+        modelo.addColumn("ID");
         modelo.addColumn("Apellido");
         modelo.addColumn("Nombre");
         modelo.addColumn("Telefono");
         modelo.addColumn("DNI");
         jtClientes.setModel(modelo);
+    }
+
+    private void armarCabeceraMAscota() {
+        modelo2.addColumn("ID");
+        modelo2.addColumn("Alias");
+        modelo2.addColumn("Especie");
+        modelo2.addColumn("Raza");
+        modelo2.addColumn("Sexo");
+        modelo2.addColumn("Fecha Nac.");
+        jtMascotas.setModel(modelo2);
     }
 }
