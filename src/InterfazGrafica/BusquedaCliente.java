@@ -21,11 +21,11 @@ import sun.security.x509.AlgorithmId;
  * @author usuario
  */
 public class BusquedaCliente extends javax.swing.JInternalFrame {
-    
+
     private DefaultTableModel modelo = new DefaultTableModel();
     private DefaultTableModel modelo2 = new DefaultTableModel();
     ClienteData cd = new ClienteData();
-    
+
     public BusquedaCliente() {
         initComponents();
         armarCabecera();
@@ -284,24 +284,24 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     private void jbHacerVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHacerVisitaActionPerformed
         MascotaData md = new MascotaData();
         int filaSel = jtMascotas.getSelectedRow();
-        
+
         MenuPrincipal.jtfMemoMascotaId.setText("" + modelo2.getValueAt(filaSel, 0));
         MenuPrincipal.jtfMemoAlias.setText("" + modelo2.getValueAt(filaSel, 1));
         MenuPrincipal.jtfMemoEspecie.setText("" + modelo2.getValueAt(filaSel, 2));
         MenuPrincipal.jtfMemoRaza.setText("" + modelo2.getValueAt(filaSel, 3));
-        
+
         LocalDate fechaNac = (LocalDate) modelo2.getValueAt(filaSel, 5);                           //     FALTA VER COMO AGREGAR OBJETO A LOCAL DATE
         int edad = md.calcularEdad(fechaNac);
         MenuPrincipal.jtfMemoEdad.setText("" + edad);
         double pesoProm = md.obtenerPesoPromedio((Integer) modelo2.getValueAt(filaSel, 0));
         MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
-        
+
         CargarVisita cv = new CargarVisita();
         MenuPrincipal.jDesktopPane1.add(cv);
-        
+
         cv.toFront();
         cv.setVisible(true);
-        
+
 
     }//GEN-LAST:event_jbHacerVisitaActionPerformed
 
@@ -309,32 +309,32 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         limpiarTablaClientes();
         limpiarTablaMacotas();
         try {
-            
+
             if (jcbBusquedas.getSelectedIndex() == 0) {
                 jbReActivar.setVisible(false);
                 jbBorrar.setVisible(true);
                 Cliente cliente = cd.buscarClienteDni(Integer.parseInt(jtfBusquedas.getText()));
-                
+
                 modelo.addRow(new Object[]{
                     cliente.getIdCliente(),
                     cliente.getApellido(),
                     cliente.getNombre(),
                     cliente.getTelefono(),
                     cliente.getDni(),});
-                
+
             } else {
                 if (jcbBusquedas.getSelectedIndex() == 2) {
                     jbReActivar.setVisible(false);
                     jbBorrar.setVisible(true);
                     Cliente cliente = cd.buscarClienteTel(Integer.parseInt(jtfBusquedas.getText()));
-                    
+
                     modelo.addRow(new Object[]{
                         cliente.getIdCliente(),
                         cliente.getApellido(),
                         cliente.getNombre(),
                         cliente.getTelefono(),
                         cliente.getDni(),});
-                    
+
                 } else if (jcbBusquedas.getSelectedIndex() == 1) {
                     jbReActivar.setVisible(false);
                     jbBorrar.setVisible(true);
@@ -357,7 +357,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                     jbBorrar.setVisible(false);
                     List<Cliente> listaCli = cd.listarClientesNoActivos();
                     for (Cliente cliente : listaCli) {
-                        
+
                         modelo.addRow(new Object[]{
                             cliente.getIdCliente(),
                             cliente.getApellido(),
@@ -367,11 +367,13 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                     }
                     jbReActivar.setVisible(true);
                 }
-                
+
             }
-            
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "debe poner un numero");
+        } catch (NullPointerException e) {
+
         }
     }//GEN-LAST:event_jbBuscadorActionPerformed
 
@@ -385,7 +387,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
 
     private void jbReActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReActivarActionPerformed
         try {
-            
+
             ClienteData cd = new ClienteData();
             int filaSel = jtClientes.getSelectedRow();
             int input = JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE QUERER Re-Activar AL SISTEMA AL CLIENTE " + modelo.getValueAt(filaSel, 1) + ", DNI: " + modelo.getValueAt(filaSel, 4), "Seleccione una opcion...",
@@ -397,12 +399,12 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                 limpiarTablaClientes();
                 jbReActivar.setVisible(false);
             } else {
-                
+
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
         }
-        
+
     }//GEN-LAST:event_jbReActivarActionPerformed
 
     private void jbSelClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSelClienteActionPerformed
@@ -415,7 +417,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
             MenuPrincipal.jtfMemoClienteNombre.setText("" + modelo.getValueAt(filaSel, 2));
             MenuPrincipal.jtfMemoTelefono.setText("" + modelo.getValueAt(filaSel, 3));
             MenuPrincipal.jtfMemoClienteDNI.setText("" + modelo.getValueAt(filaSel, 4));
-            
+
             List<Mascota> mascList = md.listarMascotasXIDCliente((Integer) jtClientes.getValueAt(filaSel, 0));
             for (Mascota mascota : mascList) {
                 modelo2.addRow(new Object[]{
@@ -426,7 +428,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                     mascota.getSexo(),
                     mascota.getFechaNac()});
             }
-            
+
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
         }
@@ -438,13 +440,13 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEditarMascotaActionPerformed
 
     private void jbEditarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarCliente1ActionPerformed
-        
+
 
     }//GEN-LAST:event_jbEditarCliente1ActionPerformed
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
         try {
-            
+
             ClienteData cd = new ClienteData();
             int filaSel = jtClientes.getSelectedRow();
             int input = JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE QUERER ELIMINAR DEL SISTEMA AL CLIENTE " + modelo.getValueAt(filaSel, 1) + ", DNI: " + modelo.getValueAt(filaSel, 4), "Seleccione una opcion...",
@@ -456,7 +458,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                 limpiarTablaClientes();
                 jbBorrar.setVisible(false);
             } else {
-                
+
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
@@ -495,7 +497,7 @@ private void armarCabecera() {
         modelo.addColumn("DNI");
         jtClientes.setModel(modelo);
     }
-    
+
     private void armarCabeceraMAscota() {
         modelo2.addColumn("ID");
         modelo2.addColumn("Alias");
@@ -505,14 +507,14 @@ private void armarCabecera() {
         modelo2.addColumn("Fecha Nac.");
         jtMascotas.setModel(modelo2);
     }
-    
+
     private void limpiarTablaClientes() {
         int f = modelo.getRowCount() - 1;
         for (; f >= 0; f--) {
             modelo.removeRow(f);
         }
     }
-    
+
     private void limpiarTablaMacotas() {
         int f = modelo2.getRowCount() - 1;
         for (; f >= 0; f--) {

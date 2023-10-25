@@ -195,7 +195,7 @@ public class MascotaData {
                 mascota.setActivo(rs.getBoolean("activo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
-                mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
+//                mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
                 mascota.setUsuarioLog(rs.getString("usuarioLOg"));
                 mascotas.add(mascota);
             }
@@ -227,7 +227,7 @@ public class MascotaData {
                 mascota.setActivo(rs.getBoolean("activo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
-                mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
+//                mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
                 mascota.setUsuarioLog(rs.getString("usuarioLOg"));
                 mascotas.add(mascota);
             }
@@ -325,7 +325,7 @@ public class MascotaData {
     public List<Mascota> listarMascotasXDniCliente(int dni) {
         List<Mascota> mascotas = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM mascota WHERE dni=? AND activo=1";
+            String sql = "SELECT * FROM mascota WHERE cliente.dni=? AND activo=1";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
@@ -343,12 +343,12 @@ public class MascotaData {
                 mascota.setActivo(rs.getBoolean("activo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
-
-                if ((rs.getDate("fechaDefuncion")) == null) {
-
-                } else {
-                    mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
-                }
+//
+//                if ((rs.getDate("fechaDefuncion")) == null) {
+//
+//                } else {
+//                    mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
+//                }
                 mascota.setUsuarioLog(rs.getString("usuarioLOg"));
                 mascotas.add(mascota);
             }

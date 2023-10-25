@@ -26,6 +26,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
     public BusquedaMascota() {
         initComponents();
         armarCabecera();
+        jbBorrar.setVisible(false);
+        jbReActivar.setVisible(false);
 
     }
 
@@ -184,14 +186,17 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBusqMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqMascotasActionPerformed
-        limpiarTablaMacotas();                                                              ///FALTA HACER TODO ACA
+
+        
+        limpiarTablaMacotas();
 
         try {
+            
             String busq = jtfbusqueda.getText();
 
+            System.out.println(busq);
             if (jcbTipoBusqueda.getSelectedIndex() == 0) {                  //Alias
                 jbReActivar.setVisible(false);
-                jbBorrar.setVisible(true);
 
                 List<Mascota> listamasc = md.listarMascotas();
                 for (Mascota mascota : listamasc) {
@@ -210,14 +215,17 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                             mascota.getPesoPromedio(),
                             mascota.getCliente().getTelefono(),});
                     }
+                    jbBorrar.setVisible(true);
                 }
+
                 if (jtMascotas.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
+                    JOptionPane.showMessageDialog(this, "No se encontro Mascotas con ese criterio.");
                 }
 
             } else {
                 if (jcbTipoBusqueda.getSelectedIndex() == 1) {                //Raza
 
+                    
                     jbReActivar.setVisible(false);
                     jbBorrar.setVisible(true);
 
@@ -275,7 +283,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
 
                     List<Mascota> listamasc = md.listarMascotasEliminadas();
                     for (Mascota mascota : listamasc) {
-
+                        System.out.println(mascota);
                         modelo.addRow(new Object[]{
                             mascota.getIdMascota(),
                             mascota.getAlias(),
@@ -349,6 +357,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "debe poner un numero");
     }//GEN-LAST:event_jbBusqMascotasActionPerformed
+    
     }
     private void jbHacerVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHacerVisitaActionPerformed
 
@@ -417,7 +426,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
         try {
-//
+
             MascotaData md = new MascotaData();
             int filaSel = jtMascotas.getSelectedRow();
             int input = JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE QUERER ELIMINAR DEL SISTEMA LA MASCOTA " + modelo.getValueAt(filaSel, 1) + ", QUE PERTENECE A: " + modelo.getValueAt(filaSel, 2), "Seleccione una opcion...",
