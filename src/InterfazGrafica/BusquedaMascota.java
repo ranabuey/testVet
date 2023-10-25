@@ -5,9 +5,11 @@
  */
 package InterfazGrafica;
 
+import AccesoDatos.ClienteData;
 import AccesoDatos.MascotaData;
 import Entidades.Cliente;
 import Entidades.Mascota;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -64,7 +66,12 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtMascotas);
 
-        jcbTipoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alias", "Raza", "Especie", "Eliminadas", "DNI Cliente", "TODAS", " " }));
+        jcbTipoBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alias", "Raza", "Especie", "Eliminadas", "DNI Cliente", "TODAS", "" }));
+        jcbTipoBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTipoBusquedaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Buscar por: ");
 
@@ -181,7 +188,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
 
         try {
             String busq = jtfbusqueda.getText();
-            
+
             if (jcbTipoBusqueda.getSelectedIndex() == 0) {                  //Alias
                 jbReActivar.setVisible(false);
                 jbBorrar.setVisible(true);
@@ -200,8 +207,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                             mascota.getColorPelo(),
                             mascota.getFechaNac(),
                             mascota.getPesoUltimo(),
-                            mascota.getPesoPromedio()
-                        });
+                            mascota.getPesoPromedio(),
+                            mascota.getCliente().getTelefono(),});
                     }
                 }
                 if (jtMascotas.getRowCount() == 0) {
@@ -213,155 +220,243 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
 
                     jbReActivar.setVisible(false);
                     jbBorrar.setVisible(true);
-//                    Cliente cliente = cd.buscarClienteTel(Integer.parseInt(jtfBusquedas.getText()));
-//                    
-//                    modelo.addRow(new Object[]{
-//                        cliente.getIdCliente(),
-//                        cliente.getApellido(),
-//                        cliente.getNombre(),
-//                        cliente.getTelefono(),
-//                        cliente.getDni(),});
-//                    
-//                } else if (jcbTipoBusqueda.getSelectedIndex() == 2) {         //Especie
-//                    jbReActivar.setVisible(false);
-//                    jbBorrar.setVisible(true);
-//                    String busq = jtfBusquedas.getText();
-//                    List<Cliente> listaCli = cd.listarClientes();
-//                    for (Cliente cliente : listaCli) {
-//                        if (cliente.getApellido().startsWith(busq)) {
-//                            modelo.addRow(new Object[]{
-//                                cliente.getIdCliente(),
-//                                cliente.getApellido(),
-//                                cliente.getNombre(),
-//                                cliente.getTelefono(),
-//                                cliente.getDni(),});
-//                        }
-//                    }
-//                    if (jtClientes.getRowCount() == 0) {
-//                        JOptionPane.showMessageDialog(this, "No se encontro clientes con ese criterio.");
-//                    }
-//                } else if (jcbTipoBusqueda.getSelectedIndex() == 3) {         //Eliminadas
-//                    jbBorrar.setVisible(false);
-//                    List<Cliente> listaCli = cd.listarClientesNoActivos();
-//                    for (Cliente cliente : listaCli) {
-//                        
-//                        modelo.addRow(new Object[]{
-//                            cliente.getIdCliente(),
-//                            cliente.getApellido(),
-//                            cliente.getNombre(),
-//                            cliente.getTelefono(),
-//                            cliente.getDni(),});
-//                    }
-//                    jbReActivar.setVisible(true);
-//                }
-//                
+
+                    List<Mascota> listamasc = md.listarMascotas();
+                    for (Mascota mascota : listamasc) {
+
+                        if (mascota.getRaza().startsWith(busq)) {
+                            modelo.addRow(new Object[]{
+                                mascota.getIdMascota(),
+                                mascota.getAlias(),
+                                mascota.getCliente().getApellido(),
+                                mascota.getEspecie(),
+                                mascota.getRaza(),
+                                mascota.getSexo(),
+                                mascota.getColorPelo(),
+                                mascota.getFechaNac(),
+                                mascota.getPesoUltimo(),
+                                mascota.getPesoPromedio(),
+                                mascota.getCliente().getTelefono(),});
+                        }
+                    }
+                    if (jtMascotas.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
+                    }
+
+                } else if (jcbTipoBusqueda.getSelectedIndex() == 2) {         //Especie
+                    jbReActivar.setVisible(false);
+                    jbBorrar.setVisible(true);
+
+                    List<Mascota> listamasc = md.listarMascotas();
+                    for (Mascota mascota : listamasc) {
+
+                        if (mascota.getEspecie().startsWith(busq)) {
+                            modelo.addRow(new Object[]{
+                                mascota.getIdMascota(),
+                                mascota.getAlias(),
+                                mascota.getCliente().getApellido(),
+                                mascota.getEspecie(),
+                                mascota.getRaza(),
+                                mascota.getSexo(),
+                                mascota.getColorPelo(),
+                                mascota.getFechaNac(),
+                                mascota.getPesoUltimo(),
+                                mascota.getPesoPromedio(),
+                                mascota.getCliente().getTelefono(),});
+                        }
+                    }
+                    if (jtMascotas.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
+                    }
+
+                } else if (jcbTipoBusqueda.getSelectedIndex() == 3) {         //Eliminadas
+                    jbReActivar.setVisible(true);
+                    jbBorrar.setVisible(false);
+
+                    List<Mascota> listamasc = md.listarMascotasEliminadas();
+                    for (Mascota mascota : listamasc) {
+
+                        modelo.addRow(new Object[]{
+                            mascota.getIdMascota(),
+                            mascota.getAlias(),
+                            mascota.getCliente().getApellido(),
+                            mascota.getEspecie(),
+                            mascota.getRaza(),
+                            mascota.getSexo(),
+                            mascota.getColorPelo(),
+                            mascota.getFechaNac(),
+                            mascota.getPesoUltimo(),
+                            mascota.getPesoPromedio(),
+                            mascota.getCliente().getTelefono(),});
+                    }
+                }
+                if (jtMascotas.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
                 } else if (jcbTipoBusqueda.getSelectedIndex() == 4) {            //DNI Cliente
+
+                    jbReActivar.setVisible(false);
+                    jbBorrar.setVisible(true);
+
+                    List<Mascota> listamasc = md.listarMascotasXDniCliente(Integer.parseInt(busq));
+                    for (Mascota mascota : listamasc) {
+
+                        modelo.addRow(new Object[]{
+                            mascota.getIdMascota(),
+                            mascota.getAlias(),
+                            mascota.getCliente().getApellido(),
+                            mascota.getEspecie(),
+                            mascota.getRaza(),
+                            mascota.getSexo(),
+                            mascota.getColorPelo(),
+                            mascota.getFechaNac(),
+                            mascota.getPesoUltimo(),
+                            mascota.getPesoPromedio(),
+                            mascota.getCliente().getTelefono(),});
+
+                    }
+                    if (jtMascotas.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
+                    }
 
                 } else if (jcbTipoBusqueda.getSelectedIndex() == 5) {            //todas
 
+                    jbReActivar.setVisible(false);
+                    jbBorrar.setVisible(true);
+
+                    List<Mascota> listamasc = md.listarMascotas();
+                    for (Mascota mascota : listamasc) {
+
+                        modelo.addRow(new Object[]{
+                            mascota.getIdMascota(),
+                            mascota.getAlias(),
+                            mascota.getCliente().getApellido(),
+                            mascota.getEspecie(),
+                            mascota.getRaza(),
+                            mascota.getSexo(),
+                            mascota.getColorPelo(),
+                            mascota.getFechaNac(),
+                            mascota.getPesoUltimo(),
+                            mascota.getPesoPromedio(),
+                            mascota.getCliente().getTelefono(),});
+
+                    }
+                    if (jtMascotas.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
+                    }
                 }
 
-            }catch (NumberFormatException e) {
+            }
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "debe poner un numero");
-        }
     }//GEN-LAST:event_jbBusqMascotasActionPerformed
-
+    }
     private void jbHacerVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHacerVisitaActionPerformed
-//        MascotaData md = new MascotaData();
-//        int filaSel = jtMascotas.getSelectedRow();
-//
-//        MenuPrincipal.jtfMemoMascotaId.setText("" + modelo2.getValueAt(filaSel, 0));
-//        MenuPrincipal.jtfMemoAlias.setText("" + modelo2.getValueAt(filaSel, 1));
-//        MenuPrincipal.jtfMemoEspecie.setText("" + modelo2.getValueAt(filaSel, 2));
-//        MenuPrincipal.jtfMemoRaza.setText("" + modelo2.getValueAt(filaSel, 3));
-//
-//        LocalDate fechaNac = (LocalDate) modelo2.getValueAt(filaSel, 5);                           //     FALTA VER COMO AGREGAR OBJETO A LOCAL DATE
-//        int edad = md.calcularEdad(fechaNac);
-//        MenuPrincipal.jtfMemoEdad.setText("" + edad);
-//        double pesoProm = md.obtenerPesoPromedio((Integer) modelo2.getValueAt(filaSel, 0));
-//        MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
-//
-//        CargarVisita cv = new CargarVisita();
-//        MenuPrincipal.jDesktopPane1.add(cv);
-//
-//        cv.toFront();
-//        cv.setVisible(true);
 
+        try {
+            MascotaData md = new MascotaData();
+            int filaSel = jtMascotas.getSelectedRow();
+
+            MenuPrincipal.jtfMemoMascotaId.setText("" + modelo.getValueAt(filaSel, 0));
+            MenuPrincipal.jtfMemoAlias.setText("" + modelo.getValueAt(filaSel, 1));
+            MenuPrincipal.jtfMemoEspecie.setText("" + modelo.getValueAt(filaSel, 3));
+            MenuPrincipal.jtfMemoRaza.setText("" + modelo.getValueAt(filaSel, 4));
+            LocalDate fechaNac = (LocalDate) modelo.getValueAt(filaSel, 7);
+            int edad = md.calcularEdad(fechaNac);
+            MenuPrincipal.jtfMemoEdad.setText("" + edad);
+            MenuPrincipal.jtfMemoPesoProm.setText("" + modelo.getValueAt(filaSel, 7));
+
+            Cliente c = new Cliente();
+            ClienteData cd = new ClienteData();
+            c = cd.buscarClienteTel((Integer) modelo.getValueAt(filaSel, 10));
+            MenuPrincipal.jtfMemoClienteID.setText("" + c.getIdCliente());
+            MenuPrincipal.jtfMemoClienteApellido.setText("" + c.getApellido());
+            MenuPrincipal.jtfMemoClienteNombre.setText("" + c.getNombre());
+            MenuPrincipal.jtfMemoTelefono.setText("" + c.getTelefono());
+            MenuPrincipal.jtfMemoClienteDNI.setText("" + c.getDni());
+
+            CargarVisita cv = new CargarVisita();
+            MenuPrincipal.jDesktopPane1.add(cv);
+
+            cv.toFront();
+            cv.setVisible(true);
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Mascota");
+        }
     }//GEN-LAST:event_jbHacerVisitaActionPerformed
 
     private void jbEditarMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarMascotaActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:                                          Falta hacer
     }//GEN-LAST:event_jbEditarMascotaActionPerformed
 
     private void jbSelMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSelMascotaActionPerformed
-//        try {
-//            int filaSel = jtClientes.getSelectedRow();
-//            int dni = (Integer) modelo.getValueAt(filaSel, 4);
-//            MascotaData md = new MascotaData();
-//            MenuPrincipal.jtfMemoClienteID.setText("" + modelo.getValueAt(filaSel, 0));
-//            MenuPrincipal.jtfMemoClienteApellido.setText("" + modelo.getValueAt(filaSel, 1));
-//            MenuPrincipal.jtfMemoClienteNombre.setText("" + modelo.getValueAt(filaSel, 2));
-//            MenuPrincipal.jtfMemoTelefono.setText("" + modelo.getValueAt(filaSel, 3));
-//            MenuPrincipal.jtfMemoClienteDNI.setText("" + modelo.getValueAt(filaSel, 4));
-//
-//            List<Mascota> mascList = md.listarMascotasXIDCliente((Integer) jtClientes.getValueAt(filaSel, 0));
-//            for (Mascota mascota : mascList) {
-//                modelo2.addRow(new Object[]{
-//                    mascota.getIdMascota(),
-//                    mascota.getAlias(),
-//                    mascota.getEspecie(),
-//                    mascota.getRaza(),
-//                    mascota.getSexo(),
-//                    mascota.getFechaNac()});
-//        }
-//
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
-//        }
+        try {
+            int filaSel = jtMascotas.getSelectedRow();
+            MenuPrincipal.jtfMemoMascotaId.setText("" + modelo.getValueAt(filaSel, 0));
+            MenuPrincipal.jtfMemoAlias.setText("" + modelo.getValueAt(filaSel, 1));
+            MenuPrincipal.jtfMemoEspecie.setText("" + modelo.getValueAt(filaSel, 3));
+            MenuPrincipal.jtfMemoRaza.setText("" + modelo.getValueAt(filaSel, 4));
+            LocalDate fechaNac = (LocalDate) modelo.getValueAt(filaSel, 7);
+            int edad = md.calcularEdad(fechaNac);
+            MenuPrincipal.jtfMemoEdad.setText("" + edad);
+            MenuPrincipal.jtfMemoPesoProm.setText("" + modelo.getValueAt(filaSel, 7));
+
+            Cliente c = new Cliente();
+            ClienteData cd = new ClienteData();
+            c = cd.buscarClienteTel((Integer) modelo.getValueAt(filaSel, 10));
+            MenuPrincipal.jtfMemoClienteID.setText("" + c.getIdCliente());
+            MenuPrincipal.jtfMemoClienteApellido.setText("" + c.getApellido());
+            MenuPrincipal.jtfMemoClienteNombre.setText("" + c.getNombre());
+            MenuPrincipal.jtfMemoTelefono.setText("" + c.getTelefono());
+            MenuPrincipal.jtfMemoClienteDNI.setText("" + c.getDni());
+
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Mascota");
+        }
     }//GEN-LAST:event_jbSelMascotaActionPerformed
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
         try {
-
-            ClienteData cd = new ClienteData();
-            int filaSel = jtClientes.getSelectedRow();
-            int input = JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE QUERER ELIMINAR DEL SISTEMA AL CLIENTE " + modelo.getValueAt(filaSel, 1) + ", DNI: " + modelo.getValueAt(filaSel, 4), "Seleccione una opcion...",
+//
+            MascotaData md = new MascotaData();
+            int filaSel = jtMascotas.getSelectedRow();
+            int input = JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE QUERER ELIMINAR DEL SISTEMA LA MASCOTA " + modelo.getValueAt(filaSel, 1) + ", QUE PERTENECE A: " + modelo.getValueAt(filaSel, 2), "Seleccione una opcion...",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
             if (input == 0) {
-                Cliente c = new Cliente();
-                c = cd.buscarClienteDni((Integer) (modelo.getValueAt(filaSel, 4)));
-                cd.eliminarCliente(c.getIdCliente());
-                limpiarTablaClientes();
+                md.eliminarMascota((Integer) (modelo.getValueAt(filaSel, 0)));
+                limpiarTablaMacotas();
                 jbBorrar.setVisible(false);
             } else {
 
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Mascota");
         }
     }//GEN-LAST:event_jbBorrarActionPerformed
 
     private void jbReActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReActivarActionPerformed
         try {
 
-            ClienteData cd = new ClienteData();
-            int filaSel = jtClientes.getSelectedRow();
-            int input = JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE QUERER Re-Activar AL SISTEMA AL CLIENTE " + modelo.getValueAt(filaSel, 1) + ", DNI: " + modelo.getValueAt(filaSel, 4), "Seleccione una opcion...",
+            MascotaData md = new MascotaData();
+            int filaSel = jtMascotas.getSelectedRow();
+            int input = JOptionPane.showConfirmDialog(null, "ESTA SEGURO DE QUERER REACTIVAR AL SISTEMA LA MASCOTA " + modelo.getValueAt(filaSel, 1) + ", QUE PERTENECE A: " + modelo.getValueAt(filaSel, 2), "Seleccione una opcion...",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
             if (input == 0) {
-                Cliente c = new Cliente();
-                c = cd.buscarClienteDni((Integer) (modelo.getValueAt(filaSel, 4)));
-                cd.reActivarCliente(c.getIdCliente());
-                limpiarTablaClientes();
+                md.reactivarMascota((Integer) (modelo.getValueAt(filaSel, 0)));
+                limpiarTablaMacotas();
                 jbReActivar.setVisible(false);
             } else {
 
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Mascota");
         }
 
     }//GEN-LAST:event_jbReActivarActionPerformed
+
+    private void jcbTipoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbTipoBusquedaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -379,7 +474,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfbusqueda;
     // End of variables declaration//GEN-END:variables
 private void armarCabecera() {
-        modelo.addColumn("ID");
+        modelo.addColumn("ID mascota");
         modelo.addColumn("Alias");
         modelo.addColumn("Apellido Cliente");
         modelo.addColumn("Especie");
@@ -389,6 +484,7 @@ private void armarCabecera() {
         modelo.addColumn("Fecha Nac.");
         modelo.addColumn("PesoUltimo");
         modelo.addColumn("PesoProm");
+        modelo.addColumn("Telefono Cliente");
         jtMascotas.setModel(modelo);
     }
 

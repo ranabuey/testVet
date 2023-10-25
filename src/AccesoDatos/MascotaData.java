@@ -208,6 +208,38 @@ public class MascotaData {
 
     }
 
+    public List<Mascota> listarMascotasEliminadas() {
+        List<Mascota> mascotas = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM mascota WHERE activo=0";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Mascota mascota = new Mascota();
+                mascota.setIdMascota(rs.getInt("idMascota"));
+                mascota.setAlias(rs.getString("alias"));
+                mascota.setSexo(rs.getString("sexo"));
+                mascota.setEspecie(rs.getString("especie"));
+                mascota.setRaza(rs.getString("raza"));
+                mascota.setColorPelo(rs.getString("colorPelo"));
+                mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
+                mascota.setActivo(rs.getBoolean("activo"));
+                mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
+                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+                mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
+                mascota.setUsuarioLog(rs.getString("usuarioLOg"));
+                mascotas.add(mascota);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla mascota" + ex.getMessage());
+        }
+        return mascotas;
+
+    }
+    
     public List<Mascota> listarMascotasXCliente(Cliente cliente) {
         List<Mascota> mascotas = new ArrayList<>();
         try {
@@ -290,6 +322,47 @@ public class MascotaData {
 
     }
 
+    public List<Mascota> listarMascotasXDniCliente(int dni) {
+        List<Mascota> mascotas = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM mascota WHERE dni=? AND activo=1";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Mascota mascota = new Mascota();
+                mascota.setIdMascota(rs.getInt("idMascota"));
+                mascota.setAlias(rs.getString("alias"));
+                mascota.setSexo(rs.getString("sexo"));
+                mascota.setEspecie(rs.getString("especie"));
+                mascota.setRaza(rs.getString("raza"));
+                mascota.setColorPelo(rs.getString("colorPelo"));
+                mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
+                mascota.setActivo(rs.getBoolean("activo"));
+                mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
+                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+
+                if ((rs.getDate("fechaDefuncion")) == null) {
+
+                } else {
+                    mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
+                }
+                mascota.setUsuarioLog(rs.getString("usuarioLOg"));
+                mascotas.add(mascota);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla mascota" + ex.getMessage());
+        } catch (NullPointerException n) {
+
+        }
+        return mascotas;
+
+    }
+    
     public void eliminarMascota(int id) {
         try {
             String sql = "UPDATE mascota SET activo=0 WHERE idMascota=?";
@@ -306,28 +379,22 @@ public class MascotaData {
         }
     }
 
-//    public double obtenerPesoPromedio(){
-//        VisitaData visData = new VisitaData();
-//        List<Visita> visList = new ArrayList<>();
-//        visList.addAll(visData.obtenerVisitasXMascota(4));
-//        Collections.reverse(visList);
-//        
-//        double sumaPeso=0.0;
-//        double contador=0.0;
-//      
-//        
-//        for (Visita visita :visList){
-//          if (contador>=10){
-//              break;
-//          }
-//              sumaPeso+=visita.getPesoActual();
-//              contador++;
-//              }
-//        double promedio=sumaPeso/contador;
-//        return promedio;
-//    
-// 
-//}
+    public void reactivarMascota(int id) {
+        try {
+            String sql = "UPDATE mascota SET activo=1 WHERE idMascota=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int fila = ps.executeUpdate();
+
+            if (fila == 1) {
+                JOptionPane.showMessageDialog(null, "Se reactivo la mascota");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla mascota");
+        }
+    }
+
     public double obtenerPesoPromedio(int id) {
         VisitaData visData = new VisitaData();
         List<Visita> visList = new ArrayList<>();
