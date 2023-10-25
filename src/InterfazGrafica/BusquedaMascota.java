@@ -306,6 +306,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                     jbBorrar.setVisible(true);
 
                     List<Mascota> listamasc = md.listarMascotasXDniCliente(Integer.parseInt(busq));
+                    System.out.println(""+busq);
                     for (Mascota mascota : listamasc) {
 
                         modelo.addRow(new Object[]{

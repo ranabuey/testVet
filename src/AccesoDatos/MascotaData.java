@@ -325,7 +325,7 @@ public class MascotaData {
     public List<Mascota> listarMascotasXDniCliente(int dni) {
         List<Mascota> mascotas = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM mascota WHERE cliente.dni=? AND activo=1";
+            String sql = "SELECT * FROM mascota INNER JOIN cliente ON mascota.idCliente = cliente.idCliente WHERE cliente.dni=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
