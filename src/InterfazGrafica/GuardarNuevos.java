@@ -101,10 +101,11 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jdcFechaNac = new com.toedter.calendar.JDateChooser();
         jtfColorPelo = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jtfSexo = new javax.swing.JTextField();
         jbCancelarMasc = new javax.swing.JButton();
         jbGuardarMasc = new javax.swing.JButton();
         jbGenerarVisita = new javax.swing.JButton();
+        jrbMasculino = new javax.swing.JRadioButton();
+        jrbFemenino = new javax.swing.JRadioButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -436,12 +437,6 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("MASCOTA");
 
-        jtfSexo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfSexoActionPerformed(evt);
-            }
-        });
-
         jbCancelarMasc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
         jbCancelarMasc.setText("Cancelar");
         jbCancelarMasc.addActionListener(new java.awt.event.ActionListener() {
@@ -465,6 +460,10 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 jbGenerarVisitaActionPerformed(evt);
             }
         });
+
+        jrbMasculino.setText("M");
+
+        jrbFemenino.setText("F");
 
         javax.swing.GroupLayout jpMAscotaNewLayout = new javax.swing.GroupLayout(jpMAscotaNew);
         jpMAscotaNew.setLayout(jpMAscotaNewLayout);
@@ -492,7 +491,10 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                             .addGap(75, 75, 75)
                             .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jtfColorPelo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtfSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                                    .addComponent(jrbMasculino)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jrbFemenino))))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpMAscotaNewLayout.createSequentialGroup()
                             .addComponent(jbGuardarMasc)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -529,13 +531,14 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel14))
                 .addGap(18, 18, 18)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel13)
+                    .addComponent(jrbMasculino)
+                    .addComponent(jrbFemenino))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfColorPelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
                 .addComponent(jbGenerarVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -775,10 +778,6 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfColorPeloActionPerformed
 
-    private void jtfSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSexoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfSexoActionPerformed
-
     private void jbBuscarDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarDniActionPerformed
         Cliente cliente = null;
         desHabilitarCamposClienteTxt();
@@ -834,7 +833,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbBuscarDniActionPerformed
 
     private void jbGuardarMascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarMascActionPerformed
-        if (jtfAlias.getText().isEmpty() || jtfEspecie.getText().isEmpty() || jtfRaza.getText().isEmpty() || jtfSexo.getText().isEmpty() || jtfColorPelo.getText().isEmpty() || jdcFechaNac.getDate() == null) {
+        if (jtfAlias.getText().isEmpty() || jtfEspecie.getText().isEmpty() || jtfRaza.getText().isEmpty() || jrbFemenino.getText().isEmpty() || jrbMasculino.getText().isEmpty() || jtfColorPelo.getText().isEmpty() || jdcFechaNac.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos de MAscota para cargar una nueva Mascota en el Sistema");
         } else {
             try {
@@ -842,7 +841,8 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 String especie = jtfEspecie.getText();
                 String raza = jtfRaza.getText();
                 //char sexo =  jtfSexo.getText().charAt(0);
-                String sexo = jtfSexo.getText().toUpperCase().substring(0, 0);
+                String sexoF = jrbFemenino.getText().toUpperCase().substring(0, 0);
+                String sexoM= jrbMasculino.getText().toUpperCase().substring(0, 0);
                 String colorPelo = jtfColorPelo.getText();
                 LocalDate fechaNac = jdcFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 
@@ -855,7 +855,8 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 m.setAlias(alias);
                 m.setEspecie(especie);
                 m.setRaza(raza);
-                m.setSexo(sexo);                                    ////PONER SELECCION DE F O M SOLAMENTE
+                m.setSexo(sexoF);                                    ////PONER SELECCION DE F O M SOLAMENTE
+                m.setSexo(sexoM);
                 m.setColorPelo(colorPelo);
                 m.setFechaNac(fechaNac);
                 m.setActivo(true);
@@ -1088,6 +1089,8 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jpClienteNew;
     public javax.swing.JPanel jpFondo;
     private javax.swing.JPanel jpMAscotaNew;
+    private javax.swing.JRadioButton jrbFemenino;
+    private javax.swing.JRadioButton jrbMasculino;
     private javax.swing.JTextField jtfAlias;
     private javax.swing.JTextField jtfApellido;
     private javax.swing.JTextField jtfBusquarXdni;
@@ -1098,7 +1101,6 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfNombre;
     private javax.swing.JTextField jtfNombreAlternativo;
     private javax.swing.JTextField jtfRaza;
-    private javax.swing.JTextField jtfSexo;
     private javax.swing.JTextField jtfTelefono;
     private javax.swing.JTextField jtfTelefonoAlternativo;
     // End of variables declaration//GEN-END:variables
@@ -1206,7 +1208,8 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jtfAlias.setText("");
         jtfEspecie.setText("");
         jtfRaza.setText("");
-        jtfSexo.setText("");
+        jrbFemenino.setText("");
+        jrbMasculino.setText("");
         jtfColorPelo.setText("");
         jdcFechaNac.setDate(null);
         jbGenerarVisita.setEnabled(false);
