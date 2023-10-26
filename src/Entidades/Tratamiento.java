@@ -4,9 +4,10 @@ package Entidades;
 public class Tratamiento {
     
     private int idTratamiento;
-    private String descripcion, tipoTratamiento, medicamento,usuarioLog;
+    private String descripcion,  medicamento,usuarioLog;
     private double importe;
     private boolean activo;
+    private EnumTipoTratamiento tipoTratamiento;
  //   private Mascota mascota;
  //   private Visita visita;
     public Tratamiento() {
@@ -28,7 +29,7 @@ public class Tratamiento {
 //        this.visita = visita;
 //    }
 
-    public Tratamiento(String descripcion, String tipoTratamiento, String medicamento, double importe,String usuarioLog, boolean activo) {
+    public Tratamiento(String descripcion, EnumTipoTratamiento tipoTratamiento, String medicamento, double importe,String usuarioLog, boolean activo) {
         this.descripcion = descripcion;
         this.tipoTratamiento = tipoTratamiento;
         this.medicamento = medicamento;
@@ -37,7 +38,7 @@ public class Tratamiento {
         this.usuarioLog=usuarioLog;
     }
 
-    public Tratamiento(int idTratamiento, String descripcion, String tipoTratamiento, String medicamento, double importe,String usuarioLog, boolean activo) {
+    public Tratamiento(int idTratamiento, String descripcion, EnumTipoTratamiento tipoTratamiento, String medicamento, double importe,String usuarioLog, boolean activo) {
         this.idTratamiento = idTratamiento;
         this.descripcion = descripcion;
         this.tipoTratamiento = tipoTratamiento;
@@ -78,11 +79,11 @@ public class Tratamiento {
         this.descripcion = descripcion;
     }
 
-    public String getTipoTratamiento() {
+    public EnumTipoTratamiento getTipoTratamiento() {
         return tipoTratamiento;
     }
 
-    public void setTipoTratamiento(String tipoTratamiento) {
+    public void setTipoTratamiento(EnumTipoTratamiento tipoTratamiento) {
         this.tipoTratamiento = tipoTratamiento;
     }
 

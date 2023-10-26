@@ -6,7 +6,26 @@
 package InterfazGrafica;
 
 import Entidades.Tratamiento;
+import Entidades.EnumTipoTratamiento;
+import Entidades.Mascota;
+import AccesoDatos.ClienteData;
+import AccesoDatos.MascotaData;
+import AccesoDatos.VisitaData;
+import AccesoDatos.TratamientoData;
+import Entidades.Cliente;
+import Entidades.EnumTipoTratamiento;
+import Entidades.Mascota;
+import Entidades.Visita;
+import com.toedter.calendar.JDateChooser;
+import java.awt.PopupMenu;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -20,6 +39,9 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
      */
     public BusquedaVisita() {
         initComponents();
+        armarCabecera();
+        cargarCombo();
+        cargarComboCliente();
     }
 
     /**
@@ -35,8 +57,9 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtVisita = new javax.swing.JTable();
-        jcbMascota = new javax.swing.JComboBox<>();
-        jcbTipoTratamiento = new javax.swing.JComboBox<>();
+        jcbTipoTratamiento = new JComboBox<>(EnumTipoTratamiento.values());
+        jcbTipoTratamiento.setSelectedItem(null);
+        ;
         jcbCliente = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -45,11 +68,12 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
         jbSiguiente = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jdcFecha1 = new com.toedter.calendar.JDateChooser();
+        jdcFechaInicio = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
-        jdcFecha2 = new com.toedter.calendar.JDateChooser();
+        jdcFechaFin = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         jbFiltrar = new javax.swing.JButton();
+        jcbMascotas = new javax.swing.JComboBox<>();
 
         jLabel1.setText("BUSQUEDA VISITAS");
 
@@ -66,16 +90,15 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtVisita);
 
-        jcbMascota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jcbMascota.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbMascotaActionPerformed(evt);
-            }
-        });
-
         jcbTipoTratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbTipoTratamientoActionPerformed(evt);
+            }
+        });
+
+        jcbCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbClienteActionPerformed(evt);
             }
         });
 
@@ -103,6 +126,11 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
 
         jbFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ok.png"))); // NOI18N
         jbFiltrar.setText("FILTRAR");
+        jbFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFiltrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,11 +145,11 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jLabel7)
                         .addGap(22, 22, 22)
-                        .addComponent(jdcFecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jdcFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
-                        .addComponent(jdcFecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jdcFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jbFiltrar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -136,13 +164,19 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jdcFecha1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jdcFecha2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jdcFechaInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jdcFechaFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addComponent(jLabel7)))
                     .addComponent(jbFiltrar))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
+
+        jcbMascotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMascotasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -163,7 +197,7 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jcbMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jcbMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
@@ -189,7 +223,7 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jcbMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbTipoTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,19 +246,107 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcbMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMascotaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbMascotaActionPerformed
-
     private void jcbTipoTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoTratamientoActionPerformed
         // TODO add your handling code here:
+         limpiarTabla();
+        
+        
+        //VisitaData vd = new VisitaData();
+        MascotaData md = new MascotaData();
+        TratamientoData td= new TratamientoData();
+        //Tratamiento tratSele = (Tratamiento) jcbTipoTratamiento.getSelectedItem();
+//
+        List<Mascota> listaVisitas = td.obtenerMascotasMismoTratamiento((EnumTipoTratamiento) jcbTipoTratamiento.getSelectedItem());
+      
+        for (Mascota masc : listaVisitas){
+                modelo.addRow(new Object[]{
+                masc.getCliente().getIdCliente(),
+                masc.getAlias(),
+                masc.getEspecie(),});
+                
+        }         
     }//GEN-LAST:event_jcbTipoTratamientoActionPerformed
 
     private void jbInternadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInternadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbInternadoActionPerformed
 
+    @SuppressWarnings("empty-statement")
+    private void jcbMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMascotasActionPerformed
+        // TODO add your handling code here:
+        limpiarTabla();
+       
+        VisitaData vd = new VisitaData();
+        MascotaData md = new MascotaData();
+//        TratamientoData td= new TratamientoData();
+        Mascota mascSele = (Mascota) jcbMascotas.getSelectedItem();
+//
+        List<Visita> listaVisitas = vd.obtenerVisitasXMascota(mascSele.getIdMascota());
+      
+        for (Visita listaVisita : listaVisitas) {
+            modelo.addRow(new Object[]{
+                listaVisita.getMascota().getCliente().getIdCliente(),
+                listaVisita.getMascota().getAlias(),
+                listaVisita.getMascota().getEspecie(),
+                listaVisita.getFechaVisita(),
+                listaVisita.getTratamiento().getTipoTratamiento(),
+                listaVisita.getTratamiento().getImporte(),});
+    
+        }
+    }//GEN-LAST:event_jcbMascotasActionPerformed
 
+    private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
+        // TODO add your handling code here:
+        limpiarTabla();
+       
+        VisitaData vd = new VisitaData();
+        ClienteData cd = new ClienteData();
+//      TratamientoData td= new TratamientoData();
+        Cliente clientSele = (Cliente) jcbCliente.getSelectedItem();
+//
+        List<Visita> listaVisitas = vd.obtenerVisitasXCliente(clientSele.getIdCliente());
+      
+        for (Visita listaVisita : listaVisitas) {
+            modelo.addRow(new Object[]{
+                listaVisita.getMascota().getCliente().getIdCliente(),
+                listaVisita.getMascota().getAlias(),
+                listaVisita.getMascota().getEspecie(),
+                listaVisita.getFechaVisita(),
+                listaVisita.getTratamiento().getTipoTratamiento(),
+                listaVisita.getTratamiento().getImporte(),});
+    
+        }
+                                              
+    }//GEN-LAST:event_jcbClienteActionPerformed
+
+    private void jbFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFiltrarActionPerformed
+        // TODO add your handling code here:
+//        limpiarTabla();
+//       
+//        VisitaData vd = new VisitaData();
+//        ClienteData cd = new ClienteData();
+////      TratamientoData td= new TratamientoData();
+//       
+       
+//
+//        List<Visita> listaVisitas = vd.obtenerVisitasEntreFechas(jdcFechaInicio, jdcFechaFin);
+      
+//        for (Visita listaVisita : listaVisitas) {
+//            modelo.addRow(new Object[]{
+//                listaVisita.getMascota().getCliente().getIdCliente(),
+//                listaVisita.getMascota().getAlias(),
+//                listaVisita.getMascota().getEspecie(),
+//                listaVisita.getFechaVisita(),
+//                listaVisita.getTratamiento().getTipoTratamiento(),
+//                listaVisita.getTratamiento().getImporte(),});
+//    
+        
+                                              
+                                          
+    }//GEN-LAST:event_jbFiltrarActionPerformed
+
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -239,11 +361,11 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbFiltrar;
     private javax.swing.JButton jbInternado;
     private javax.swing.JButton jbSiguiente;
-    private javax.swing.JComboBox<String> jcbCliente;
-    private javax.swing.JComboBox<Tratamiento> jcbMascota;
-    private javax.swing.JComboBox<String> jcbTipoTratamiento;
-    private com.toedter.calendar.JDateChooser jdcFecha1;
-    private com.toedter.calendar.JDateChooser jdcFecha2;
+    private javax.swing.JComboBox<Cliente> jcbCliente;
+    private javax.swing.JComboBox<Mascota> jcbMascotas;
+    private javax.swing.JComboBox<EnumTipoTratamiento> jcbTipoTratamiento;
+    private com.toedter.calendar.JDateChooser jdcFechaFin;
+    private com.toedter.calendar.JDateChooser jdcFechaInicio;
     private javax.swing.JTable jtVisita;
     // End of variables declaration//GEN-END:variables
 
@@ -257,4 +379,32 @@ private void armarCabecera() {
         modelo.addColumn("IMPORTE");
         jtVisita.setModel(modelo);
 }
+ private void limpiarTabla() {
+        int f = modelo.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
 }
+ private void cargarCombo() {
+        MascotaData md=new MascotaData();
+        List<Mascota> listaMascotas = new ArrayList<>();
+        listaMascotas = md.listarMascotas();
+
+        for (Mascota mascota : listaMascotas) {
+            jcbMascotas.addItem(mascota);
+            System.out.println(mascota.getAlias());
+        }
+
+    }
+ private void cargarComboCliente() {
+        ClienteData cd=new ClienteData();
+        List<Cliente> listaClientes = new ArrayList<>();
+        listaClientes = cd.listarClientes();
+
+        for (Cliente cliente : listaClientes) {
+            jcbCliente.addItem(cliente);
+            System.out.println(cliente.getApellido());
+        }
+}
+}
+

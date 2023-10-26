@@ -2,6 +2,7 @@ package AccesoDatos;
 
 import java.sql.Connection;
 import Entidades.Cliente;
+import Entidades.EnumTipoTratamiento;
 import Entidades.Mascota;
 import Entidades.Visita;
 import Entidades.Tratamiento;
@@ -62,7 +63,7 @@ public class TratamientoData {
             ps.setString(1, trat.getDescripcion());
             ps.setString(2, trat.getMedicamento());
             ps.setDouble(3, trat.getImporte());
-            ps.setString(4, trat.getTipoTratamiento());
+            //ps.setString(4, trat.getTipoTratamiento());
             ps.setBoolean(5, trat.isActivo());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -104,7 +105,7 @@ public class TratamientoData {
             ps = con.prepareStatement(sql);
             ps.setString(1, trat.getDescripcion());
             ps.setString(2, trat.getMedicamento());
-            ps.setString(3, trat.getTipoTratamiento());
+            //ps.setString(3, (trat.getTipoTratamiento());
             ps.setDouble(4, trat.getImporte());
             ps.setBoolean(5, trat.isActivo());
             int exito = ps.executeUpdate();
@@ -164,13 +165,14 @@ public class TratamientoData {
 
  
 
-    public List<Mascota> obtenerMascotasMismoTratamiento(String tratamiento) {                              // chekear metodo
+    public List<Mascota> obtenerMascotasMismoTratamiento(EnumTipoTratamiento enumTipoTratamiento) {                              // chekear metodo
         List<Mascota> mascotasList = new ArrayList<>();
         String sql = "SELECT m.idMascota, alias, especie, raza FROM visita v, mascota m, tratamiento t WHERE v.idMascota=m.idMascota AND v.idTratamiento=t.idTratamiento AND t.tipoTratamiento=? AND m.activo=1";
 
         try {
             PreparedStatement ps;
             ps = con.prepareStatement(sql);
+            String tratamiento = null;                 //ver esto
             ps.setString(1, tratamiento);
             ResultSet rs = ps.executeQuery();
 
@@ -180,6 +182,7 @@ public class TratamientoData {
                 masc.setAlias(rs.getString("alias"));
                 masc.setEspecie(rs.getString("especie"));
                 masc.setRaza(rs.getString("raza"));
+                
 
                 mascotasList.add(masc);
             }
@@ -208,7 +211,7 @@ public class TratamientoData {
                 tr.setDescripcion(rs.getString("Descripcion"));
                 tr.setMedicamento(rs.getString("medicamento"));
                 tr.setImporte(rs.getDouble("importe"));
-                tr.setTipoTratamiento(rs.getString("tipoTratamiento"));
+                //tr.setTipoTratamiento(rs.getString("tipoTratamiento"));
       //          tr.setUsuarioLog(rs.getString("usuarioLog"));                             //falta poner en entidades
                 tr.setActivo(rs.getBoolean("activo"));
             } else {

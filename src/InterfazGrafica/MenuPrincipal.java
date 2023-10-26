@@ -607,11 +607,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jbBusqMascotasActionPerformed
 
     private void jbBusqVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqVisitasActionPerformed
-        JpanelImage memo = new JpanelImage(jpVisitaMemo, "/Imagenes/memo250.png");
-        jpVisitaMemo.add(memo).repaint();
-        jpVisitaMemo.setOpaque(false);
-        jpVisitaMemo.setBorder(null);
-        jpVisitaMemo.setBackground(new Color(0, 0, 0, 0));
+       
+//        JpanelImage memo = new JpanelImage(jpVisitaMemo, "/Imagenes/memo250.png");
+//        jpVisitaMemo.add(memo).repaint();
+//        jpVisitaMemo.setOpaque(false);
+//        jpVisitaMemo.setBorder(null);
+//        jpVisitaMemo.setBackground(new Color(0, 0, 0, 0));
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        BusquedaVisita bv = new BusquedaVisita();
+        bv.setVisible(true);
+        jDesktopPane1.add(bv);
 
     }//GEN-LAST:event_jbBusqVisitasActionPerformed
 

@@ -380,7 +380,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 t.setDescripcion(descrip);
                 t.setImporte(importe);
                 t.setMedicamento(medicam);
-                t.setTipoTratamiento(tipoTrata);
+                //t.setTipoTratamiento(tipoTrata);
                 t.setUsuarioLog("fifi");
 
                 VisitaData vd = new VisitaData();
