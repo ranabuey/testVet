@@ -390,7 +390,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 v.setFechaAlta(fechaAlta);
                 v.setFechaVisita(fechaVisita);
                 v.setPesoActual(pesoActual);
-                //v.setTratamiento(t);
+                v.setTratamiento(t);
                 v.setUsuarioLog("fifi");
 
                 MascotaData md = new MascotaData();

@@ -74,10 +74,14 @@ public class TestVet {
 //       System.out.println("apellido: "+cliente.getApellido());
 //   }
 
-List<Mascota> masc= md.listarMascotasXIDCliente(4);
+
+        
+      Cliente c=cd.buscarClienteDni(2);
+        System.out.println(""+c);
+     List<Mascota> masc= md.listarMascotasXDniCliente(2);
         for (Mascota mascota : masc) {
-            System.out.println("alias"+mascota.getAlias());
-        }
+            System.out.println("alias"+mascota.getAlias());   
+    }
     }
    }
    

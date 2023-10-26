@@ -187,21 +187,20 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
 
     private void jbBusqMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqMascotasActionPerformed
 
-        
         limpiarTablaMacotas();
 
         try {
-            
-            String busq = jtfbusqueda.getText();
 
-            System.out.println(busq);
+            String busq = jtfbusqueda.getText().toLowerCase();
+
+            System.out.println(busq + jcbTipoBusqueda.getSelectedIndex());
             if (jcbTipoBusqueda.getSelectedIndex() == 0) {                  //Alias
                 jbReActivar.setVisible(false);
 
                 List<Mascota> listamasc = md.listarMascotas();
                 for (Mascota mascota : listamasc) {
 
-                    if (mascota.getAlias().startsWith(busq)) {
+                    if (mascota.getAlias().toLowerCase().startsWith(busq)) {
                         modelo.addRow(new Object[]{
                             mascota.getIdMascota(),
                             mascota.getAlias(),
@@ -225,7 +224,6 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
             } else {
                 if (jcbTipoBusqueda.getSelectedIndex() == 1) {                //Raza
 
-                    
                     jbReActivar.setVisible(false);
                     jbBorrar.setVisible(true);
 
@@ -296,17 +294,18 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                             mascota.getPesoUltimo(),
                             mascota.getPesoPromedio(),
                             mascota.getCliente().getTelefono(),});
-                    }
+                   
                 }
                 if (jtMascotas.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
-                } else if (jcbTipoBusqueda.getSelectedIndex() == 4) {            //DNI Cliente
+                }
+            }else if (jcbTipoBusqueda.getSelectedIndex() == 4) {            //DNI Cliente
 
                     jbReActivar.setVisible(false);
                     jbBorrar.setVisible(true);
-
+                    System.out.println("n");
                     List<Mascota> listamasc = md.listarMascotasXDniCliente(Integer.parseInt(busq));
-                    System.out.println(""+busq);
+                    System.out.println("n");
                     for (Mascota mascota : listamasc) {
 
                         modelo.addRow(new Object[]{
@@ -318,13 +317,13 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                             mascota.getSexo(),
                             mascota.getColorPelo(),
                             mascota.getFechaNac(),
-                            mascota.getPesoUltimo(),
-                            mascota.getPesoPromedio(),
+//                            mascota.getPesoUltimo(),
+//                            mascota.getPesoPromedio(),
                             mascota.getCliente().getTelefono(),});
 
                     }
                     if (jtMascotas.getRowCount() == 0) {
-                        JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
+                        JOptionPane.showMessageDialog(this, "No se encontro Mascotas con ese dni.");
                     }
 
                 } else if (jcbTipoBusqueda.getSelectedIndex() == 5) {            //todas
@@ -354,12 +353,16 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                     }
                 }
 
-            }
-        } catch (NumberFormatException e) {
+        }
+    }
+    catch (NumberFormatException e
+
+    
+        ) {
             JOptionPane.showMessageDialog(this, "debe poner un numero");
     }//GEN-LAST:event_jbBusqMascotasActionPerformed
-    
-    }
+
+}
     private void jbHacerVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHacerVisitaActionPerformed
 
         try {

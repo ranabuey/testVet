@@ -95,15 +95,16 @@ public class ClienteData {
             if (rs.next()) {                                            //ver el orden de las columnas?
                 cliente = new Cliente();
                 cliente.setIdCliente(rs.getInt("idcliente"));
+                cliente.setDni(rs.getInt("dni"));
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setApellido(rs.getString("apellido"));
-                cliente.setDni(rs.getInt("dni"));
                 cliente.setTelefono(rs.getInt("telefono"));
                 cliente.setDireccion(rs.getString("direccion"));
-                cliente.setTelefonoAlternativo(rs.getInt("telefonoAlternativo"));
-                cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
-                cliente.setUsuarioLog(rs.getString("usuarioLOg"));
+//              cliente.setTelefonoAlternativo(rs.getInt("telefonoAlternativo"));
                 cliente.setActivo(rs.getBoolean("activo"));
+//              cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
+                cliente.setUsuarioLog(rs.getString("usuarioLOg"));
+                System.out.println(""+cliente);
                 if (!cliente.isActivo()) {
                     int input = JOptionPane.showConfirmDialog(null, "El Cliente con el DNI ingresado: " + dni + "Se encuentra borrado. Desea Cargarlo al Sistema Nuevamente? ", "Seleccione una opcion...",
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -386,7 +387,8 @@ public class ClienteData {
 
         return clientesList;
     }
-public void reActivarCliente(int id) {
+
+    public void reActivarCliente(int id) {
         try {
             String sql = "UPDATE cliente SET activo=1 WHERE idCliente=?";
             PreparedStatement ps = con.prepareStatement(sql);

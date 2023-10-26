@@ -324,12 +324,17 @@ public class MascotaData {
 
     public List<Mascota> listarMascotasXDniCliente(int dni) {
         List<Mascota> mascotas = new ArrayList<>();
+        Cliente c= new Cliente();
+        System.out.println(1+dni);
+        c=clientData.buscarClienteDni(dni);
+        System.out.println(""+c.getIdCliente());
         try {
-            String sql = "SELECT * FROM mascota INNER JOIN cliente ON mascota.idCliente = cliente.idCliente WHERE cliente.dni=?";
+//            String sql = "SELECT * FROM mascota INNER JOIN cliente ON mascota.idCliente = cliente.idCliente WHERE cliente.dni=?";
+              String sql= "SELECT * FROM mascota WHERE idCliente=?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, dni);
+            ps.setInt(1, c.getIdCliente());
             ResultSet rs = ps.executeQuery();
-
+            
             while (rs.next()) {
                 Mascota mascota = new Mascota();
                 mascota.setIdMascota(rs.getInt("idMascota"));
@@ -339,10 +344,10 @@ public class MascotaData {
                 mascota.setRaza(rs.getString("raza"));
                 mascota.setColorPelo(rs.getString("colorPelo"));
                 mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
-                mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
+                mascota.setCliente(c);
                 mascota.setActivo(rs.getBoolean("activo"));
-                mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
-                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+//                mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
+//                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
 //
 //                if ((rs.getDate("fechaDefuncion")) == null) {
 //
@@ -350,18 +355,19 @@ public class MascotaData {
 //                    mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
 //                }
                 mascota.setUsuarioLog(rs.getString("usuarioLOg"));
+                System.out.println(""+mascota);
                 mascotas.add(mascota);
             }
             ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla mascota" + ex.getMessage());
-        } catch (NullPointerException n) {
-
+//        } catch (NullPointerException n) {
+//
         }
         return mascotas;
-
-    }
+        }
+    
     
     public void eliminarMascota(int id) {
         try {

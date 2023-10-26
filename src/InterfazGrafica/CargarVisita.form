@@ -59,38 +59,33 @@
                           <Component id="jLabel18" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jdcFechaVisita" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jtfAlias" min="-2" pref="137" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane2" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                                      <Component id="jtfPesoActual" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
-                                      <Component id="jdcFechaAlta" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                  <Component id="jbInternar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jbAmbulatorio" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jdcFechaVisita" min="-2" max="-2" attributes="0"/>
+                              <Component id="jtfAlias" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="jScrollPane2" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="jtfPesoActual" alignment="0" min="-2" pref="137" max="-2" attributes="0"/>
+                              <Component id="jdcFechaAlta" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                          <Component id="jbInternar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jbAmbulatorio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
