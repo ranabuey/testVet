@@ -274,11 +274,13 @@
             <Component class="javax.swing.JTextField" name="jtfApellido">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfApellidoActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfApellidoKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfDni">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfDniActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfDniKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfDireccion">
@@ -289,16 +291,19 @@
             <Component class="javax.swing.JTextField" name="jtfTelefono">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfTelefonoActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfTelefonoKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfNombreAlternativo">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfNombreAlternativoActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfNombreAlternativoKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfTelefonoAlternativo">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfTelefonoAlternativoActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfTelefonoAlternativoKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jbCancelar">
@@ -552,11 +557,13 @@
             <Component class="javax.swing.JTextField" name="jtfEspecie">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfEspecieActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfEspecieKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jtfRaza">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfRazaActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfRazaKeyTyped"/>
               </Events>
             </Component>
             <Component class="com.toedter.calendar.JDateChooser" name="jdcFechaNac">
@@ -564,6 +571,7 @@
             <Component class="javax.swing.JTextField" name="jtfColorPelo">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfColorPeloActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfColorPeloKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel19">

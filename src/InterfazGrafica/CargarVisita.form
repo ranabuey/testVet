@@ -170,6 +170,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfPesoActual">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfPesoActualKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbInternar">
           <Properties>
@@ -437,6 +440,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfImporte">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfImporteKeyTyped"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
           </AuxValues>

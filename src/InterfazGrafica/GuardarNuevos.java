@@ -147,10 +147,20 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 jtfApellidoActionPerformed(evt);
             }
         });
+        jtfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfApellidoKeyTyped(evt);
+            }
+        });
 
         jtfDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfDniActionPerformed(evt);
+            }
+        });
+        jtfDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfDniKeyTyped(evt);
             }
         });
 
@@ -165,16 +175,31 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 jtfTelefonoActionPerformed(evt);
             }
         });
+        jtfTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfTelefonoKeyTyped(evt);
+            }
+        });
 
         jtfNombreAlternativo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfNombreAlternativoActionPerformed(evt);
             }
         });
+        jtfNombreAlternativo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfNombreAlternativoKeyTyped(evt);
+            }
+        });
 
         jtfTelefonoAlternativo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfTelefonoAlternativoActionPerformed(evt);
+            }
+        });
+        jtfTelefonoAlternativo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfTelefonoAlternativoKeyTyped(evt);
             }
         });
 
@@ -380,16 +405,31 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 jtfEspecieActionPerformed(evt);
             }
         });
+        jtfEspecie.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfEspecieKeyTyped(evt);
+            }
+        });
 
         jtfRaza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfRazaActionPerformed(evt);
             }
         });
+        jtfRaza.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfRazaKeyTyped(evt);
+            }
+        });
 
         jtfColorPelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfColorPeloActionPerformed(evt);
+            }
+        });
+        jtfColorPelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfColorPeloKeyTyped(evt);
             }
         });
 
@@ -948,6 +988,63 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
     private void jbCancelarMascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarMascActionPerformed
         borrarCamposMascota();
     }//GEN-LAST:event_jbCancelarMascActionPerformed
+
+    private void jtfDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniKeyTyped
+         if(Character.isLetter(evt.getKeyChar())) {
+          evt.consume();
+        }
+        if(evt.getKeyChar()== KeyEvent.VK_SPACE){
+      }
+                                       
+    }//GEN-LAST:event_jtfDniKeyTyped
+
+    private void jtfTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoKeyTyped
+        if(Character.isLetter(evt.getKeyChar())) {
+          evt.consume();
+        }
+        if(evt.getKeyChar()== KeyEvent.VK_SPACE){
+      }
+                                       
+    }//GEN-LAST:event_jtfTelefonoKeyTyped
+
+    private void jtfTelefonoAlternativoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfTelefonoAlternativoKeyTyped
+         if(Character.isLetter(evt.getKeyChar())) {
+          evt.consume();
+        }
+        if(evt.getKeyChar()== KeyEvent.VK_SPACE){
+      }
+                                        
+    }//GEN-LAST:event_jtfTelefonoAlternativoKeyTyped
+
+    private void jtfApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyTyped
+        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar()== KeyEvent.VK_SPACE)){
+          evt.consume();
+      }
+    }//GEN-LAST:event_jtfApellidoKeyTyped
+
+    private void jtfNombreAlternativoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreAlternativoKeyTyped
+       if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar()== KeyEvent.VK_SPACE)){
+          evt.consume();
+      }
+    }//GEN-LAST:event_jtfNombreAlternativoKeyTyped
+
+    private void jtfEspecieKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfEspecieKeyTyped
+       if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar()== KeyEvent.VK_SPACE)){
+          evt.consume();
+      }
+    }//GEN-LAST:event_jtfEspecieKeyTyped
+
+    private void jtfRazaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfRazaKeyTyped
+        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar()== KeyEvent.VK_SPACE)){
+          evt.consume();
+      }
+    }//GEN-LAST:event_jtfRazaKeyTyped
+
+    private void jtfColorPeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfColorPeloKeyTyped
+        if(!(Character.isLetter(evt.getKeyChar())) && !(evt.getKeyChar()== KeyEvent.VK_SPACE)){
+          evt.consume();
+      }
+    }//GEN-LAST:event_jtfColorPeloKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,6 +12,7 @@ import Entidades.EnumTipoTratamiento;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -93,6 +94,12 @@ public class CargarVisita extends javax.swing.JInternalFrame {
 
         jtfAlias.setEditable(false);
 
+        jtfPesoActual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfPesoActualKeyTyped(evt);
+            }
+        });
+
         jbInternar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/internado.png"))); // NOI18N
         jbInternar.setText("Internar");
         jbInternar.addActionListener(new java.awt.event.ActionListener() {
@@ -133,31 +140,28 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                         .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jpClienteNewLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpClienteNewLayout.createSequentialGroup()
-                                .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel7)
-                                    .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel6)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jdcFechaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfPesoActual, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jdcFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 14, Short.MAX_VALUE))
-                            .addGroup(jpClienteNewLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jbInternar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbAmbulatorio)
-                                .addGap(22, 22, 22))))))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel7)
+                            .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel6)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jdcFechaVisita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfPesoActual, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jdcFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 14, Short.MAX_VALUE))
+                    .addGroup(jpClienteNewLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jbInternar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbAmbulatorio)
+                        .addGap(22, 22, 22))))
             .addGroup(jpClienteNewLayout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addComponent(jlInternado)
@@ -235,6 +239,12 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jbBorrarVisita.setText("Borrar");
 
         jLabel4.setText("Importe:");
+
+        jtfImporte.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfImporteKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpMAscotaNewLayout = new javax.swing.GroupLayout(jpMAscotaNew);
         jpMAscotaNew.setLayout(jpMAscotaNewLayout);
@@ -470,6 +480,24 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jdcFechaAlta.setEnabled(true);
 
     }//GEN-LAST:event_jbAmbulatorioActionPerformed
+
+    private void jtfPesoActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPesoActualKeyTyped
+         if(Character.isLetter(evt.getKeyChar())) {
+          evt.consume();
+        }
+        if(evt.getKeyChar()== KeyEvent.VK_SPACE){
+      }
+                                        
+    }//GEN-LAST:event_jtfPesoActualKeyTyped
+
+    private void jtfImporteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfImporteKeyTyped
+         if(Character.isLetter(evt.getKeyChar())) {
+          evt.consume();
+        }
+        if(evt.getKeyChar()== KeyEvent.VK_SPACE){
+      }
+                                       
+    }//GEN-LAST:event_jtfImporteKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
