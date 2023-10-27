@@ -390,7 +390,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 t.setDescripcion(descrip);
                 t.setImporte(importe);
                 t.setMedicamento(medicam);
-                //t.setTipoTratamiento(tipoTrata);
+                t.setTipoTratamiento(tipoTrata);
                 t.setUsuarioLog("fifi");
 
                 VisitaData vd = new VisitaData();
@@ -406,6 +406,8 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 MascotaData md = new MascotaData();
                 Mascota mascota = md.buscarMascotaId(Integer.parseInt(MenuPrincipal.jtfMemoMascotaId.getText()));
                 v.setMascota(mascota);
+                System.out.println(""+mascota);
+                System.out.println("ccc");
 
                 int input = JOptionPane.showConfirmDialog(null, "Esta seguro de cargar la Nueva Visita/Tratamiento en el Sistema?", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);

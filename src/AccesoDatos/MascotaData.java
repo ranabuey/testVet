@@ -122,8 +122,8 @@ public class MascotaData {
                 mascota.setColorPelo(rs.getString("colorPelo"));
                 mascota.setFechaNac(rs.getDate("fechaNac").toLocalDate());
                 mascota.setActivo(rs.getBoolean("activo"));
-                mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
-                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+//                mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
+//                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
                 //mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
                 mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
                 mascota.setUsuarioLog(rs.getString("usuarioLOg"));
@@ -404,7 +404,7 @@ public class MascotaData {
     public double obtenerPesoPromedio(int id) {
         VisitaData visData = new VisitaData();
         List<Visita> visList = new ArrayList<>();
-        visList = visData.obtenerVisitasXMascota(id);
+        visList = visData.obtenerVisitaxIdMascota(id);
         Collections.reverse(visList);
 
         if (visList.isEmpty()) {

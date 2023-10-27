@@ -76,14 +76,20 @@ public class TestVet {
 
 
         
-      Cliente c=cd.buscarClienteDni(2);
-        System.out.println(""+c);
-     List<Mascota> masc= md.listarMascotasXDniCliente(2);
-        for (Mascota mascota : masc) {
-            System.out.println("alias"+mascota.getAlias());   
+//      Cliente c=cd.buscarClienteDni(2);
+//        System.out.println(""+c);
+//     List<Mascota> masc= md.listarMascotasXDniCliente(2);
+//        for (Mascota mascota : masc) {
+//            System.out.println("alias"+mascota.getAlias());   
+//    }
+      List<Visita> visList = vd.obtenerVisitaxIdMascota(4);
+        for (Visita visita : visList) {
+            System.out.println("alias: " + visita.getMascota().getAlias());
+            System.out.println(".................");  
+            System.out.println(""+visita.getIdVisita());
     }
-    }
-   }
+    } 
+}
    
         
 

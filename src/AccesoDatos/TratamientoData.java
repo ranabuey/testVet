@@ -63,7 +63,7 @@ public class TratamientoData {
             ps.setString(1, trat.getDescripcion());
             ps.setString(2, trat.getMedicamento());
             ps.setDouble(3, trat.getImporte());
-            //ps.setString(4, trat.getTipoTratamiento());
+            ps.setString(4, trat.getTipoTratamiento());
             ps.setBoolean(5, trat.isActivo());
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -73,7 +73,7 @@ public class TratamientoData {
                 return trat;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al acceder a la tabla Materia " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "error al acceder a la tabla Tratamiento " + ex.getMessage());
         }
         trat=null;
         return trat;
@@ -211,7 +211,7 @@ public class TratamientoData {
                 tr.setDescripcion(rs.getString("Descripcion"));
                 tr.setMedicamento(rs.getString("medicamento"));
                 tr.setImporte(rs.getDouble("importe"));
-                //tr.setTipoTratamiento(rs.getString("tipoTratamiento"));
+                tr.setTipoTratamiento(rs.getString("tipoTratamiento"));
       //          tr.setUsuarioLog(rs.getString("usuarioLog"));                             //falta poner en entidades
                 tr.setActivo(rs.getBoolean("activo"));
             } else {

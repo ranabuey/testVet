@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -45,7 +46,7 @@ public void guardarVisita (Visita vis){
             ps.setDouble(4, vis.getPesoActual());
             ps.setInt(5, vis.getTratamiento().getIdTratamiento());
             ps.setBoolean(6, vis.isActivo());
-          //  ps.setBoolean(7, vis.isActivo());
+          
             ps.setDate(7, Date.valueOf(vis.getFechaAlta()));
             ps.setString(8, vis.getUsuarioLog());
             
@@ -126,7 +127,7 @@ public void eliminarVisita (int id){
                 visita.setPesoActual(rs.getDouble("pesoActual"));
                 visita.setTratamiento(trataData.buscarTratamientoXId(rs.getInt("idTratamiento")));
                 visita.setActivo(rs.getBoolean("activo"));
-                visita.setInternado(rs.getBoolean("internado"));
+//                visita.setInternado(rs.getBoolean("internado"));
 //              visita.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
                 visita.setUsuarioLog(rs.getString("usuarioLog"));
                 visList.add(visita);
@@ -140,25 +141,7 @@ public void eliminarVisita (int id){
        
 }
  
-  public List<Visita> obtenerVisitasXMascota(int id) {
-        VisitaData visdata = new VisitaData();
-        List<Visita> visList = visdata.obtenerVisita();
-       // visList.addAll(visdata.obtenerVisita());
-
-        List<Visita> visListMascota = new ArrayList<>();
-        visListMascota.clear();
-
-        for (Visita visita : visList) {
-            if (visita.getMascota().getIdMascota()== id) {
-                visListMascota.add(visita);
-                System.out.println(visita.toString());
-            }
-        }
-        if (visList.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No se encuentra Mascota con ese ID");
-        }
-        return visListMascota;
-    }
+  
  
 //   public List<Tratamiento> obtenerTratamientoNoAlta(LocalDate fechaAlta) {               ////VER SI ESTE METODO NO DEBE I EN VISITADATA
 //        TratamientoData traData = new TratamientoData();
@@ -266,40 +249,70 @@ public List<Visita> obtenerVisitasXCliente(int id) {
         }
         return visListMascota;
     }
-//public List<Visita> obtenerVisitasEntreFechas(JDateChooser fechaInicio, JDateChooser fechaFin) {
-//    List<Visita> visita = new ArrayList<>();
-//    
-//try {
-//        String sql = "SELECT * FROM visita WHERE fechaVisita BETWEEN ? AND ?";
-//        PreparedStatement ps = con.prepareStatement(sql);
-//        ps.setDate(1, new java.sql.Date(fechaInicio.getDate()));
-//        ps.setDate(2, new java.sql.Date(fechaFin.getDate()));
-//        ResultSet rs = ps.executeQuery();
-//
-//        while (rs.next()) {
-//            Visita visita = new Visita();
-//            visita.setIdVisita(rs.getInt("idVisita"));
-//                visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
-//                visita.setDetalle(rs.getString("detalle"));
-//                visita.setPesoActual(rs.getDouble("pesoActual"));
-////                visita.setMascota(mascota);
-////                visita.setTratamiento(tratamiento);
-//                visita.setActivo(rs.getBoolean("activo"));
-//                visita.setInternado(rs.getBoolean("internado"));
-//                visita.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
-//                visita.setUsuarioLog(rs.getString("usuarioLog"));
-//                visita.add(visita);
-//                 }
-//            ps.close();
-//
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
-//        }
-//        return visita;
-//}
+public List<Visita> obtenerVisitasEntreFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+    List<Visita> visita = new ArrayList<>();
+   
+try {
+        String sql = "SELECT * FROM visita WHERE fechaVisita BETWEEN ? AND ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, Date.valueOf(fechaInicio));
+        ps.setDate(2, Date.valueOf(fechaFin));
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+           Visita vis = new Visita();
+            vis.setIdVisita(rs.getInt("idVisita"));
+                vis.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
+                vis.setDetalle(rs.getString("detalle"));
+                vis.setPesoActual(rs.getDouble("pesoActual"));
+                Mascota mascota= new Mascota();
+                vis.setMascota(masData.buscarMascotaId(rs.getInt("idMascota")));
+                vis.setTratamiento(trataData.buscarTratamientoXId(rs.getInt("idTratamiento")));
+                vis.setActivo(rs.getBoolean("activo"));
+//              vis.setInternado(rs.getBoolean("internado"));
+//              vis.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
+                vis.setUsuarioLog(rs.getString("usuarioLog"));
+                visita.add(vis);
+                 }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
+        }
+        return visita;
+}
 //
 //   
+public List<Visita> obtenerVisitaxIdMascota(int id) {
+        List<Visita> visList = new ArrayList<>();
+        visList.clear();
+        try {
+            String sql = "SELECT * FROM visita WHERE idMascota=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+               Visita visita = new Visita();
+                visita.setIdVisita(rs.getInt("idVisita"));
+                visita.setMascota(masData.buscarMascotaId(rs.getInt("idMascota")));
+                visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
+                visita.setDetalle(rs.getString("detalle"));
+                visita.setPesoActual(rs.getDouble("pesoActual"));
+                visita.setTratamiento(trataData.buscarTratamientoXId(rs.getInt("idTratamiento")));
+                visita.setActivo(rs.getBoolean("activo"));
+//                visita.setInternado(rs.getBoolean("internado"));
+//              visita.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
+                visita.setUsuarioLog(rs.getString("usuarioLog"));
+                visList.add(visita);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
+        }
+        return visList;
     }
+}
 
             
        

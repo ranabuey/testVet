@@ -20,6 +20,7 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.PopupMenu;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
@@ -281,7 +282,10 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
 //        TratamientoData td= new TratamientoData();
         Mascota mascSele = (Mascota) jcbMascotas.getSelectedItem();
 //
-        List<Visita> listaVisitas = vd.obtenerVisitasXMascota(mascSele.getIdMascota());
+        List<Visita> listaVisitas = vd.obtenerVisitaxIdMascota(mascSele.getIdMascota());
+        System.out.println("id:"+mascSele.getIdMascota());
+        System.out.println(""+listaVisitas);
+        System.out.println("mb");
       
         for (Visita listaVisita : listaVisitas) {
             modelo.addRow(new Object[]{
@@ -291,7 +295,7 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                 listaVisita.getFechaVisita(),
                 listaVisita.getTratamiento().getTipoTratamiento(),
                 listaVisita.getTratamiento().getImporte(),});
-    
+            
         }
     }//GEN-LAST:event_jcbMascotasActionPerformed
 
@@ -321,28 +325,29 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
 
     private void jbFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFiltrarActionPerformed
         // TODO add your handling code here:
-//        limpiarTabla();
-//       
-//        VisitaData vd = new VisitaData();
-//        ClienteData cd = new ClienteData();
-////      TratamientoData td= new TratamientoData();
-//       
+        limpiarTabla();
+        LocalDate fechaI = jdcFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaF = jdcFechaFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        VisitaData vd = new VisitaData();
+        ClienteData cd = new ClienteData();
+//      TratamientoData td= new TratamientoData();
        
-//
-//        List<Visita> listaVisitas = vd.obtenerVisitasEntreFechas(jdcFechaInicio, jdcFechaFin);
+       
+
+        List<Visita> listaVisitas = vd.obtenerVisitasEntreFechas(fechaI, fechaF);
       
-//        for (Visita listaVisita : listaVisitas) {
-//            modelo.addRow(new Object[]{
-//                listaVisita.getMascota().getCliente().getIdCliente(),
-//                listaVisita.getMascota().getAlias(),
-//                listaVisita.getMascota().getEspecie(),
-//                listaVisita.getFechaVisita(),
-//                listaVisita.getTratamiento().getTipoTratamiento(),
-//                listaVisita.getTratamiento().getImporte(),});
-//    
+        for (Visita listaVisita : listaVisitas) {
+            modelo.addRow(new Object[]{
+                listaVisita.getMascota().getCliente().getIdCliente(),
+                listaVisita.getMascota().getAlias(),
+                listaVisita.getMascota().getEspecie(),
+                listaVisita.getFechaVisita(),
+                listaVisita.getTratamiento().getTipoTratamiento(),
+                listaVisita.getTratamiento().getImporte(),});
+    
         
                                               
-                                          
+        }                                  
     }//GEN-LAST:event_jbFiltrarActionPerformed
 
 
@@ -392,7 +397,7 @@ private void armarCabecera() {
 
         for (Mascota mascota : listaMascotas) {
             jcbMascotas.addItem(mascota);
-            System.out.println(mascota.getAlias());
+            
         }
 
     }
@@ -403,7 +408,7 @@ private void armarCabecera() {
 
         for (Cliente cliente : listaClientes) {
             jcbCliente.addItem(cliente);
-            System.out.println(cliente.getApellido());
+           
         }
 }
 }
