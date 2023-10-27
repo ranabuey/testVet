@@ -64,8 +64,15 @@ public class ClienteData {
                 cliente.setDni(rs.getInt("dni"));
                 cliente.setTelefono(rs.getInt("telefono"));
                 cliente.setDireccion(rs.getString("direccion"));
-//                cliente.setTelefonoAlternativo(rs.getInt("telefonoAlternativo"));
-//                cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
+                if (!rs.getString("nombreAlternativo").isEmpty()) {
+                    
+                    cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
+                    System.out.println(cliente.getNombreAlternativo());
+                }
+                if (rs.getInt("telefonoAlternativo")!=0) {
+                    cliente.setTelefonoAlternativo(rs.getInt("telefonoAlternativo"));
+                    System.out.println(""+cliente.getTelefonoAlternativo());
+                }
                 cliente.setUsuarioLog(rs.getString("usuarioLOg"));
                 cliente.setActivo(rs.getBoolean("activo"));
 
@@ -104,7 +111,7 @@ public class ClienteData {
                 cliente.setActivo(rs.getBoolean("activo"));
 //              cliente.setNombreAlternativo(rs.getString("nombreAlternativo"));
                 cliente.setUsuarioLog(rs.getString("usuarioLOg"));
-                System.out.println(""+cliente);
+                System.out.println("" + cliente);
                 if (!cliente.isActivo()) {
                     int input = JOptionPane.showConfirmDialog(null, "El Cliente con el DNI ingresado: " + dni + "Se encuentra borrado. Desea Cargarlo al Sistema Nuevamente? ", "Seleccione una opcion...",
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);

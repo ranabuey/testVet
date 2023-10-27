@@ -448,11 +448,7 @@
                                   <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jtfColorPelo" min="-2" pref="137" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="jrbMasculino" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jrbFemenino" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jtfSexo" min="-2" pref="23" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -502,16 +498,15 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jtfSexo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jrbMasculino" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jrbFemenino" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jtfColorPelo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="127" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="jbGenerarVisita" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -585,6 +580,11 @@
                 <Property name="text" type="java.lang.String" value="MASCOTA"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JTextField" name="jtfSexo">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfSexoActionPerformed"/>
+              </Events>
+            </Component>
             <Component class="javax.swing.JButton" name="jbCancelarMasc">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -617,16 +617,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbGenerarVisitaActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="jrbMasculino">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="M"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="jrbFemenino">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="F"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

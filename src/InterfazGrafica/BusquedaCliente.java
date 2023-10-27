@@ -60,6 +60,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         jtMascotas = new javax.swing.JTable();
         jbEditarMascota = new javax.swing.JButton();
         jbHacerVisita = new javax.swing.JButton();
+        jbBusqVisitas = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -144,20 +145,18 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jcbBusquedas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jtfBusquedas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addComponent(jbBuscador))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jbReActivar)
@@ -166,8 +165,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jbEditarCliente1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jbSelCliente)))
-                        .addGap(8, 8, 8)))
+                                .addComponent(jbSelCliente)))))
                 .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
@@ -175,22 +173,22 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbBusquedas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtfBusquedas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscador))
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbReActivar)
                     .addComponent(jbBorrar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbSelCliente)
-                    .addComponent(jbEditarCliente1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbEditarCliente1)
+                    .addComponent(jbSelCliente))
+                .addGap(25, 25, 25))
         );
 
         jLabel1.setText("SUS MASCOTAS");
@@ -217,10 +215,18 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         });
 
         jbHacerVisita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/usar.png"))); // NOI18N
-        jbHacerVisita.setText("Visita");
+        jbHacerVisita.setText("Nueva Visita");
         jbHacerVisita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbHacerVisitaActionPerformed(evt);
+            }
+        });
+
+        jbBusqVisitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/buscarVisitas.png"))); // NOI18N
+        jbBusqVisitas.setText("Visitas");
+        jbBusqVisitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBusqVisitasActionPerformed(evt);
             }
         });
 
@@ -228,32 +234,33 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 136, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(jbEditarMascota)
-                .addGap(75, 75, 75)
+                .addGap(33, 33, 33)
+                .addComponent(jbBusqVisitas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbHacerVisita)
                 .addGap(28, 28, 28))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 21, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(180, 180, 180))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(36, 36, 36)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbEditarMascota)
-                    .addComponent(jbHacerVisita))
+                    .addComponent(jbHacerVisita)
+                    .addComponent(jbBusqVisitas))
                 .addGap(19, 19, 19))
         );
 
@@ -263,8 +270,8 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
@@ -290,7 +297,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         MenuPrincipal.jtfMemoEspecie.setText("" + modelo2.getValueAt(filaSel, 2));
         MenuPrincipal.jtfMemoRaza.setText("" + modelo2.getValueAt(filaSel, 3));
 
-        LocalDate fechaNac = (LocalDate) modelo2.getValueAt(filaSel, 5);                           //     FALTA VER COMO AGREGAR OBJETO A LOCAL DATE
+        LocalDate fechaNac = (LocalDate) modelo2.getValueAt(filaSel, 5);
         int edad = md.calcularEdad(fechaNac);
         MenuPrincipal.jtfMemoEdad.setText("" + edad);
         double pesoProm = md.obtenerPesoPromedio((Integer) modelo2.getValueAt(filaSel, 0));
@@ -411,13 +418,14 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         try {
             int filaSel = jtClientes.getSelectedRow();
             int dni = (Integer) modelo.getValueAt(filaSel, 4);
-            MascotaData md = new MascotaData();
+
             MenuPrincipal.jtfMemoClienteID.setText("" + modelo.getValueAt(filaSel, 0));
             MenuPrincipal.jtfMemoClienteApellido.setText("" + modelo.getValueAt(filaSel, 1));
             MenuPrincipal.jtfMemoClienteNombre.setText("" + modelo.getValueAt(filaSel, 2));
             MenuPrincipal.jtfMemoTelefono.setText("" + modelo.getValueAt(filaSel, 3));
             MenuPrincipal.jtfMemoClienteDNI.setText("" + modelo.getValueAt(filaSel, 4));
 
+            MascotaData md = new MascotaData();
             List<Mascota> mascList = md.listarMascotasXIDCliente((Integer) jtClientes.getValueAt(filaSel, 0));
             for (Mascota mascota : mascList) {
                 modelo2.addRow(new Object[]{
@@ -436,12 +444,54 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSelClienteActionPerformed
 
     private void jbEditarMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarMascotaActionPerformed
-        // TODO add your handling code here:
+        try {
+            MascotaData md = new MascotaData();
+            int filaSel = jtMascotas.getSelectedRow();
+
+            MenuPrincipal.jtfMemoMascotaId.setText("" + modelo2.getValueAt(filaSel, 0));
+            MenuPrincipal.jtfMemoAlias.setText("" + modelo2.getValueAt(filaSel, 1));
+            MenuPrincipal.jtfMemoEspecie.setText("" + modelo2.getValueAt(filaSel, 2));
+            MenuPrincipal.jtfMemoRaza.setText("" + modelo2.getValueAt(filaSel, 3));
+
+            LocalDate fechaNac = (LocalDate) modelo2.getValueAt(filaSel, 5);
+            int edad = md.calcularEdad(fechaNac);
+            MenuPrincipal.jtfMemoEdad.setText("" + edad);
+            double pesoProm = md.obtenerPesoPromedio((Integer) modelo2.getValueAt(filaSel, 0));
+            MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+        }
+        GuardarNuevos gn = new GuardarNuevos();
+        MenuPrincipal.jDesktopPane1.add(gn);
+        gn.setVisible(true);
+        gn.setVisible(true);
+
     }//GEN-LAST:event_jbEditarMascotaActionPerformed
 
     private void jbEditarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarCliente1ActionPerformed
+        try {
 
+            ClienteData cd = new ClienteData();
+            int filaSel = jtClientes.getSelectedRow();
 
+            MenuPrincipal.jtfMemoClienteID.setText("" + modelo.getValueAt(filaSel, 0));
+            MenuPrincipal.jtfMemoClienteApellido.setText("" + modelo.getValueAt(filaSel, 1));
+            MenuPrincipal.jtfMemoClienteNombre.setText("" + modelo.getValueAt(filaSel, 2));
+            MenuPrincipal.jtfMemoTelefono.setText("" + modelo.getValueAt(filaSel, 3));
+            MenuPrincipal.jtfMemoClienteDNI.setText("" + modelo.getValueAt(filaSel, 4));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+        }
+
+        GuardarNuevos gn = new GuardarNuevos();
+        MenuPrincipal.jDesktopPane1.add(gn);
+        gn.setVisible(true);
+        gn.setVisible(true);
+
+//         CargarVisita cv = new CargarVisita();
+//        MenuPrincipal.jDesktopPane1.add(cv);
+//        cv.toFront();
+//        cv.setVisible(true);
     }//GEN-LAST:event_jbEditarCliente1ActionPerformed
 
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
@@ -469,6 +519,10 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jcbBusquedasKeyPressed
 
+    private void jbBusqVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqVisitasActionPerformed
+
+    }//GEN-LAST:event_jbBusqVisitasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -479,6 +533,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbBorrar;
     private javax.swing.JButton jbBuscador;
+    private javax.swing.JButton jbBusqVisitas;
     private javax.swing.JButton jbEditarCliente1;
     private javax.swing.JButton jbEditarMascota;
     private javax.swing.JButton jbHacerVisita;
