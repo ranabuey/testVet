@@ -121,8 +121,9 @@ public class ClienteData {
                         cliente.setActivo(true);
                         reActivarCliente(cliente.getIdCliente());
 
-//                    }else {
-//                    JOptionPane.showMessageDialog(null, "No podra cargar el mismo DNI al Sistema. Realice otra busqueda de Cliente... ");
+                    }else {
+                    //JOptionPane.showMessageDialog(null, "No podra cargar el mismo DNI al Sistema. Realice otra busqueda de Cliente... ");
+                    cliente=null;
                     }
                 }
             } else {
@@ -133,6 +134,8 @@ public class ClienteData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla Cliente " + ex.getMessage());
+        }catch(NullPointerException n){
+            
         }
 
         return cliente;

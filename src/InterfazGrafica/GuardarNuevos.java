@@ -849,7 +849,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
             cliente = cd.buscarClienteDni(dni);
 
             if (cliente == null) {
-                int input = JOptionPane.showConfirmDialog(null, "No se encuentra un cliente cargado con el DNI ingresado: " + dni + "Desea Cargarlo al Sistema? ", "Seleccione una opcion...",
+                int input = JOptionPane.showConfirmDialog(null, "No se se podra cargar una Mascota con el DNI ingresado: " + dni + "Desea Cargarlo al Sistema? ", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
 
@@ -1149,6 +1149,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 ClienteData cd = new ClienteData();
 
                 Cliente c = cd.buscarClienteId(Integer.parseInt(MenuPrincipal.jtfMemoClienteID.getText()));
+                m.setIdMascota(Integer.parseInt(MenuPrincipal.jtfMemoMascotaId.getText()));
                 m.setAlias(alias);
                 m.setEspecie(especie);
                 m.setRaza(raza);

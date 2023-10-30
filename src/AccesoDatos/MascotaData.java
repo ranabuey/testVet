@@ -141,7 +141,7 @@ public class MascotaData {
     }
 
     public void modificarMascota(Mascota mascota) {
-        String sql = "UPDATE mascota SET alias=?, sexo=?, especie=?, raza=?, colorPelo=?, fechaNac=?, activo=?, pesoUltimo=?, pesoPromedio=?, idCliente=?, usuarioLog=? WHERE idMascota = ?";
+        String sql = "UPDATE mascota SET alias=?, sexo=?, especie=?, raza=?, colorPelo=?, fechaNac=?, pesoUltimo=?, pesoPromedio=? WHERE idMascota = ?";
         PreparedStatement ps = null;
 
         try {
@@ -152,13 +152,13 @@ public class MascotaData {
             ps.setString(4, mascota.getRaza());
             ps.setString(5, mascota.getColorPelo());
             ps.setDate(6, Date.valueOf(mascota.getFechaNac()));
-            ps.setBoolean(7, mascota.isActivo());
-            ps.setDouble(8, mascota.getPesoUltimo());
-            ps.setDouble(9, mascota.getPesoPromedio());
+            //ps.setBoolean(7, mascota.isActivo());
+            ps.setDouble(7, mascota.getPesoUltimo());
+            ps.setDouble(8, mascota.getPesoPromedio());
 //            ps.setDate(10, Date.valueOf(mascota.getFechaDefuncion()));
-            ps.setInt(10, mascota.getCliente().getIdCliente());
-            ps.setString(11, mascota.getUsuarioLog());
-            ps.setInt(12, mascota.getIdMascota());
+            //ps.setInt(10, mascota.getCliente().getIdCliente());
+            //ps.setString(9, mascota.getUsuarioLog());
+            ps.setInt(9, mascota.getIdMascota());
 
             int exito = ps.executeUpdate();
 
