@@ -44,7 +44,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
         jbBorrarMascota.setEnabled(false);
 
         if (!MenuPrincipal.jtfMemoClienteID.getText().isEmpty()) {
-            
+
             jbBorrarCliente.setEnabled(true);
             jbOKCliente.setEnabled(true);
             jbGuardar.setEnabled(false);
@@ -797,7 +797,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
 
     private void jbUsarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUsarActionPerformed
         jpMAscotaNew.setVisible(true);
-        jbCancelar.setEnabled(false);
+        jbCancelar.setEnabled(true);
         jbUsar.setEnabled(false);
         jbGuardar.setEnabled(false);
         jbGenerarVisita.setEnabled(false);
@@ -942,7 +942,8 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Debe poner un numero en DNI y/o telefonos");
             }
-
+            jbBorrarMascota.setEnabled(true);
+            jbOKMascota.setEnabled(true);
         }
 
 
@@ -1161,7 +1162,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
                     md.modificarMascota(m);
-                    
+
                     jbBorrarMascota.setEnabled(true);
                     jbGuardarMasc.setEnabled(false);
                     jbGenerarVisita.setEnabled(true);
