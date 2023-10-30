@@ -373,10 +373,8 @@ public class CargarVisita extends javax.swing.JInternalFrame {
             try {
                 String alias = jtfAlias.getText();
                 LocalDate fechaVisita = jdcFechaVisita.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                LocalDate fechaAlta = jdcFechaAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();  ///a revisar
-                if (!jlInternado.isEnabled()) {
-                    fechaAlta = fechaVisita;
-                }
+              ///a revisar
+               
                 String descrip = jtaDescripcion.getText();
                 String detalle = jtaDetalle.getText();
                 String medicam = jtfMedicamento.getText();
@@ -397,7 +395,11 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 Visita v = new Visita();
                 v.setActivo(true);
                 v.setDetalle(detalle);
-                v.setFechaAlta(fechaAlta);
+                 if (!jlInternado.isEnabled()) {
+                      LocalDate fechaAlta = jdcFechaAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    fechaAlta = fechaVisita;
+                    v.setFechaAlta(fechaAlta); 
+                }
                 v.setFechaVisita(fechaVisita);
                 v.setPesoActual(pesoActual);
                 v.setTratamiento(t);
