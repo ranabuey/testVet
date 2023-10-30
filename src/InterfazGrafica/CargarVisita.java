@@ -234,6 +234,11 @@ public class CargarVisita extends javax.swing.JInternalFrame {
 
         jbEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/editar.png"))); // NOI18N
         jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
 
         jbBorrarVisita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/borrarCarpeta.png"))); // NOI18N
         jbBorrarVisita.setText("Borrar");
@@ -374,8 +379,8 @@ public class CargarVisita extends javax.swing.JInternalFrame {
 
                 String alias = jtfAlias.getText();
                 LocalDate fechaVisita = jdcFechaVisita.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-              ///a revisar
-               
+                ///a revisar
+
                 String descrip = jtaDescripcion.getText();
                 String detalle = jtaDetalle.getText();
                 String medicam = jtfMedicamento.getText();
@@ -396,10 +401,10 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 Visita v = new Visita();
                 v.setActivo(true);
                 v.setDetalle(detalle);
-                 if (!jlInternado.isEnabled()) {
-                      LocalDate fechaAlta = jdcFechaAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                if (!jlInternado.isEnabled()) {
+                    LocalDate fechaAlta = jdcFechaAlta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     fechaAlta = fechaVisita;
-                    v.setFechaAlta(fechaAlta); 
+                    v.setFechaAlta(fechaAlta);
                 }
                 v.setFechaVisita(fechaVisita);
                 v.setPesoActual(pesoActual);
@@ -415,23 +420,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 int input = JOptionPane.showConfirmDialog(null, "Esta seguro de cargar la Nueva Visita/Tratamiento en el Sistema?", "Seleccione una opcion...",
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
                 if (input == 0) {
-                    if (vd.chkVisitaMismoDia(v)) {
-                        int input2 = JOptionPane.showConfirmDialog(null, "Existe otra Visita de " + v.getMascota().getAlias() + " en el mismo dia en el Sistema. Desea Agregar otra en la misma fecha?", "Seleccione una opcion...",
-                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-                        if (input2 == 0) {
 
-                            Tratamiento trata = td.guardarTratmiento(t);
-                            if (trata == null) {
-                                JOptionPane.showMessageDialog(this, "ERROR en la generacion del Tratamiento...");
-                            } else {
-                                v.setTratamiento(trata);
-                                vd.guardarVisita(v);
-                                jbBorrarVisita.setEnabled(true);
-                                jbEditar.setEnabled(true);
-                                //jbGuardarVisita.setEnabled(false);
-                            }
-                        }
-                    }
                     Tratamiento trata = td.guardarTratmiento(t);
                     if (trata == null) {
                         JOptionPane.showMessageDialog(this, "ERROR en la generacion del Tratamiento...");
@@ -440,7 +429,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                         vd.guardarVisita(v);
                         jbBorrarVisita.setEnabled(true);
                         jbEditar.setEnabled(true);
-                        //jbGuardarVisita.setEnabled(false);
+                        jbGuardarVisita.setEnabled(false);
                     }
                 }
 
@@ -519,6 +508,10 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jtfImporteKeyTyped
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

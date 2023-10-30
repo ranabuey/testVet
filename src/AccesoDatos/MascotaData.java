@@ -104,7 +104,7 @@ public class MascotaData {
 //    }
     public Mascota buscarMascotaId(int id) {
         Mascota mascota = null;
-        String sql = "SELECT alias, sexo, especie, raza, colorPelo, fechaNac, activo, pesoUltimo, pesoPromedio, fechaDefuncion, idCliente, UsuarioLog FROM mascota WHERE idMascota = ?";
+        String sql = "SELECT alias, sexo, especie, raza, colorPelo, fechaNac, activo, idCliente, UsuarioLog FROM mascota WHERE idMascota = ?";
         PreparedStatement ps = null;
 
         try {
