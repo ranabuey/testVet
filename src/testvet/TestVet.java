@@ -11,6 +11,7 @@ import AccesoDatos.MascotaData;
 import AccesoDatos.TratamientoData;
 import AccesoDatos.VisitaData;
 import Entidades.Cliente;
+import Entidades.EnumTipoTratamiento;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
@@ -34,7 +35,7 @@ public class TestVet {
 
         MascotaData md = new MascotaData();
         VisitaData vd = new VisitaData();
-
+        
      
 
         TratamientoData td = new TratamientoData();
@@ -49,11 +50,11 @@ public class TestVet {
    // md.guardarMascota(m1);
       //td.guardarTratmiento(t1);
 //     vd.guardarVisita(v2);
-//        List<Mascota> masList = td.obtenerMascotasMismoTratamiento("pulgas");
-//        ArrayList<Mascota> masList = cd.listarMascotasXcliente(4);
-//        for (Mascota mascota : masList) {
-//            System.out.println("alias: " + mascota.getAlias());
-//            System.out.println(".................");
+        List<Mascota> masList = td.obtenerMascotasMismoTratamiento(EnumTipoTratamiento.VACUNACION);
+        System.out.println("cc"+masList);
+        for (Mascota mascota : masList) {
+            System.out.println("alias: " + mascota.getAlias());
+            System.out.println(".................");
 
 
 
@@ -82,14 +83,17 @@ public class TestVet {
 //        for (Mascota mascota : masc) {
 //            System.out.println("alias"+mascota.getAlias());   
 //    }
-      List<Visita> visList = vd.obtenerVisitaxIdMascota(4);
-        for (Visita visita : visList) {
-            System.out.println("alias: " + visita.getMascota().getAlias());
-            System.out.println(".................");  
-            System.out.println(""+visita.getIdVisita());
-    }
+//      List<Visita> visList = vd.obtenerVisitaxIdMascota(4);
+//        for (Visita visita : visList) {
+//            System.out.println("alias: " + visita.getMascota().getAlias());
+//            System.out.println(".................");  
+//            System.out.println(""+visita.getIdVisita());
+//    }
     } 
+    }
 }
+
+
    
         
 

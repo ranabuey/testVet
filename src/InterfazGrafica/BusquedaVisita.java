@@ -43,7 +43,11 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
         armarCabecera();
         cargarCombo();
         cargarComboCliente();
+        limpiarTabla();
     }
+    
+   
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -251,27 +255,49 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
 
     private void jcbTipoTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoTratamientoActionPerformed
         // TODO add your handling code here:
-         limpiarTabla();
-        
-        
-        //VisitaData vd = new VisitaData();
-        MascotaData md = new MascotaData();
-        TratamientoData td= new TratamientoData();
-        //Tratamiento tratSele = (Tratamiento) jcbTipoTratamiento.getSelectedItem();
-//
-        List<Mascota> listaVisitas = td.obtenerMascotasMismoTratamiento((EnumTipoTratamiento) jcbTipoTratamiento.getSelectedItem());
-      
-        for (Mascota masc : listaVisitas){
-                modelo.addRow(new Object[]{
-                masc.getCliente().getIdCliente(),
-                masc.getAlias(),
-                masc.getEspecie(),});
-                
-        }         
-    }//GEN-LAST:event_jcbTipoTratamientoActionPerformed
+    TratamientoData trataData = new TratamientoData();
+    limpiarTabla();
+    EnumTipoTratamiento tipoTratamientoSeleccionado = (EnumTipoTratamiento) jcbTipoTratamiento.getSelectedItem();
+    
+    if (tipoTratamientoSeleccionado != null){
+    List<Mascota> listaMascotas = trataData.obtenerMascotasMismoTratamiento(tipoTratamientoSeleccionado);
 
+    for (Mascota mascota : listaMascotas) {
+        modelo.addRow(new Object[]{
+            mascota.getCliente().getIdCliente(),
+            mascota.getAlias(),
+            mascota.getEspecie(),
+            
+        });
+    }
+    
+
+    }//GEN-LAST:event_jcbTipoTratamientoActionPerformed
+    }
     private void jbInternadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInternadoActionPerformed
         // TODO add your handling code here:
+        limpiarTabla();
+       
+        VisitaData vd = new VisitaData();
+        MascotaData md = new MascotaData();
+//        
+        
+//
+        List<Visita> listaVisitas = vd.obtenerMascotasInternadas();
+//        System.out.println("id:"+mascSele.getIdMascota());
+//        System.out.println(""+listaVisitas);
+//        System.out.println("mb");
+      
+        for (Visita listaVisita : listaVisitas) {
+            modelo.addRow(new Object[]{
+                listaVisita.getMascota().getCliente().getIdCliente(),
+                listaVisita.getMascota().getAlias(),
+                listaVisita.getMascota().getEspecie(),
+                listaVisita.getFechaVisita(),
+                listaVisita.getTratamiento().getTipoTratamiento(),
+                listaVisita.getTratamiento().getImporte(),});
+            
+        }
     }//GEN-LAST:event_jbInternadoActionPerformed
 
     @SuppressWarnings("empty-statement")
@@ -328,28 +354,33 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
     private void jbFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFiltrarActionPerformed
         // TODO add your handling code here:
         limpiarTabla();
-        LocalDate fechaI = jdcFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate fechaF = jdcFechaFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        VisitaData vd = new VisitaData();
-        ClienteData cd = new ClienteData();
+        try {
+            LocalDate fechaI = jdcFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaF = jdcFechaFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (fechaI == null || fechaF == null) {
+                JOptionPane.showMessageDialog(this, "Debe ingresar dos fechas validas");
+            } else if (fechaI.isAfter(fechaF)) {
+                JOptionPane.showMessageDialog(rootPane, "Debe ingresar las fechas correctamente");
+            } else {
+                VisitaData vd = new VisitaData();
+                ClienteData cd = new ClienteData();
 //      TratamientoData td= new TratamientoData();
-       
-       
 
-        List<Visita> listaVisitas = vd.obtenerVisitasEntreFechas(fechaI, fechaF);
-      
-        for (Visita listaVisita : listaVisitas) {
-            modelo.addRow(new Object[]{
-                listaVisita.getMascota().getCliente().getIdCliente(),
-                listaVisita.getMascota().getAlias(),
-                listaVisita.getMascota().getEspecie(),
-                listaVisita.getFechaVisita(),
-                listaVisita.getTratamiento().getTipoTratamiento(),
-                listaVisita.getTratamiento().getImporte(),});
-    
-        
-                                              
-        }                                  
+                List<Visita> listaVisitas = vd.obtenerVisitasEntreFechas(fechaI, fechaF);
+
+                for (Visita listaVisita : listaVisitas) {
+                    modelo.addRow(new Object[]{
+                        listaVisita.getMascota().getCliente().getIdCliente(),
+                        listaVisita.getMascota().getAlias(),
+                        listaVisita.getMascota().getEspecie(),
+                        listaVisita.getFechaVisita(),
+                        listaVisita.getTratamiento().getTipoTratamiento(),
+                        listaVisita.getTratamiento().getImporte(),});
+                }
+            }
+        } catch (NullPointerException n) {
+        }
+
     }//GEN-LAST:event_jbFiltrarActionPerformed
 
 

@@ -303,6 +303,7 @@ public class VisitaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
+        } catch (NullPointerException n){
         }
         return visita;
     }
@@ -338,4 +339,37 @@ public class VisitaData {
         }
         return visList;
     }
+     public List<Visita> obtenerMascotasInternadas() {
+        List<Visita> visList = new ArrayList<>();
+        visList.clear();
+        try {
+            String sql = "SELECT * FROM visita WHERE fechaAlta IS NULL";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Visita visita = new Visita();
+                visita.setIdVisita(rs.getInt("idVisita"));
+                visita.setMascota(masData.buscarMascotaId(rs.getInt("idMascota")));
+                visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
+                visita.setDetalle(rs.getString("detalle"));
+                visita.setPesoActual(rs.getDouble("pesoActual"));
+                visita.setTratamiento(trataData.buscarTratamientoXId(rs.getInt("idTratamiento")));
+                visita.setActivo(rs.getBoolean("activo"));
+//                visita.setInternado(rs.getBoolean("internado"));
+                Date fechaAlta = rs.getDate("fechaAlta");
+                if (fechaAlta != null) {
+                visita.setFechaAlta(fechaAlta.toLocalDate());
+            }
+                visita.setUsuarioLog(rs.getString("usuarioLog"));
+                visList.add(visita);
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
+        } catch (NullPointerException n){
+        }
+        return visList;
+
+}
 }

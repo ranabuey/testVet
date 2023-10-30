@@ -72,12 +72,11 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
 
             MascotaData md = new MascotaData();
             Mascota m = md.buscarMascotaId(Integer.parseInt(MenuPrincipal.jtfMemoMascotaId.getText()));
-
             jtfAlias.setText(m.getAlias());
             jtfEspecie.setText(m.getEspecie());
             jtfRaza.setText(m.getRaza());
-            jtfSexo.setText(m.getSexo());
-            jtfColorPelo.setText(m.getColorPelo());
+            jtfSexo.setText (m.getSexo());
+           jtfColorPelo.setText(m.getColorPelo());
             Date fechNac = Date.from(m.getFechaNac().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
             jdcFechaNac.setDate(fechNac);
 
@@ -901,7 +900,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 String especie = jtfEspecie.getText();
                 String raza = jtfRaza.getText();
                 //char sexo =  jtfSexo.getText().charAt(0);
-                String sexo = jtfSexo.getText().toUpperCase().substring(0, 0);
+                String sexo = jtfSexo.getText().toUpperCase();
                 String colorPelo = jtfColorPelo.getText();
                 LocalDate fechaNac = jdcFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -914,7 +913,11 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 m.setAlias(alias);
                 m.setEspecie(especie);
                 m.setRaza(raza);
-                m.setSexo(sexo);                                    ////PONER SELECCION DE F O M SOLAMENTE
+                if(sexo.equals("M") || (sexo.equals("F"))){
+                 m.setSexo(sexo);
+                 }else{
+                JOptionPane.showMessageDialog(this, "Debe ingresar un caracter valido M: masculino o F: femenino");
+                }
                 m.setColorPelo(colorPelo);
                 m.setFechaNac(fechaNac);
                 m.setActivo(true);

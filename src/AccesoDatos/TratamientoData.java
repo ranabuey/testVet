@@ -168,13 +168,13 @@ public class TratamientoData {
 
     public List<Mascota> obtenerMascotasMismoTratamiento(EnumTipoTratamiento enumTipoTratamiento) {                              // chekear metodo
         List<Mascota> mascotasList = new ArrayList<>();
-        String sql = "SELECT m.idMascota, alias, especie, raza FROM visita v, mascota m, tratamiento t WHERE v.idMascota=m.idMascota AND v.idTratamiento=t.idTratamiento AND t.tipoTratamiento=? AND m.activo=1";
+        String sql = "SELECT m.idMascota,m.idCliente, alias, especie, raza FROM visita v, mascota m, tratamiento t WHERE v.idMascota=m.idMascota AND v.idTratamiento=t.idTratamiento AND t.tipoTratamiento=? AND m.activo=1";
 
         try {
             PreparedStatement ps;
             ps = con.prepareStatement(sql);
-            String tratamiento = null;                 //ver esto
-            ps.setString(1, tratamiento);
+            String tipoTratamiento = enumTipoTratamiento.name();                 //ver esto
+            ps.setString(1, tipoTratamiento);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -183,6 +183,8 @@ public class TratamientoData {
                 masc.setAlias(rs.getString("alias"));
                 masc.setEspecie(rs.getString("especie"));
                 masc.setRaza(rs.getString("raza"));
+                ClienteData clieData= new ClienteData();
+                masc.setCliente(clieData.buscarClienteId(rs.getInt("idCliente")));
                 
 
                 mascotasList.add(masc);
@@ -191,10 +193,18 @@ public class TratamientoData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "No se obtuvo la tabla MASCOTA : " + ex.getMessage());
+        } catch (NullPointerException n){
         }
-        return mascotasList;
+            return mascotasList;
+        
+    
+        
 
 }
+  
+
+
+
     
     public Tratamiento buscarTratamientoXId(int id) {
         Tratamiento tr = new Tratamiento();
@@ -227,6 +237,8 @@ public class TratamientoData {
 
         return tr;
     }
+
+    
 }
 
 

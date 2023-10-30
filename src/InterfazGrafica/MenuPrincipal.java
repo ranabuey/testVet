@@ -52,7 +52,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jbBusqClientes = new javax.swing.JButton();
         jbBusqMascotas = new javax.swing.JButton();
         jbBusqVisitas = new javax.swing.JButton();
-        jbBusqTratamientosç = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jbNuevoCliente = new javax.swing.JButton();
@@ -138,14 +137,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jbBusqTratamientosç.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/buscarTratamiento.png"))); // NOI18N
-        jbBusqTratamientosç.setText("Tratamientos");
-        jbBusqTratamientosç.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBusqTratamientosçActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("CREAR:");
 
         jLabel5.setText("BUSQUEDA:");
@@ -176,7 +167,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jbNuevoMascota)
                     .addComponent(jbNuevoCliente)
-                    .addComponent(jbBusqTratamientosç)
                     .addComponent(jbBusqVisitas)
                     .addComponent(jbBusqMascotas)
                     .addComponent(jbBusqClientes))
@@ -196,9 +186,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jbBusqMascotas)
                 .addGap(18, 18, 18)
                 .addComponent(jbBusqVisitas)
-                .addGap(18, 18, 18)
-                .addComponent(jbBusqTratamientosç)
-                .addGap(84, 84, 84)
+                .addGap(142, 142, 142)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbNuevoCliente)
@@ -633,10 +621,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfMemoClienteApellidoActionPerformed
 
-    private void jbBusqTratamientosçActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqTratamientosçActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbBusqTratamientosçActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -695,7 +679,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton jbBusqClientes;
     private javax.swing.JButton jbBusqMascotas;
-    private javax.swing.JButton jbBusqTratamientosç;
     private javax.swing.JButton jbBusqVisitas;
     private javax.swing.JButton jbLoggin;
     private javax.swing.JButton jbLoggout;
