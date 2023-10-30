@@ -115,6 +115,7 @@ public class MascotaData {
 
             if (rs.next()) {
                 mascota = new Mascota();
+                mascota.setIdMascota(id);
                 mascota.setAlias(rs.getString("alias"));
                 mascota.setSexo(rs.getString("sexo"));
                 mascota.setEspecie(rs.getString("especie"));
