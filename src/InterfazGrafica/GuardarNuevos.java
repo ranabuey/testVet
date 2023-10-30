@@ -1156,7 +1156,11 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
                 m.setAlias(alias);
                 m.setEspecie(especie);
                 m.setRaza(raza);
-                m.setSexo(sexo);
+                if(sexo.equals("M") || (sexo.equals("F"))){
+                 m.setSexo(sexo);
+                 }else{
+                JOptionPane.showMessageDialog(this, "Debe ingresar un caracter valido M: masculino o F: femenino");
+                }
                 m.setColorPelo(pelo);
                 m.setFechaNac(fechaNac);
                 m.setActivo(true);
