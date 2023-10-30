@@ -1,4 +1,3 @@
-
 package AccesoDatos;
 
 import Entidades.Mascota;
@@ -20,82 +19,111 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class VisitaData {
-    
+
     private Connection con = null;
     private MascotaData masData;
     private TratamientoData trataData;
-   
 
     public VisitaData() {
-        
+
         con = Conexion.getConexion();
-        masData=new MascotaData();
-        trataData=new TratamientoData();
+        masData = new MascotaData();
+        trataData = new TratamientoData();
     }
-    
-public void guardarVisita (Visita vis){
 
+    public Visita guardarVisita(Visita vis) {
+        
+        if (vis.getFechaAlta() == null) {
+            String sql = "INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo,  usuarioLog) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+            try {
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-        String sql = "INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo, fechaAlta, usuarioLog) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, vis.getMascota().getIdMascota());
+                ps.setDate(2, Date.valueOf(vis.getFechaVisita()));
+                ps.setString(3, vis.getDetalle());
+                ps.setDouble(4, vis.getPesoActual());
+                ps.setInt(5, vis.getTratamiento().getIdTratamiento());
+                ps.setBoolean(6, vis.isActivo());
+                ps.setString(7, vis.getUsuarioLog());
 
-            ps.setInt(1, vis.getMascota().getIdMascota());
-            ps.setDate(2, Date.valueOf(vis.getFechaVisita()));
-            ps.setString(3, vis.getDetalle());
-            ps.setDouble(4, vis.getPesoActual());
-            ps.setInt(5, vis.getTratamiento().getIdTratamiento());
-            ps.setBoolean(6, vis.isActivo());
-          
-            ps.setDate(7, Date.valueOf(vis.getFechaAlta()));
-            ps.setString(8, vis.getUsuarioLog());
-            
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                vis.setIdVisita(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "Visita añadida con exito");
+                ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    vis.setIdVisita(rs.getInt(1));
+                    JOptionPane.showMessageDialog(null, "Visita añadida con exito");
+                }
+                ps.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "error al acceder a la tabla Visita " + ex.getMessage());
+            } catch (NullPointerException np) {
             }
-            ps.close();
+            return vis;
 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al acceder a la tabla Visita " + ex.getMessage());
-       } catch (NullPointerException np) {
-        }
-
-    }
-
-public void modificarVisita (Visita vis){
-
-    String sql = "UPDATE VISITA SET fechaVisita=?, detalle=?, pesoActual=?, activo=?, internado=?, fechaAlta=?  WHERE idVisita=? ";
-    PreparedStatement ps = null;
-
-    try {
-        ps = con.prepareStatement(sql);
-        ps.setDate(1, Date.valueOf(vis.getFechaVisita()));
-        ps.setString(2, vis.getDetalle());
-        ps.setDouble(3, vis.getPesoActual());
-        ps.setBoolean(4, vis.isActivo());
-        ps.setBoolean(5, vis.isActivo());
-        ps.setDate(6, Date.valueOf(vis.getFechaAlta()));
-        int exito = ps.executeUpdate();
-
-        if (exito == 1) {
-            JOptionPane.showMessageDialog(null, "Modificado exitosamente");
         } else {
-            JOptionPane.showMessageDialog(null, "La visita no existe");
+
+            String sql = "INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo, fechaAlta, usuarioLog) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            try {
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+                ps.setInt(1, vis.getMascota().getIdMascota());
+                ps.setDate(2, Date.valueOf(vis.getFechaVisita()));
+                ps.setString(3, vis.getDetalle());
+                ps.setDouble(4, vis.getPesoActual());
+                ps.setInt(5, vis.getTratamiento().getIdTratamiento());
+                ps.setBoolean(6, vis.isActivo());
+
+                ps.setDate(7, Date.valueOf(vis.getFechaAlta()));
+                ps.setString(8, vis.getUsuarioLog());
+
+                ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    vis.setIdVisita(rs.getInt(1));
+                    JOptionPane.showMessageDialog(null, "Visita añadida con exito");
+                }
+                ps.close();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "error al acceder a la tabla Visita " + ex.getMessage());
+            } catch (NullPointerException np) {
+            }
+            return vis;
         }
-        ps.close();                                                               //no se encuentra en la teoria. va?
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno" + ex.getMessage());
+    }
+
+    public void modificarVisita(Visita vis) {
+
+        String sql = "UPDATE VISITA SET fechaVisita=?, detalle=?, pesoActual=?, activo=?, internado=?, fechaAlta=?  WHERE idVisita=? ";
+        PreparedStatement ps = null;
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(vis.getFechaVisita()));
+            ps.setString(2, vis.getDetalle());
+            ps.setDouble(3, vis.getPesoActual());
+            ps.setBoolean(4, vis.isActivo());
+            ps.setBoolean(5, vis.isActivo());
+            ps.setDate(6, Date.valueOf(vis.getFechaAlta()));
+            ps.setInt(7, vis.getIdVisita());
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Modificado exitosamente");
+            } else {
+                JOptionPane.showMessageDialog(null, "La visita no existe");
+            }
+            ps.close();                                                               //no se encuentra en la teoria. va?
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita" + ex.getMessage());
+
+        }
 
     }
 
-} 
+    public void eliminarVisita(int id) {
 
-public void eliminarVisita (int id){
-   
-    try{
+        try {
             String sql = "UPDATE visita SET activo=0 WHERE idVisita=?";
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -111,7 +139,7 @@ public void eliminarVisita (int id){
         }
     }
 
- public List<Visita> obtenerVisita() {
+    public List<Visita> obtenerVisita() {
         List<Visita> visList = new ArrayList<>();
         visList.clear();
         try {
@@ -119,7 +147,7 @@ public void eliminarVisita (int id){
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-               Visita visita = new Visita();
+                Visita visita = new Visita();
                 visita.setIdVisita(rs.getInt("idVisita"));
                 visita.setMascota(masData.buscarMascotaId(rs.getInt("idMascota")));
                 visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
@@ -138,11 +166,9 @@ public void eliminarVisita (int id){
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
         }
         return visList;
-       
-}
- 
-  
- 
+
+    }
+
 //   public List<Tratamiento> obtenerTratamientoNoAlta(LocalDate fechaAlta) {               ////VER SI ESTE METODO NO DEBE I EN VISITADATA
 //        TratamientoData traData = new TratamientoData();
 //        List<Tratamiento> traList = new ArrayList<>();
@@ -161,7 +187,6 @@ public void eliminarVisita (int id){
 //        }
 //        return traList;
 //    }
-   
     public boolean chkVisitaMismoDia(Visita visita) {                   //hay q testear // faltaban los metodos de buscar tratamiento x id (q devuelva un tratamiento) y buscar visita por id
 
         List<Visita> visChkList = new ArrayList<>();
@@ -187,13 +212,12 @@ public void eliminarVisita (int id){
         Visita visita = new Visita();
         visita = null;
         PreparedStatement ps = null;
-        
+
         Mascota mascota = null;
-        
+
         Tratamiento tratamiento = null;
-        
+
         String sql = "SELECT * FROM visita WHERE idVisita=? AND activo=1";            //ver el * en sql
-        
 
         try {
             ps = con.prepareStatement(sql);
@@ -202,10 +226,10 @@ public void eliminarVisita (int id){
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {                                            //ver el orden de las columnas?
-                System.out.println(""+rs.getInt("idMascota"));
+                System.out.println("" + rs.getInt("idMascota"));
                 mascota = masData.buscarMascotaId(rs.getInt("idMascota"));
-                System.out.println(""+rs.getInt("idTratamiento"));
-                tratamiento=trataData.buscarTratamientoXId(rs.getInt("idTratamiento"));   
+                System.out.println("" + rs.getInt("idTratamiento"));
+                tratamiento = trataData.buscarTratamientoXId(rs.getInt("idTratamiento"));
                 visita.setIdVisita(rs.getInt("idVisita"));
                 visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
                 visita.setDetalle(rs.getString("detalle"));
@@ -229,17 +253,17 @@ public void eliminarVisita (int id){
 
         return visita;
     }
-    
-public List<Visita> obtenerVisitasXCliente(int id) {
+
+    public List<Visita> obtenerVisitasXCliente(int id) {
         VisitaData visdata = new VisitaData();
         List<Visita> visList = visdata.obtenerVisita();
-       // visList.addAll(visdata.obtenerVisita());
+        // visList.addAll(visdata.obtenerVisita());
 
         List<Visita> visListMascota = new ArrayList<>();
         visListMascota.clear();
 
         for (Visita visita : visList) {
-            if (visita.getMascota().getCliente().getIdCliente()==id) {
+            if (visita.getMascota().getCliente().getIdCliente() == id) {
                 visListMascota.add(visita);
                 System.out.println(visita.toString());
             }
@@ -249,23 +273,24 @@ public List<Visita> obtenerVisitasXCliente(int id) {
         }
         return visListMascota;
     }
-public List<Visita> obtenerVisitasEntreFechas(LocalDate fechaInicio, LocalDate fechaFin) {
-    List<Visita> visita = new ArrayList<>();
-   
-try {
-        String sql = "SELECT * FROM visita WHERE fechaVisita BETWEEN ? AND ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setDate(1, Date.valueOf(fechaInicio));
-        ps.setDate(2, Date.valueOf(fechaFin));
-        ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-           Visita vis = new Visita();
-            vis.setIdVisita(rs.getInt("idVisita"));
+    public List<Visita> obtenerVisitasEntreFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+        List<Visita> visita = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * FROM visita WHERE fechaVisita BETWEEN ? AND ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(fechaInicio));
+            ps.setDate(2, Date.valueOf(fechaFin));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Visita vis = new Visita();
+                vis.setIdVisita(rs.getInt("idVisita"));
                 vis.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
                 vis.setDetalle(rs.getString("detalle"));
                 vis.setPesoActual(rs.getDouble("pesoActual"));
-                Mascota mascota= new Mascota();
+                Mascota mascota = new Mascota();
                 vis.setMascota(masData.buscarMascotaId(rs.getInt("idMascota")));
                 vis.setTratamiento(trataData.buscarTratamientoXId(rs.getInt("idTratamiento")));
                 vis.setActivo(rs.getBoolean("activo"));
@@ -273,17 +298,18 @@ try {
 //              vis.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
                 vis.setUsuarioLog(rs.getString("usuarioLog"));
                 visita.add(vis);
-                 }
+            }
             ps.close();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
         }
         return visita;
-}
+    }
 //
 //   
-public List<Visita> obtenerVisitaxIdMascota(int id) {
+
+    public List<Visita> obtenerVisitaxIdMascota(int id) {
         List<Visita> visList = new ArrayList<>();
         visList.clear();
         try {
@@ -292,7 +318,7 @@ public List<Visita> obtenerVisitaxIdMascota(int id) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-               Visita visita = new Visita();
+                Visita visita = new Visita();
                 visita.setIdVisita(rs.getInt("idVisita"));
                 visita.setMascota(masData.buscarMascotaId(rs.getInt("idMascota")));
                 visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
@@ -313,10 +339,3 @@ public List<Visita> obtenerVisitaxIdMascota(int id) {
         return visList;
     }
 }
-
-            
-       
-
-
-
-

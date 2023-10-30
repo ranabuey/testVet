@@ -99,17 +99,18 @@ public class TratamientoData {
 //        }
 //    }
     public void modificarTratamiento(Tratamiento trat) {
-        String sql = "UPDATE tratamiento SET descripcion=?,medicamento=?, TipoTratamiento=?, importe=?, activo=? ";
+        String sql = "UPDATE tratamiento SET descripcion=?,medicamento=?, tipoTratamiento=?, importe=?, activo=? WHERE idTratamiento=?";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, trat.getDescripcion());
             ps.setString(2, trat.getMedicamento());
-            //ps.setString(3, (trat.getTipoTratamiento());
+            ps.setString(3, (trat.getTipoTratamiento()));
             ps.setDouble(4, trat.getImporte());
             ps.setBoolean(5, trat.isActivo());
+            ps.setInt(6, trat.getIdTratamiento());
             int exito = ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
+//            ResultSet rs = ps.getGeneratedKeys();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Modificada exitosamente");
             } else {
@@ -124,7 +125,7 @@ public class TratamientoData {
 
     public void eliminarTratamiento(int id) {
         try {
-            String sql = "UPDATE tratamiento SET activo=0 WHERE idTrtamiento=?";
+            String sql = "UPDATE tratamiento SET activo=0 WHERE idTratamiento=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int fila = ps.executeUpdate();
