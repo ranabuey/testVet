@@ -53,6 +53,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
         jbBorrar = new javax.swing.JButton();
         jbReActivar = new javax.swing.JButton();
 
+        setClosable(true);
+
         jLabel1.setText("BUSQUEDA MASCOTA");
 
         jtMascotas.setModel(new javax.swing.table.DefaultTableModel(
@@ -399,7 +401,40 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbHacerVisitaActionPerformed
 
     private void jbEditarMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarMascotaActionPerformed
-        // TODO add your handling code here:                                          Falta hacer
+    try {
+            MascotaData md = new MascotaData();
+            int filaSel = jtMascotas.getSelectedRow();
+
+            MenuPrincipal.jtfMemoMascotaId.setText("" + modelo.getValueAt(filaSel, 0));
+            MenuPrincipal.jtfMemoAlias.setText("" + modelo.getValueAt(filaSel, 1));
+            MenuPrincipal.jtfMemoEspecie.setText("" + modelo.getValueAt(filaSel, 3));
+            MenuPrincipal.jtfMemoRaza.setText("" + modelo.getValueAt(filaSel, 4));
+
+            LocalDate fechaNac = (LocalDate) modelo.getValueAt(filaSel, 7);
+            int edad = md.calcularEdad(fechaNac);
+            MenuPrincipal.jtfMemoEdad.setText("" + edad);
+//            double pesoProm = md.obtenerPesoPromedio((Integer) modelo.getValueAt(filaSel, 9));
+            MenuPrincipal.jtfMemoPesoProm.setText("" + modelo.getValueAt(filaSel, 9));
+            
+             Cliente c = new Cliente();
+            ClienteData cd = new ClienteData();
+            c = cd.buscarClienteTel((Integer) modelo.getValueAt(filaSel, 10));
+            MenuPrincipal.jtfMemoClienteID.setText("" + c.getIdCliente());
+            MenuPrincipal.jtfMemoClienteApellido.setText("" + c.getApellido());
+            MenuPrincipal.jtfMemoClienteNombre.setText("" + c.getNombre());
+            MenuPrincipal.jtfMemoTelefono.setText("" + c.getTelefono());
+            MenuPrincipal.jtfMemoClienteDNI.setText("" + c.getDni());
+            
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+        }catch (NullPointerException n){
+            
+        }
+        GuardarNuevos gn = new GuardarNuevos();
+        MenuPrincipal.jDesktopPane1.add(gn);
+        gn.setVisible(true);
+        gn.setVisible(true);
+        
     }//GEN-LAST:event_jbEditarMascotaActionPerformed
 
     private void jbSelMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSelMascotaActionPerformed
@@ -439,6 +474,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                 md.eliminarMascota((Integer) (modelo.getValueAt(filaSel, 0)));
                 limpiarTablaMacotas();
                 jbBorrar.setVisible(false);
+                MenuPrincipal.borrarCamposMascota();
+                
             } else {
 
             }

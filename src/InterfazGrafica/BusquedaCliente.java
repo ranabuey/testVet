@@ -507,6 +507,8 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
                 cd.eliminarCliente(c.getIdCliente());
                 limpiarTablaClientes();
                 jbBorrar.setVisible(false);
+                MenuPrincipal.borrarCamposCliente();
+                MenuPrincipal.borrarCamposMascota();
             } else {
 
             }

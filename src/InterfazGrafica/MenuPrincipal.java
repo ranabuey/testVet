@@ -740,5 +740,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         MenuPrincipal.jpMemoCliente.setBackground(new Color(0, 0, 0, 0));
 
     }
+public static void borrarCamposMascota(){
+    jtfMemoMascotaId.setText("");
+    jtfMemoAlias.setText("");
+    jtfMemoEspecie.setText("");
+    jtfMemoPesoProm.setText("");
+    jtfMemoRaza.setText("");
+    jtfMemoEdad.setText("");
+    
+}
+public static void borrarCamposCliente(){
+    jtfMemoClienteID.setText("");
+    jtfMemoClienteApellido.setText("");
+    jtfMemoClienteDNI.setText("");
+    jtfMemoClienteNombre.setText("");
+    jtfMemoTelefono.setText("");
+   
+    
+}
 
 }
