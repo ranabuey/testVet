@@ -537,10 +537,11 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                         vd.guardarVisita(v);
                         mascota.setPesoUltimo(v.getPesoActual());
                         mascota.setPesoPromedio(md.obtenerPesoPromedio(mascota.getIdMascota()));
-                        md.modificarMascota(mascota);
+//                        md.modificarMascota(mascota);
                         jbBorrarVisita.setEnabled(true);
                         jbEditar.setEnabled(true);
                         jbGuardarVisita.setEnabled(false);
+                        jbEditar.setVisible(true);
                         int edad = md.calcularEdad(mascota.getFechaNac());
                         MenuPrincipal.jtfMemoEdad.setText("" + edad);
                         MenuPrincipal.jtfMemoPesoProm.setText(String.format("%.2f", mascota.getPesoPromedio()));
