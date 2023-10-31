@@ -73,11 +73,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jtPw = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jpVisitaMemo1 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        jpMemoCliente = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jtfMemoClienteID = new javax.swing.JTextField();
+        jtfMemoTelefono = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jtfMemoClienteNombre = new javax.swing.JTextField();
+        jtfMemoClienteDNI = new javax.swing.JTextField();
+        jtfMemoClienteApellido = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
         jpVisitaMemo = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jtfMemoVisitaID = new javax.swing.JTextField();
         jpMemoMascota = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jtfMemoMascotaId = new javax.swing.JTextField();
@@ -89,16 +98,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jtfMemoEspecie = new javax.swing.JTextField();
         jtfMemoRaza = new javax.swing.JTextField();
-        jpMemoCliente = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jtfMemoClienteID = new javax.swing.JTextField();
-        jtfMemoTelefono = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jtfMemoClienteNombre = new javax.swing.JTextField();
-        jtfMemoClienteDNI = new javax.swing.JTextField();
-        jtfMemoClienteApellido = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
+        jpVisitaMemo1 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -200,15 +201,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addContainerGap(416, Short.MAX_VALUE)))
         );
 
+        jDesktopPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 967, Short.MAX_VALUE)
+            .addGap(0, 943, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGap(0, 449, Short.MAX_VALUE)
         );
 
         jbLoggout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/cerrar-sesion.png"))); // NOI18N
@@ -272,42 +275,120 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel9.setText("TRATAMIENTO");
+        jLabel13.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
+        jLabel13.setText("CLIENTE");
 
-        javax.swing.GroupLayout jpVisitaMemo1Layout = new javax.swing.GroupLayout(jpVisitaMemo1);
-        jpVisitaMemo1.setLayout(jpVisitaMemo1Layout);
-        jpVisitaMemo1Layout.setHorizontalGroup(
-            jpVisitaMemo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpVisitaMemo1Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(jLabel9)
-                .addContainerGap(62, Short.MAX_VALUE))
+        jLabel14.setText("ID");
+
+        jtfMemoClienteID.setEditable(false);
+        jtfMemoClienteID.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        jtfMemoTelefono.setEditable(false);
+        jtfMemoTelefono.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        jLabel15.setText("DNI");
+
+        jtfMemoClienteNombre.setEditable(false);
+        jtfMemoClienteNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jtfMemoClienteNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfMemoClienteNombreActionPerformed(evt);
+            }
+        });
+
+        jtfMemoClienteDNI.setEditable(false);
+        jtfMemoClienteDNI.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        jtfMemoClienteApellido.setEditable(false);
+        jtfMemoClienteApellido.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jtfMemoClienteApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfMemoClienteApellidoActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("TEL.");
+
+        javax.swing.GroupLayout jpMemoClienteLayout = new javax.swing.GroupLayout(jpMemoCliente);
+        jpMemoCliente.setLayout(jpMemoClienteLayout);
+        jpMemoClienteLayout.setHorizontalGroup(
+            jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpMemoClienteLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpMemoClienteLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jtfMemoClienteDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel15))
+                    .addComponent(jtfMemoClienteNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jpMemoClienteLayout.createSequentialGroup()
+                        .addComponent(jtfMemoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel16))
+                    .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jpMemoClienteLayout.createSequentialGroup()
+                            .addComponent(jLabel13)
+                            .addGap(30, 30, 30)
+                            .addComponent(jLabel14)
+                            .addGap(18, 18, 18)
+                            .addComponent(jtfMemoClienteID, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtfMemoClienteApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
-        jpVisitaMemo1Layout.setVerticalGroup(
-            jpVisitaMemo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpVisitaMemo1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jLabel9)
-                .addContainerGap(176, Short.MAX_VALUE))
+        jpMemoClienteLayout.setVerticalGroup(
+            jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMemoClienteLayout.createSequentialGroup()
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jtfMemoClienteID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtfMemoClienteApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtfMemoClienteNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfMemoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfMemoClienteDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addGap(32, 32, 32))
         );
 
-        jLabel8.setText("VISITA");
+        jLabel17.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
+        jLabel17.setText("VISITA");
+
+        jLabel18.setText("ID");
+
+        jtfMemoVisitaID.setEditable(false);
+        jtfMemoVisitaID.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jpVisitaMemoLayout = new javax.swing.GroupLayout(jpVisitaMemo);
         jpVisitaMemo.setLayout(jpVisitaMemoLayout);
         jpVisitaMemoLayout.setHorizontalGroup(
             jpVisitaMemoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpVisitaMemoLayout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jLabel8)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel17)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jtfMemoVisitaID, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jpVisitaMemoLayout.setVerticalGroup(
             jpVisitaMemoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpVisitaMemoLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(jpVisitaMemoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(jtfMemoVisitaID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         jpMemoMascota.setPreferredSize(new java.awt.Dimension(253, 206));
@@ -348,37 +429,35 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jpMemoMascota.setLayout(jpMemoMascotaLayout);
         jpMemoMascotaLayout.setHorizontalGroup(
             jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMemoMascotaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel10)
-                .addGap(18, 18, 18)
-                .addComponent(jtfMemoMascotaId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
             .addGroup(jpMemoMascotaLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMemoMascotaLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpMemoMascotaLayout.createSequentialGroup()
                         .addComponent(jtfMemoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11)
                         .addGap(18, 18, 18)
-                        .addComponent(jtfMemoPesoProm, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel12)
-                        .addGap(21, 21, 21))
+                        .addComponent(jtfMemoPesoProm, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jtfMemoEspecie, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtfMemoAlias, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpMemoMascotaLayout.createSequentialGroup()
-                        .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jtfMemoEspecie, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                            .addComponent(jtfMemoAlias, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfMemoRaza))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtfMemoRaza, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jpMemoMascotaLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(58, 58, 58)
+                                .addComponent(jLabel10)
+                                .addGap(18, 18, 18)
+                                .addComponent(jtfMemoMascotaId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(57, 57, 57))
         );
         jpMemoMascotaLayout.setVerticalGroup(
             jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpMemoMascotaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMemoMascotaLayout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
                 .addGroup(jpMemoMascotaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jtfMemoMascotaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -394,121 +473,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jtfMemoPesoProm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(jtfMemoEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)))
+                    .addComponent(jLabel12))
+                .addGap(30, 30, 30))
         );
 
-        jLabel13.setFont(new java.awt.Font("Courier New", 3, 18)); // NOI18N
-        jLabel13.setText("CLIENTE");
+        jLabel9.setText("TRATAMIENTO");
 
-        jLabel14.setText("ID");
-
-        jtfMemoClienteID.setEditable(false);
-        jtfMemoClienteID.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-
-        jtfMemoTelefono.setEditable(false);
-        jtfMemoTelefono.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-
-        jLabel15.setText("DNI");
-
-        jtfMemoClienteNombre.setEditable(false);
-        jtfMemoClienteNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jtfMemoClienteNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfMemoClienteNombreActionPerformed(evt);
-            }
-        });
-
-        jtfMemoClienteDNI.setEditable(false);
-        jtfMemoClienteDNI.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-
-        jtfMemoClienteApellido.setEditable(false);
-        jtfMemoClienteApellido.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jtfMemoClienteApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfMemoClienteApellidoActionPerformed(evt);
-            }
-        });
-
-        jLabel16.setText("TEL.");
-
-        javax.swing.GroupLayout jpMemoClienteLayout = new javax.swing.GroupLayout(jpMemoCliente);
-        jpMemoCliente.setLayout(jpMemoClienteLayout);
-        jpMemoClienteLayout.setHorizontalGroup(
-            jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpMemoClienteLayout.createSequentialGroup()
-                .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpMemoClienteLayout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jtfMemoClienteDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel15))
-                    .addGroup(jpMemoClienteLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfMemoClienteNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jpMemoClienteLayout.createSequentialGroup()
-                                .addComponent(jtfMemoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel16))
-                            .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jpMemoClienteLayout.createSequentialGroup()
-                                    .addComponent(jLabel13)
-                                    .addGap(30, 30, 30)
-                                    .addComponent(jLabel14)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jtfMemoClienteID, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jtfMemoClienteApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(32, Short.MAX_VALUE))
+        javax.swing.GroupLayout jpVisitaMemo1Layout = new javax.swing.GroupLayout(jpVisitaMemo1);
+        jpVisitaMemo1.setLayout(jpVisitaMemo1Layout);
+        jpVisitaMemo1Layout.setHorizontalGroup(
+            jpVisitaMemo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpVisitaMemo1Layout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jpMemoClienteLayout.setVerticalGroup(
-            jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpMemoClienteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jtfMemoClienteID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtfMemoClienteApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtfMemoClienteNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfMemoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jpMemoClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfMemoClienteDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jpMemoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jpMemoMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jpVisitaMemo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jpVisitaMemo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jpVisitaMemo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jpVisitaMemo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jpMemoMascota, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(jpMemoCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(21, 21, 21))
+        jpVisitaMemo1Layout.setVerticalGroup(
+            jpVisitaMemo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpVisitaMemo1Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(jLabel9)
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -520,13 +505,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jpBusquedaMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jpBusquedaMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(jpMemoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(jpMemoMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(jpVisitaMemo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jpVisitaMemo1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 30, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -535,14 +526,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addComponent(jpBusquedaMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19)))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(284, 284, 284))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jpVisitaMemo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jpMemoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jpMemoMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(69, 69, 69)
+                                .addComponent(jpVisitaMemo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -666,14 +666,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSplitPane jSplitPane1;
@@ -688,7 +688,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jpBusquedaMain;
     public static javax.swing.JPanel jpMemoCliente;
     public static javax.swing.JPanel jpMemoMascota;
-    private javax.swing.JPanel jpVisitaMemo;
+    public static javax.swing.JPanel jpVisitaMemo;
     private javax.swing.JPanel jpVisitaMemo1;
     private javax.swing.JPasswordField jtPw;
     private javax.swing.JTextField jtUser;
@@ -703,8 +703,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public static javax.swing.JTextField jtfMemoPesoProm;
     public static javax.swing.JTextField jtfMemoRaza;
     public static javax.swing.JTextField jtfMemoTelefono;
+    public static javax.swing.JTextField jtfMemoVisitaID;
     // End of variables declaration//GEN-END:variables
- public void cargarFichaMemoMascota() {
+ public void cargarFichaMemoMascota() {                                 //HAY Q HACER CUSTOM CODE DEL PANEL Y PONERLOS PUBLIC Y STATIC
         MenuPrincipal.jpMemoMascota.setVisible(true);
         JpanelImage memo = new JpanelImage(MenuPrincipal.jpMemoMascota, "/Imagenes/memo250.png");
         MenuPrincipal.jpMemoMascota.add(memo).repaint();
@@ -714,13 +715,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     }
 
-    public void cargarFichaMemoCliente() {
+    public void cargarFichaMemoCliente() {                                  //HAY Q HACER CUSTOM CODE DEL PANEL Y PONERLOS PUBLIC Y STATIC
         MenuPrincipal.jpMemoCliente.setVisible(true);
         JpanelImage memo = new JpanelImage(MenuPrincipal.jpMemoCliente, "/Imagenes/memo250.png");
         MenuPrincipal.jpMemoCliente.add(memo).repaint();
         MenuPrincipal.jpMemoCliente.setOpaque(false);
         MenuPrincipal.jpMemoCliente.setBorder(null);
         MenuPrincipal.jpMemoCliente.setBackground(new Color(0, 0, 0, 0));
+
+    }
+    public void cargarFichaMemoVisita() {
+        MenuPrincipal.jpVisitaMemo.setVisible(true);                        //HAY Q HACER CUSTOM CODE DEL PANEL Y PONERLOS PUBLIC Y STATIC
+        JpanelImage memo = new JpanelImage(MenuPrincipal.jpVisitaMemo, "/Imagenes/memo250.png");
+        MenuPrincipal.jpVisitaMemo.add(memo).repaint();
+        MenuPrincipal.jpVisitaMemo.setOpaque(false);
+        MenuPrincipal.jpVisitaMemo.setBorder(null);
+        MenuPrincipal.jpVisitaMemo.setBackground(new Color(0, 0, 0, 0));
 
     }
 public static void borrarCamposMascota(){

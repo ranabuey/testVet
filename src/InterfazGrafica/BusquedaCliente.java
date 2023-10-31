@@ -7,6 +7,7 @@ package InterfazGrafica;
 
 import AccesoDatos.ClienteData;
 import AccesoDatos.MascotaData;
+import AccesoDatos.VisitaData;
 import Entidades.Cliente;
 import Entidades.Mascota;
 import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
@@ -522,7 +523,38 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbBusquedasKeyPressed
 
     private void jbBusqVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBusqVisitasActionPerformed
+        try {
+            MascotaData md = new MascotaData();
+            int filaSel = jtMascotas.getSelectedRow();
 
+            MenuPrincipal.jtfMemoMascotaId.setText("" + modelo2.getValueAt(filaSel, 0));
+            MenuPrincipal.jtfMemoAlias.setText("" + modelo2.getValueAt(filaSel, 1));
+            MenuPrincipal.jtfMemoEspecie.setText("" + modelo2.getValueAt(filaSel, 2));
+            MenuPrincipal.jtfMemoRaza.setText("" + modelo2.getValueAt(filaSel, 3));
+
+            LocalDate fechaNac = (LocalDate) modelo2.getValueAt(filaSel, 5);
+            int edad = md.calcularEdad(fechaNac);
+            MenuPrincipal.jtfMemoEdad.setText("" + edad);
+            double pesoProm = md.obtenerPesoPromedio((Integer) modelo2.getValueAt(filaSel, 0));
+            MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Mascota");
+        }
+        BusquedaVisita bv = new BusquedaVisita();
+        MenuPrincipal.jDesktopPane1.add(bv);
+        bv.setVisible(true);
+        bv.setVisible(true);
+
+//        MascotaData md = new MascotaData();
+//        ClienteData cd = new ClienteData();
+//        VisitaData vd=new VisitaData();
+//                
+//        try {
+//            int filaSel = jtClientes.getSelectedRow();
+//            
+//        } catch (ArrayIndexOutOfBoundsException e) {
+//            JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
+//        }
     }//GEN-LAST:event_jbBusqVisitasActionPerformed
 
 

@@ -27,13 +27,15 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author usuario
  */
 public class BusquedaVisita extends javax.swing.JInternalFrame {
+
     private DefaultTableModel modelo = new DefaultTableModel();
+    MascotaData md = new MascotaData();
+    VisitaData vd = new VisitaData();
 
     /**
      * Creates new form BusquedaVisita
@@ -44,10 +46,26 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
         cargarCombo();
         cargarComboCliente();
         limpiarTabla();
-    }
-    
-   
 
+        if (!MenuPrincipal.jtfMemoMascotaId.getText().isEmpty()) {
+            int IdMasc = Integer.parseInt(MenuPrincipal.jtfMemoMascotaId.getText());
+            Mascota m = md.buscarMascotaId(IdMasc);
+
+            List<Visita> listaVisitas = vd.obtenerVisitaxIdMascota(IdMasc);
+
+            for (Visita listaVisita : listaVisitas) {
+                modelo.addRow(new Object[]{
+                    listaVisita.getMascota().getCliente().getIdCliente(),
+                    listaVisita.getMascota().getAlias(),
+                    listaVisita.getMascota().getEspecie(),
+                    listaVisita.getFechaVisita(),
+                    listaVisita.getTratamiento().getTipoTratamiento(),
+                    listaVisita.getTratamiento().getImporte(),
+                    listaVisita.getIdVisita()});
+            }
+        }
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,7 +88,7 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jbInternado = new javax.swing.JButton();
-        jbSiguiente = new javax.swing.JButton();
+        jbSeleccionar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jdcFechaInicio = new com.toedter.calendar.JDateChooser();
@@ -122,8 +140,13 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/usar.png"))); // NOI18N
-        jbSiguiente.setText("Seleccionar");
+        jbSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Botones/usar.png"))); // NOI18N
+        jbSeleccionar.setText("Seleccionar");
+        jbSeleccionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSeleccionarActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("FECHAS");
 
@@ -191,7 +214,7 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(167, 167, 167)
-                .addComponent(jbSiguiente)
+                .addComponent(jbSeleccionar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +269,7 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jbSiguiente)
+                .addComponent(jbSeleccionar)
                 .addGap(18, 18, 18))
         );
 
@@ -255,39 +278,37 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
 
     private void jcbTipoTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoTratamientoActionPerformed
         // TODO add your handling code here:
-    TratamientoData trataData = new TratamientoData();
-    limpiarTabla();
-    EnumTipoTratamiento tipoTratamientoSeleccionado = (EnumTipoTratamiento) jcbTipoTratamiento.getSelectedItem();
-    
-    if (tipoTratamientoSeleccionado != null){
-    List<Mascota> listaMascotas = trataData.obtenerMascotasMismoTratamiento(tipoTratamientoSeleccionado);
+        TratamientoData trataData = new TratamientoData();
+        limpiarTabla();
+        EnumTipoTratamiento tipoTratamientoSeleccionado = (EnumTipoTratamiento) jcbTipoTratamiento.getSelectedItem();
 
-    for (Mascota mascota : listaMascotas) {
-        modelo.addRow(new Object[]{
-            mascota.getCliente().getIdCliente(),
-            mascota.getAlias(),
-            mascota.getEspecie(),
-            
-        });
-    }
-    
+        if (tipoTratamientoSeleccionado != null) {
+            List<Mascota> listaMascotas = trataData.obtenerMascotasMismoTratamiento(tipoTratamientoSeleccionado);
+
+            for (Mascota mascota : listaMascotas) {
+                modelo.addRow(new Object[]{
+                    mascota.getCliente().getIdCliente(),
+                    mascota.getAlias(),
+                    mascota.getEspecie(),});
+            }
+
 
     }//GEN-LAST:event_jcbTipoTratamientoActionPerformed
     }
     private void jbInternadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInternadoActionPerformed
         // TODO add your handling code here:
         limpiarTabla();
-       
+
         VisitaData vd = new VisitaData();
         MascotaData md = new MascotaData();
 //        
-        
+
 //
         List<Visita> listaVisitas = vd.obtenerMascotasInternadas();
 //        System.out.println("id:"+mascSele.getIdMascota());
 //        System.out.println(""+listaVisitas);
 //        System.out.println("mb");
-      
+
         for (Visita listaVisita : listaVisitas) {
             modelo.addRow(new Object[]{
                 listaVisita.getMascota().getCliente().getIdCliente(),
@@ -295,8 +316,9 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                 listaVisita.getMascota().getEspecie(),
                 listaVisita.getFechaVisita(),
                 listaVisita.getTratamiento().getTipoTratamiento(),
-                listaVisita.getTratamiento().getImporte(),});
-            
+                listaVisita.getTratamiento().getImporte(),
+                listaVisita.getIdVisita()});
+
         }
     }//GEN-LAST:event_jbInternadoActionPerformed
 
@@ -304,17 +326,15 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
     private void jcbMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMascotasActionPerformed
         // TODO add your handling code here:
         limpiarTabla();
-       
+
         VisitaData vd = new VisitaData();
         MascotaData md = new MascotaData();
 //        TratamientoData td= new TratamientoData();
         Mascota mascSele = (Mascota) jcbMascotas.getSelectedItem();
 //
         List<Visita> listaVisitas = vd.obtenerVisitaxIdMascota(mascSele.getIdMascota());
-        System.out.println("id:"+mascSele.getIdMascota());
-        System.out.println(""+listaVisitas);
-        System.out.println("mb");
-      
+       
+
         for (Visita listaVisita : listaVisitas) {
             modelo.addRow(new Object[]{
                 listaVisita.getMascota().getCliente().getIdCliente(),
@@ -322,22 +342,23 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                 listaVisita.getMascota().getEspecie(),
                 listaVisita.getFechaVisita(),
                 listaVisita.getTratamiento().getTipoTratamiento(),
-                listaVisita.getTratamiento().getImporte(),});
-            
+                listaVisita.getTratamiento().getImporte(),
+                listaVisita.getIdVisita()});
+
         }
     }//GEN-LAST:event_jcbMascotasActionPerformed
 
     private void jcbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbClienteActionPerformed
         // TODO add your handling code here:
         limpiarTabla();
-       
+
         VisitaData vd = new VisitaData();
         ClienteData cd = new ClienteData();
 //      TratamientoData td= new TratamientoData();
         Cliente clientSele = (Cliente) jcbCliente.getSelectedItem();
 //
         List<Visita> listaVisitas = vd.obtenerVisitasXCliente(clientSele.getIdCliente());
-      
+
         for (Visita listaVisita : listaVisitas) {
             modelo.addRow(new Object[]{
                 listaVisita.getMascota().getCliente().getIdCliente(),
@@ -345,10 +366,11 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                 listaVisita.getMascota().getEspecie(),
                 listaVisita.getFechaVisita(),
                 listaVisita.getTratamiento().getTipoTratamiento(),
-                listaVisita.getTratamiento().getImporte(),});
-    
+                listaVisita.getTratamiento().getImporte(),
+                listaVisita.getIdVisita()});
+
         }
-                                              
+
     }//GEN-LAST:event_jcbClienteActionPerformed
 
     private void jbFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFiltrarActionPerformed
@@ -375,7 +397,8 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
                         listaVisita.getMascota().getEspecie(),
                         listaVisita.getFechaVisita(),
                         listaVisita.getTratamiento().getTipoTratamiento(),
-                        listaVisita.getTratamiento().getImporte(),});
+                        listaVisita.getTratamiento().getImporte(),
+                        listaVisita.getIdVisita()});
                 }
             }
         } catch (NullPointerException n) {
@@ -383,8 +406,19 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jbFiltrarActionPerformed
 
+    private void jbSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSeleccionarActionPerformed
+        int filaSel = jtVisita.getSelectedRow();
+        MenuPrincipal.jtfMemoVisitaID.setText("" + modelo.getValueAt(filaSel, 6));
 
-    
+        CargarVisita cv = new CargarVisita();
+        MenuPrincipal.jDesktopPane1.add(cv);
+
+        cv.toFront();
+        cv.setVisible(true);
+
+    }//GEN-LAST:event_jbSeleccionarActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
@@ -398,7 +432,7 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbFiltrar;
     private javax.swing.JButton jbInternado;
-    private javax.swing.JButton jbSiguiente;
+    private javax.swing.JButton jbSeleccionar;
     private javax.swing.JComboBox<Cliente> jcbCliente;
     private javax.swing.JComboBox<Mascota> jcbMascotas;
     private javax.swing.JComboBox<EnumTipoTratamiento> jcbTipoTratamiento;
@@ -407,7 +441,7 @@ public class BusquedaVisita extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtVisita;
     // End of variables declaration//GEN-END:variables
 
-private void armarCabecera() {
+    private void armarCabecera() {
 
         modelo.addColumn("CLIENTE");
         modelo.addColumn("ALIAS");
@@ -415,34 +449,37 @@ private void armarCabecera() {
         modelo.addColumn("FECHA DE VISITA");
         modelo.addColumn("TIPO DE TRATAMIENTO");
         modelo.addColumn("IMPORTE");
+        modelo.addColumn("id");
         jtVisita.setModel(modelo);
-}
- private void limpiarTabla() {
+    }
+
+    private void limpiarTabla() {
         int f = modelo.getRowCount() - 1;
         for (; f >= 0; f--) {
             modelo.removeRow(f);
         }
-}
- private void cargarCombo() {
-        MascotaData md=new MascotaData();
+    }
+
+    private void cargarCombo() {
+        MascotaData md = new MascotaData();
         List<Mascota> listaMascotas = new ArrayList<>();
         listaMascotas = md.listarMascotas();
 
         for (Mascota mascota : listaMascotas) {
             jcbMascotas.addItem(mascota);
-            
+
         }
 
     }
- private void cargarComboCliente() {
-        ClienteData cd=new ClienteData();
+
+    private void cargarComboCliente() {
+        ClienteData cd = new ClienteData();
         List<Cliente> listaClientes = new ArrayList<>();
         listaClientes = cd.listarClientes();
 
         for (Cliente cliente : listaClientes) {
             jcbCliente.addItem(cliente);
-           
-        }
-}
-}
 
+        }
+    }
+}

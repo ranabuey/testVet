@@ -39,6 +39,44 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         LocalDate fechaHoy = LocalDate.now();
         Date visita = Date.from(fechaHoy.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
         jdcFechaVisita.setDate(visita);
+
+        try {
+
+            if (!MenuPrincipal.jtfMemoVisitaID.getText().isEmpty()) {
+                VisitaData vd = new VisitaData();
+                Visita v = vd.buscarVisitaXid(Integer.parseInt(MenuPrincipal.jtfMemoVisitaID.getText()));
+
+                System.out.println(v);
+
+                jtfIdVis.setText("" + v.getIdVisita());
+
+                //
+                jtfAlias.setText(MenuPrincipal.jtfMemoAlias.getText());
+                jtfPesoActual.setText("" + v.getPesoActual());
+                jtaDetalle.setText("" + v.getDetalle());
+                Date fechaVis = Date.from(v.getFechaVisita().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                jdcFechaVisita.setDate(fechaVis);
+
+                if (v.getFechaAlta() != null) {
+                    Date fechaAlta = Date.from(v.getFechaAlta().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+                    jdcFechaVisita.setDate(fechaAlta);
+                } else {
+                    jlInternado.setVisible(true);
+                }
+                TratamientoData td = new TratamientoData();
+                Tratamiento tra = new Tratamiento();
+                tra = td.buscarTratamientoXId(v.getTratamiento().getIdTratamiento());
+                jtfIdTra.setText("" + tra.getIdTratamiento());
+                jtfImporte.setText("" + tra.getImporte());
+                jtfMedicamento.setText("" + tra.getMedicamento());
+                jtaDescripcion.setText("" + tra.getDescripcion());
+                //  jcbTipo.get
+                jbGuardarVisita.setEnabled(false);
+                jbOk.setEnabled(true);
+                jbBorrarVisita.setEnabled(true);
+            }
+        } catch (NullPointerException e) {
+        }
     }
 
     /**
@@ -169,7 +207,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                         .addComponent(jbAmbulatorio)
                         .addGap(22, 22, 22))))
             .addGroup(jpClienteNewLayout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(67, 67, 67)
                 .addComponent(jlInternado)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -204,9 +242,9 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 .addGroup(jpClienteNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jbInternar)
                     .addComponent(jbAmbulatorio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlInternado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jLabel15.setText("Medicamento:");
@@ -274,9 +312,14 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jpMAscotaNew.setLayout(jpMAscotaNewLayout);
         jpMAscotaNewLayout.setHorizontalGroup(
             jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMAscotaNewLayout.createSequentialGroup()
+                .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jbGuardarVisita)
+                        .addGap(114, 114, 114)
+                        .addComponent(jbCancelar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpMAscotaNewLayout.createSequentialGroup()
                         .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpMAscotaNewLayout.createSequentialGroup()
                                 .addContainerGap(47, Short.MAX_VALUE)
@@ -290,7 +333,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                             .addComponent(jtfMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtfImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpMAscotaNewLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jpMAscotaNewLayout.createSequentialGroup()
@@ -309,12 +352,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbBorrarVisita))
                             .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                                .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15)
-                                    .addGroup(jpMAscotaNewLayout.createSequentialGroup()
-                                        .addComponent(jbGuardarVisita)
-                                        .addGap(114, 114, 114)
-                                        .addComponent(jbCancelar)))
+                                .addComponent(jLabel15)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(42, 42, 42))
         );
@@ -341,16 +379,16 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbBorrarVisita)
                     .addComponent(jbEditar)
                     .addComponent(jbOk))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbCancelar)
                     .addComponent(jbGuardarVisita))
-                .addGap(18, 18, 18))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jtfIdVis.setEditable(false);
@@ -374,14 +412,19 @@ public class CargarVisita extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpClienteNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jlIdVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jlIdTrata, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jtfIdVis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfIdTra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(79, 79, 79)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlIdVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlIdTrata, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(79, 79, 79))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtfIdTra, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfIdVis, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(71, 71, 71)))
                 .addComponent(jpMAscotaNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
@@ -393,7 +436,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jpMAscotaNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jpClienteNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jlIdVisita, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -559,7 +602,6 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         t.setUsuarioLog("fifi");
         td.modificarTratamiento(t);
 
-        
         Visita v = new Visita();
         String alias = jtfAlias.getText();
         LocalDate fechaVisita = jdcFechaVisita.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -580,7 +622,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         MascotaData md = new MascotaData();
         Mascota mascota = md.buscarMascotaId(Integer.parseInt(MenuPrincipal.jtfMemoMascotaId.getText()));
         v.setMascota(mascota);
-        
+
         vd.modificarVisita(v);
     }//GEN-LAST:event_jbOkActionPerformed
 
@@ -589,7 +631,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         VisitaData vd = new VisitaData();
 
         td.eliminarTratamiento(Integer.parseInt(jtfIdTra.getText()));
-        System.out.println("id trata"+jtfIdTra.getText());
+        System.out.println("id trata" + jtfIdTra.getText());
         vd.eliminarVisita(Integer.parseInt(jtfIdVis.getText()));
         borrarCampos();
         jbOk.setEnabled(false);

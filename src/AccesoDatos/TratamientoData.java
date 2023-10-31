@@ -226,7 +226,7 @@ public class TratamientoData {
       //          tr.setUsuarioLog(rs.getString("usuarioLog"));                             //falta poner en entidades
                 tr.setActivo(rs.getBoolean("activo"));
             } else {
-                JOptionPane.showMessageDialog(null, "No existe el TRATAMIENTO");
+                JOptionPane.showMessageDialog(null, "No existe el TRATAMIENTO Con ese ID");
 
             }
             ps.close();

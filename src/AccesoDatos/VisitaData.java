@@ -32,7 +32,7 @@ public class VisitaData {
     }
 
     public Visita guardarVisita(Visita vis) {
-        
+
         if (vis.getFechaAlta() == null) {
             String sql = "INSERT INTO visita(idMascota, fechaVisita, detalle, pesoActual, idTratamiento, activo,  usuarioLog) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
             try {
@@ -226,19 +226,22 @@ public class VisitaData {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {                                            //ver el orden de las columnas?
-                System.out.println("" + rs.getInt("idMascota"));
+
                 mascota = masData.buscarMascotaId(rs.getInt("idMascota"));
-                System.out.println("" + rs.getInt("idTratamiento"));
+                
                 tratamiento = trataData.buscarTratamientoXId(rs.getInt("idTratamiento"));
-                visita.setIdVisita(rs.getInt("idVisita"));
+                visita.setIdVisita(id);
                 visita.setFechaVisita(rs.getDate("fechaVisita").toLocalDate());
                 visita.setDetalle(rs.getString("detalle"));
                 visita.setPesoActual(rs.getDouble("pesoActual"));
                 visita.setMascota(mascota);
                 visita.setTratamiento(tratamiento);
                 visita.setActivo(rs.getBoolean("activo"));
-                visita.setInternado(rs.getBoolean("internado"));
-                visita.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
+//                visita.setInternado(rs.getBoolean("internado"));
+                if (rs.getDate("fechaAlta") != null) {
+                    visita.setFechaAlta(rs.getDate("fechaAlta").toLocalDate());
+                }
+                System.out.println("visita: "+visita);
                 visita.setUsuarioLog(rs.getString("usuarioLog"));
 
             } else {
@@ -249,8 +252,8 @@ public class VisitaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la BaseDatos: tabla VISITA / " + ex.getMessage());
+        } catch (NullPointerException n) {
         }
-
         return visita;
     }
 
@@ -303,7 +306,7 @@ public class VisitaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
-        } catch (NullPointerException n){
+        } catch (NullPointerException n) {
         }
         return visita;
     }
@@ -339,7 +342,8 @@ public class VisitaData {
         }
         return visList;
     }
-     public List<Visita> obtenerMascotasInternadas() {
+
+    public List<Visita> obtenerMascotasInternadas() {
         List<Visita> visList = new ArrayList<>();
         visList.clear();
         try {
@@ -358,8 +362,8 @@ public class VisitaData {
 //                visita.setInternado(rs.getBoolean("internado"));
                 Date fechaAlta = rs.getDate("fechaAlta");
                 if (fechaAlta != null) {
-                visita.setFechaAlta(fechaAlta.toLocalDate());
-            }
+                    visita.setFechaAlta(fechaAlta.toLocalDate());
+                }
                 visita.setUsuarioLog(rs.getString("usuarioLog"));
                 visList.add(visita);
             }
@@ -367,9 +371,9 @@ public class VisitaData {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Visita " + ex.getMessage());
-        } catch (NullPointerException n){
+        } catch (NullPointerException n) {
         }
         return visList;
 
-}
+    }
 }
