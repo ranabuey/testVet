@@ -676,6 +676,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
     private void jbPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPagarActionPerformed
         // TODO add your handling code here:
         jtfImporte.setText("0");
+        jtfImporte.setVisible(false);
     }//GEN-LAST:event_jbPagarActionPerformed
 
 
