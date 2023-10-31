@@ -366,7 +366,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel18.setText("ID");
 
         jtfMemoVisitaID.setEditable(false);
-        jtfMemoVisitaID.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jtfMemoVisitaID.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jtfMemoVisitaID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfMemoVisitaIDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpMemoVisitaLayout = new javax.swing.GroupLayout(jpMemoVisita);
         jpMemoVisita.setLayout(jpMemoVisitaLayout);
@@ -389,7 +394,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel17)
                     .addComponent(jLabel18)
                     .addComponent(jtfMemoVisitaID, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         jpMemoMascota.setPreferredSize(new java.awt.Dimension(268, 266));
@@ -626,6 +631,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jtfMemoClienteApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfMemoClienteApellidoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfMemoClienteApellidoActionPerformed
+
+    private void jtfMemoVisitaIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfMemoVisitaIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfMemoVisitaIDActionPerformed
 
     /**
      * @param args the command line arguments
