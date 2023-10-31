@@ -13,6 +13,7 @@ import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
 import java.awt.event.KeyEvent;
+import java.sql.DatabaseMetaData;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -121,6 +122,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jtfImporte = new javax.swing.JTextField();
         jbOk = new javax.swing.JButton();
+        jbPagar = new javax.swing.JButton();
         jlIdVisita = new javax.swing.JLabel();
         jlIdTrata = new javax.swing.JLabel();
         jtfIdVis = new javax.swing.JTextField();
@@ -308,6 +310,13 @@ public class CargarVisita extends javax.swing.JInternalFrame {
             }
         });
 
+        jbPagar.setText("Pagar");
+        jbPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPagarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpMAscotaNewLayout = new javax.swing.GroupLayout(jpMAscotaNew);
         jpMAscotaNew.setLayout(jpMAscotaNewLayout);
         jpMAscotaNewLayout.setHorizontalGroup(
@@ -329,10 +338,14 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtfMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jpMAscotaNewLayout.createSequentialGroup()
+                                .addComponent(jtfImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbPagar)
+                                .addGap(8, 8, 8))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpMAscotaNewLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,7 +391,8 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jbPagar))
                 .addGap(18, 18, 18)
                 .addGroup(jpMAscotaNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbBorrarVisita)
@@ -519,20 +533,30 @@ public class CargarVisita extends javax.swing.JInternalFrame {
                     if (trata == null) {
                         JOptionPane.showMessageDialog(this, "ERROR en la generacion del Tratamiento...");
                     } else {
-
                         v.setTratamiento(trata);
-                        Visita visi = vd.guardarVisita(v);
+                        vd.guardarVisita(v);
+                        mascota.setPesoUltimo(v.getPesoActual());
+                        mascota.setPesoPromedio(md.obtenerPesoPromedio(mascota.getIdMascota()));
+                        md.modificarMascota(mascota);
                         jbBorrarVisita.setEnabled(true);
-                        jbBorrarVisita.setVisible(true);
                         jbEditar.setEnabled(true);
-                        jbEditar.setVisible(true);
                         jbGuardarVisita.setEnabled(false);
-                        jbOk.setEnabled(true);
-                        jbOk.setVisible(true);
-                        deshabilitarCampos();
-
-                        jtfIdTra.setText("" + trata.getIdTratamiento());
-                        jtfIdVis.setText("" + visi.getIdVisita());
+                        int edad = md.calcularEdad(mascota.getFechaNac());
+                        MenuPrincipal.jtfMemoEdad.setText("" + edad);
+                        MenuPrincipal.jtfMemoPesoProm.setText(String.format("%.2f", mascota.getPesoPromedio()));
+//                        v.setTratamiento(trata);
+//                        Visita visi = vd.guardarVisita(v);
+//                        jbBorrarVisita.setEnabled(true);
+//                        jbBorrarVisita.setVisible(true);
+//                        jbEditar.setEnabled(true);
+//                        jbEditar.setVisible(true);
+//                        jbGuardarVisita.setEnabled(false);
+//                        jbOk.setEnabled(true);
+//                        jbOk.setVisible(true);
+//                        deshabilitarCampos();
+//
+//                        jtfIdTra.setText("" + trata.getIdTratamiento());
+//                        jtfIdVis.setText("" + visi.getIdVisita());
                     }
                 }
 
@@ -649,6 +673,11 @@ public class CargarVisita extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfIdTraActionPerformed
 
+    private void jbPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPagarActionPerformed
+        // TODO add your handling code here:
+        jtfImporte.setText("0");
+    }//GEN-LAST:event_jbPagarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -671,6 +700,7 @@ public class CargarVisita extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardarVisita;
     private javax.swing.JButton jbInternar;
     private javax.swing.JButton jbOk;
+    private javax.swing.JButton jbPagar;
     private javax.swing.JComboBox<String> jcbTipo;
     private com.toedter.calendar.JDateChooser jdcFechaAlta;
     private com.toedter.calendar.JDateChooser jdcFechaVisita;

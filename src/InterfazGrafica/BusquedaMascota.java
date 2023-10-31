@@ -212,8 +212,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                             mascota.getSexo(),
                             mascota.getColorPelo(),
                             mascota.getFechaNac(),
-                            mascota.getPesoUltimo(),
-                            mascota.getPesoPromedio(),
+                            String.format("%.2f", mascota.getPesoUltimo()),
+                            String.format("%.2f", mascota.getPesoPromedio()),
                             mascota.getCliente().getTelefono(),});
                     }
                     jbBorrar.setVisible(true);
@@ -242,8 +242,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                                 mascota.getSexo(),
                                 mascota.getColorPelo(),
                                 mascota.getFechaNac(),
-                                mascota.getPesoUltimo(),
-                                mascota.getPesoPromedio(),
+                                String.format("%.2f", mascota.getPesoUltimo()),
+                                String.format("%.2f", mascota.getPesoPromedio()),
                                 mascota.getCliente().getTelefono(),});
                         }
                     }
@@ -268,8 +268,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                                 mascota.getSexo(),
                                 mascota.getColorPelo(),
                                 mascota.getFechaNac(),
-                                mascota.getPesoUltimo(),
-                                mascota.getPesoPromedio(),
+                                String.format("%.2f", mascota.getPesoUltimo()),
+                                String.format("%.2f", mascota.getPesoPromedio()),
                                 mascota.getCliente().getTelefono(),});
                         }
                     }
@@ -293,15 +293,15 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                             mascota.getSexo(),
                             mascota.getColorPelo(),
                             mascota.getFechaNac(),
-                            mascota.getPesoUltimo(),
-                            mascota.getPesoPromedio(),
+                            String.format("%.2f", mascota.getPesoUltimo()),
+                            String.format("%.2f", mascota.getPesoPromedio()),
                             mascota.getCliente().getTelefono(),});
-                   
-                }
-                if (jtMascotas.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
-                }
-            }else if (jcbTipoBusqueda.getSelectedIndex() == 4) {            //DNI Cliente
+
+                    }
+                    if (jtMascotas.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(this, "No se encontro MAscotas con ese criterio.");
+                    }
+                } else if (jcbTipoBusqueda.getSelectedIndex() == 4) {            //DNI Cliente
 
                     jbReActivar.setVisible(false);
                     jbBorrar.setVisible(true);
@@ -319,8 +319,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                             mascota.getSexo(),
                             mascota.getColorPelo(),
                             mascota.getFechaNac(),
-//                            mascota.getPesoUltimo(),
-//                            mascota.getPesoPromedio(),
+                            String.format("%.2f", mascota.getPesoUltimo()),
+                            String.format("%.2f", mascota.getPesoPromedio()),
                             mascota.getCliente().getTelefono(),});
 
                     }
@@ -345,8 +345,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                             mascota.getSexo(),
                             mascota.getColorPelo(),
                             mascota.getFechaNac(),
-                            mascota.getPesoUltimo(),
-                            mascota.getPesoPromedio(),
+                            String.format("%.2f", mascota.getPesoUltimo()),
+                            String.format("%.2f", mascota.getPesoPromedio()),
                             mascota.getCliente().getTelefono(),});
 
                     }
@@ -355,16 +355,12 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                     }
                 }
 
-        }
-    }
-    catch (NumberFormatException e
-
-    
-        ) {
+            }
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "debe poner un numero");
     }//GEN-LAST:event_jbBusqMascotasActionPerformed
 
-}
+    }
     private void jbHacerVisitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbHacerVisitaActionPerformed
 
         try {
@@ -378,7 +374,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
             LocalDate fechaNac = (LocalDate) modelo.getValueAt(filaSel, 7);
             int edad = md.calcularEdad(fechaNac);
             MenuPrincipal.jtfMemoEdad.setText("" + edad);
-            MenuPrincipal.jtfMemoPesoProm.setText("" + modelo.getValueAt(filaSel, 7));
+            MenuPrincipal.jtfMemoPesoProm.setText("" + modelo.getValueAt(filaSel, 9));
 
             Cliente c = new Cliente();
             ClienteData cd = new ClienteData();
@@ -401,7 +397,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbHacerVisitaActionPerformed
 
     private void jbEditarMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarMascotaActionPerformed
-    try {
+        try {
             MascotaData md = new MascotaData();
             int filaSel = jtMascotas.getSelectedRow();
 
@@ -415,8 +411,8 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
             MenuPrincipal.jtfMemoEdad.setText("" + edad);
 //            double pesoProm = md.obtenerPesoPromedio((Integer) modelo.getValueAt(filaSel, 9));
             MenuPrincipal.jtfMemoPesoProm.setText("" + modelo.getValueAt(filaSel, 9));
-            
-             Cliente c = new Cliente();
+
+            Cliente c = new Cliente();
             ClienteData cd = new ClienteData();
             c = cd.buscarClienteTel((Integer) modelo.getValueAt(filaSel, 10));
             MenuPrincipal.jtfMemoClienteID.setText("" + c.getIdCliente());
@@ -424,17 +420,17 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
             MenuPrincipal.jtfMemoClienteNombre.setText("" + c.getNombre());
             MenuPrincipal.jtfMemoTelefono.setText("" + c.getTelefono());
             MenuPrincipal.jtfMemoClienteDNI.setText("" + c.getDni());
-            
+
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
-        }catch (NullPointerException n){
-            
+        } catch (NullPointerException n) {
+
         }
         GuardarNuevos gn = new GuardarNuevos();
         MenuPrincipal.jDesktopPane1.add(gn);
         gn.setVisible(true);
         gn.setVisible(true);
-        
+
     }//GEN-LAST:event_jbEditarMascotaActionPerformed
 
     private void jbSelMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSelMascotaActionPerformed
@@ -447,7 +443,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
             LocalDate fechaNac = (LocalDate) modelo.getValueAt(filaSel, 7);
             int edad = md.calcularEdad(fechaNac);
             MenuPrincipal.jtfMemoEdad.setText("" + edad);
-            MenuPrincipal.jtfMemoPesoProm.setText("" + modelo.getValueAt(filaSel, 7));
+            MenuPrincipal.jtfMemoPesoProm.setText("" + modelo.getValueAt(filaSel, 9));
 
             Cliente c = new Cliente();
             ClienteData cd = new ClienteData();
@@ -475,7 +471,7 @@ public class BusquedaMascota extends javax.swing.JInternalFrame {
                 limpiarTablaMacotas();
                 jbBorrar.setVisible(false);
                 MenuPrincipal.borrarCamposMascota();
-                
+
             } else {
 
             }

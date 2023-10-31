@@ -302,7 +302,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
         int edad = md.calcularEdad(fechaNac);
         MenuPrincipal.jtfMemoEdad.setText("" + edad);
         double pesoProm = md.obtenerPesoPromedio((Integer) modelo2.getValueAt(filaSel, 0));
-        MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
+        MenuPrincipal.jtfMemoPesoProm.setText(String.format("%.2f", pesoProm));
 
         CargarVisita cv = new CargarVisita();
         MenuPrincipal.jDesktopPane1.add(cv);
@@ -458,7 +458,7 @@ public class BusquedaCliente extends javax.swing.JInternalFrame {
             int edad = md.calcularEdad(fechaNac);
             MenuPrincipal.jtfMemoEdad.setText("" + edad);
             double pesoProm = md.obtenerPesoPromedio((Integer) modelo2.getValueAt(filaSel, 0));
-            MenuPrincipal.jtfMemoPesoProm.setText("" + pesoProm);
+            MenuPrincipal.jtfMemoPesoProm.setText(String.format("%.2f", pesoProm));
         } catch (ArrayIndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un cliente");
         }

@@ -910,6 +910,7 @@ public class GuardarNuevos extends javax.swing.JInternalFrame {
 
                 MascotaData md = new MascotaData();
                 Mascota m = new Mascota();
+                m.setIdMascota(Integer.parseInt(MenuPrincipal.jtfMemoMascotaId.getText()));
                 m.setAlias(alias);
                 m.setEspecie(especie);
                 m.setRaza(raza);

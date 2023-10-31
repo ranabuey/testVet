@@ -195,7 +195,7 @@ public class MascotaData {
                 mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
                 mascota.setActivo(rs.getBoolean("activo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
-                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+                mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
 //                mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
                 mascota.setUsuarioLog(rs.getString("usuarioLOg"));
                 mascotas.add(mascota);
@@ -227,7 +227,7 @@ public class MascotaData {
                 mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
                 mascota.setActivo(rs.getBoolean("activo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
-                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+                mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
 //                mascota.setFechaNac(rs.getDate("fechaDefuncion").toLocalDate());
                 mascota.setUsuarioLog(rs.getString("usuarioLOg"));
                 mascotas.add(mascota);
@@ -261,7 +261,7 @@ public class MascotaData {
                 mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
                 mascota.setActivo(rs.getBoolean("activo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
-                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+                mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
 
                 if ((rs.getDate("fechaDefuncion")) == null) {
 
@@ -302,7 +302,7 @@ public class MascotaData {
                 mascota.setCliente(clientData.buscarClienteId(rs.getInt("idCliente")));
                 mascota.setActivo(rs.getBoolean("activo"));
                 mascota.setPesoUltimo(rs.getDouble("pesoUltimo"));
-                mascota.setPesoUltimo(rs.getDouble("pesoPromedio"));
+                mascota.setPesoPromedio(rs.getDouble("pesoPromedio"));
 
                 if ((rs.getDate("fechaDefuncion")) == null) {
 
